@@ -20,6 +20,10 @@ Ein Tracker für die Positionierung der größten Trader („Wale“) auf der Kr
 - `coins[coin].liq` = [[Bucket-Index, Long-Liq USD, Short-Liq USD]] – Bucket i deckt den Bereich px·(1+i·b) bis px·(1+(i+1)·b) ab, b = liqBucketPct aus settings (seit 29.09.2026: 0,25 %; erste Messungen 0,5 %)
 - `top[coin]` = [[Adresse, szi, Einstieg, Hebel, Liq.-Preis, Klasse w/l/x]] – größte Positionen
 
+## Rechenskripte (immer diese verwenden, nicht selbst nachrechnen)
+- `python3 tools/wal_block.py BTC ETH` → JSON mit Bias (alle/Gewinner/Verlierer), Fluss seit 22 Uhr/24 Std./4 Std., Druck, Liquiditätsmagneten und fertigen deutschen Kurzzeilen (`zeilen`), nur aktive Signale.
+- `python3 tools/review.py --coin BTC` → Signal-Bilanz als Markdown-Tabelle (Trefferquoten 1/4/24 Std., Fallzahlen, Hälften-Vergleich, Urteil). `--json` für Maschinenformat.
+
 ## Aufgaben, die per Zeitplan laufen
 - **Morgencheck (täglich 7 Uhr)**: Wal-Block für die Ampel – siehe `REVIEW.md`, Abschnitt „Täglicher Wal-Block“.
 - **Wochen-Review (sonntags)**: Signal-Bilanz und Optimierung – streng nach `REVIEW.md`.
