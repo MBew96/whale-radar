@@ -1,0 +1,46 @@
+{
+  "_hinweis": "Stellschrauben für Wetterstation und Dashboard. Änderungen nur mit Eintrag in CHANGELOG.md (siehe REVIEW.md).",
+  "version": 1,
+  "collector": {
+    "weightPerMin": 900,
+    "concurrency": 4,
+    "candidatesByCapital": 260,
+    "candidatesByWeekVolume": 240,
+    "candidatesByWeekPnl": 120,
+    "minAccountValueForVolumeAndPnlLists": 100000,
+    "minPositionUsdInLatest": 50000,
+    "mainCoins": ["BTC", "ETH", "SOL", "HYPE"],
+    "liqBucketPct": 0.5,
+    "liqRangePct": 20,
+    "topPositionsPerCoin": 25
+  },
+  "classes": {
+    "_hinweis": "Gewinner = 30-Tage-PnL > 0 UND Gesamt-PnL > 0; Verlierer = beide < 0; Rest = gemischt",
+    "winner": { "pnlMonthMin": 0, "pnlAllMin": 0 },
+    "loser": { "pnlMonthMax": 0, "pnlAllMax": 0 }
+  },
+  "marketMaker": {
+    "_hinweis": "Als Market-Maker markiert, wenn Monatsvolumen/Konto >= turnoverMin UND gleichzeitig >= minPositions offene Positionen",
+    "turnoverMin": 60,
+    "minPositions": 15
+  },
+  "stress": {
+    "_hinweis": "Position gilt als 'unter Druck', wenn der Liquidationspreis höchstens nearLiqPct vom Kurs entfernt ist",
+    "nearLiqPct": 5
+  },
+  "signals": {
+    "_hinweis": "Werden im Wochen-Review bewertet. active=false blendet ein Signal aus Dashboard und Morgencheck aus.",
+    "biasAll":        { "active": true,  "label": "Bias aller Wale" },
+    "biasWinners":    { "active": true,  "label": "Bias der Gewinner-Wale" },
+    "biasLosersFade": { "active": true,  "label": "Gegen die Verlierer-Wale" },
+    "flow4h":         { "active": true,  "label": "Aufbau/Abbau der letzten 4 Std." },
+    "squeezeRisk":    { "active": true,  "label": "Squeeze-Risiko (Druck + Liq.-Nähe)" },
+    "liqMagnet":      { "active": true,  "label": "Nächster großer Liquidations-Cluster" },
+    "takerFlow":      { "active": true,  "label": "Wal-Marktorders (nur live im Dashboard)" }
+  },
+  "thresholds": {
+    "biasStrong": 0.65,
+    "flowSignificantUsd": 50000000,
+    "magnetMinShareOfMax": 0.25
+  }
+}
