@@ -10,7 +10,7 @@
     "minAccountValueForVolumeAndPnlLists": 100000,
     "minPositionUsdInLatest": 50000,
     "mainCoins": ["BTC", "ETH", "SOL", "HYPE"],
-    "liqBucketPct": 0.5,
+    "liqBucketPct": 0.25,
     "liqRangePct": 20,
     "topPositionsPerCoin": 25
   },

@@ -9,7 +9,7 @@ import { fileURLToPath } from 'node:url';
 const API = process.env.HL_API || 'https://api.hyperliquid.xyz/info';
 const LB_URL = process.env.HL_LB || 'https://stats-data.hyperliquid.xyz/Mainnet/leaderboard';
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const NOW = Date.now();
+const NOW = +process.env.NOW_MS || Date.now();
 const cfg = JSON.parse(await fs.readFile(path.join(ROOT, 'config/settings.json'), 'utf8'));
 const C = cfg.collector;
 const watch = JSON.parse(await fs.readFile(path.join(ROOT, 'config/watchlist.json'), 'utf8').catch(() => '[]')).map(a => String(a).toLowerCase());
@@ -166,7 +166,7 @@ const topCoins = Object.keys(ctx).sort((a, b) => (ctx[b].vol || 0) - (ctx[a].vol
 for (const c of topCoins) px[c] = sig(ctx[c].mark, 6);
 for (const c of C.mainCoins) if (ctx[c]) cx[c] = { f: ctx[c].f, oi: sig(ctx[c].oi, 6), vol: r0(ctx[c].vol), prev: sig(ctx[c].prev, 6) };
 
-const snap = { v: 1, t: NOW, n: { cand: cand.size, ok: wallets.length, err: errs, withPos: W.filter(w => w.pos.length).length }, px, ctx: cx, coins, top };
+const snap = { v: 1, t: NOW, bp: C.liqBucketPct, n: { cand: cand.size, ok: wallets.length, err: errs, withPos: W.filter(w => w.pos.length).length }, px, ctx: cx, coins, top };
 
 /* ---------- 5. Speichern ---------- */
 const d = new Date(NOW);
@@ -212,7 +212,7 @@ for (const coin of C.mainCoins) {
     const k = s.coins[coin];
     return [s.t, s.px[coin] || 0, k.all.L[0], k.all.S[0], k.win.L[0], k.win.S[0], k.lose.L[0], k.lose.S[0], k.stress.L[0], k.stress.S[0], k.stress.L[1], k.stress.S[1]];
   });
-  heat[coin] = snaps.filter(s => s.coins && s.coins[coin] && NOW - s.t <= 24 * 3600e3).map(s => [s.t, s.px[coin] || 0, s.coins[coin].liq]);
+  heat[coin] = snaps.filter(s => s.coins && s.coins[coin] && NOW - s.t <= 24 * 3600e3).map(s => [s.t, s.px[coin] || 0, s.coins[coin].liq, s.bp || 0.5]);
 }
 const recent = { v: 1, t: NOW, cols: ['t', 'px', 'allL', 'allS', 'winL', 'winS', 'loseL', 'loseS', 'nearL', 'nearS', 'underL', 'underS'], bucketPct: C.liqBucketPct, series, heat };
 await fs.writeFile(path.join(SITE, 'data/recent.json'), JSON.stringify(recent));
