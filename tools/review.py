@@ -8,7 +8,7 @@ späteren Kurs in 1, 4 und 24 Stunden verglichen. Gezählt werden nur nicht übe
 import json, sys, argparse
 from datetime import datetime
 from zoneinfo import ZoneInfo
-from common import load_settings, load_snapshots, price_at, de_num, signal_dirs, compass, compass_dir
+from common import load_settings, load_snapshots, price_at, de_num, signal_dirs, compass, compass_dir, market_dirs
 
 BER = ZoneInfo('Europe/Berlin')
 ap = argparse.ArgumentParser()
@@ -40,13 +40,17 @@ def at_or_before(i, ms):
 
 
 def signals(i):
-    """Richtungen aller Signale plus Kompass – dieselbe Definition wie Dashboard und Morgencheck (tools/common.py)."""
-    d = signal_dirs(snaps[i], at_or_before(i, 4 * 3600e3), cfg, coin)
+    """Richtungen aller Signale plus Kompass – dieselbe Definition wie Dashboard und Morgencheck (tools/common.py).
+    Dazu die Beobachtungs-Signale aus den Börsendaten (nicht im Kompass)."""
+    s4 = at_or_before(i, 4 * 3600e3)
+    d = signal_dirs(snaps[i], s4, cfg, coin)
     d['compass'] = compass_dir(compass(d, cfg), cfg)
+    d.update(market_dirs(snaps[i], s4, cfg, coin))
     return {k: (v or 0) for k, v in d.items()}
 
 
-names = [k for k, v in cfg.get('signals', {}).items() if isinstance(v, dict) and k != 'takerFlow']
+OBS = cfg.get('beobachtung', {}).get('signals', {})
+names = [k for k, v in cfg.get('signals', {}).items() if isinstance(v, dict) and k != 'takerFlow'] + list(OBS)
 cases = {n: [] for n in names}
 last_counted = {n: -1e18 for n in names}
 for i, s in enumerate(snaps):
@@ -105,12 +109,20 @@ def verdict(st):
 
 
 span_days = (snaps[-1]['t'] - snaps[0]['t']) / 864e5
+with_mkt = [x for x in snaps if (x.get('mkt') or {}).get(coin)]
+err_count = {}
+for x in with_mkt:
+    for e in (x['mkt'].get('_', {}).get('err') or []):
+        k = e.split(':')[0]
+        err_count[k] = err_count.get(k, 0) + 1
 gaps = sum(1 for a, b in zip(snaps, snaps[1:]) if b['t'] - a['t'] > 30 * 60e3)
 errs = sum(s.get('n', {}).get('err', 0) for s in snaps)
 report = {
     'coin': coin, 'messungen': len(snaps), 'tage': round(span_days, 1), 'luecken': gaps, 'scanfehler': errs,
     'von': datetime.fromtimestamp(snaps[0]['t'] / 1000, BER).strftime('%d.%m.%Y %H:%M'),
     'bis': datetime.fromtimestamp(snaps[-1]['t'] / 1000, BER).strftime('%d.%m.%Y %H:%M'),
+    'boersendaten': {'messungen': len(with_mkt), 'seit': datetime.fromtimestamp(with_mkt[0]['t'] / 1000, BER).strftime('%d.%m.%Y %H:%M') if with_mkt else None,
+                     'haeufigste_ausfaelle': sorted(err_count.items(), key=lambda kv: -kv[1])[:5]},
     'vergleich_kurs_stieg': {h: (b[1] / b[0] if b[0] else None, b[0]) for h, b in base.items()},
     'signale': {n: {h: dict(stats(cases[n], h) or {}, urteil=verdict(stats(cases[n], h))) for h in HORIZONS} for n in names}
 }
@@ -122,12 +134,17 @@ if args.json:
 pc = lambda v: '–' if v is None else de_num(v * 100) + ' %'
 print(f"## Signal-Bilanz {coin} · {report['von']} bis {report['bis']}")
 print(f"Messungen: {report['messungen']} über {de_num(span_days, 1)} Tage · Lücken > 30 Min.: {gaps} · Scanfehler gesamt: {errs}")
+bd = report['boersendaten']
+print(f"Börsendaten (Beobachtung): {bd['messungen']} Messungen" + (f" seit {bd['seit']}" if bd['seit'] else '') + (' · häufigste Ausfälle: ' + ', '.join(f'{k} ({v}×)' for k, v in bd['haeufigste_ausfaelle']) if bd['haeufigste_ausfaelle'] else ''))
 print('Vergleich (Kurs stieg, alle 4 Std. gezählt): ' + ' · '.join(f"{h}: {pc(v[0])} (n={v[1]})" for h, v in report['vergleich_kurs_stieg'].items()))
 print()
 print('| Signal | Horizont | Fälle (L/S) | Trefferquote | Ø Bewegung in Signalrichtung | 1. / 2. Hälfte | Urteil |')
 print('|---|---|---|---|---|---|---|')
 for n in names:
-    lab = cfg['signals'][n].get('label', n) + ('' if cfg['signals'][n].get('active', True) else ' (inaktiv)')
+    if n in OBS:
+        lab = OBS[n].get('label', n) + ' (Beobachtung)'
+    else:
+        lab = cfg['signals'][n].get('label', n) + ('' if cfg['signals'][n].get('active', True) else ' (inaktiv)')
     for h in HORIZONS:
         st = report['signale'][n][h]
         if not st.get('n'):

@@ -154,6 +154,62 @@ def compass_dir(score, cfg):
     t = cfg.get('thresholds', {}).get('compassMin', 0.34)
     return 1 if score >= t else (-1 if score <= -t else 0)
 
+
+# ---------- Beobachtungs-Signale aus den Börsendaten (Feld mkt, seit 29.09.2026) ----------
+# Nicht im Kompass und nicht im Dashboard; nur der Wochen-Review wertet sie aus (settings: beobachtung).
+def _hl_oi_usd(s, coin):
+    c = (s.get('ctx') or {}).get(coin) or {}
+    p = (s.get('px') or {}).get(coin)
+    return c.get('oi', 0) * p if c.get('oi') and p else 0
+
+
+def market_dirs(s, s4, cfg, coin):
+    """Richtung je Beobachtungs-Signal: +1 long, -1 short, 0 neutral, None = keine Daten."""
+    b = cfg.get('beobachtung', {})
+    th = b.get('schwellen', {})
+    d = {n: None for n in b.get('signals', {})}
+    m = (s.get('mkt') or {}).get(coin)
+    if not m:
+        return d
+    oi, f, ls, tk = m.get('oi', {}), m.get('f', {}), m.get('ls', {}), m.get('tk', {})
+
+    # Coinbase-Premium: US-Käufer zahlen mehr als der Rest der Welt -> Nachfrage aus den USA
+    t = th.get('cbPremium', 0.0003)
+    if m.get('cb') is not None:
+        d['cbPremium'] = 1 if m['cb'] >= t else (-1 if m['cb'] <= -t else 0)
+
+    # Funding, gewichtet mit dem OI der Börse: teuer für Longs -> überfüllt -> Gegenrichtung
+    keys = [k for k in f if oi.get(k)]
+    if keys:
+        fw = sum(f[k] * oi[k] for k in keys) / sum(oi[k] for k in keys)
+        d['cexFundingFade'] = -1 if fw >= th.get('fundingHigh', 0.0002) else (1 if fw < th.get('fundingLow', 0) else 0)
+
+    # Neues Geld: OI aller Börsen (gleiche Börsen in beiden Messungen) plus Hyperliquid steigt deutlich
+    # -> Richtung des Kurses in denselben 4 Std. (wer neu einsteigt, drückt in diese Richtung)
+    m4 = ((s4 or {}).get('mkt') or {}).get(coin) if s4 else None
+    if m4 and m4.get('oi') and oi:
+        same = [k for k in oi if m4['oi'].get(k)]
+        p0, p1 = (s4.get('px') or {}).get(coin), (s.get('px') or {}).get(coin)
+        if len(same) >= 3 and p0 and p1:
+            now_oi = sum(oi[k] for k in same) + _hl_oi_usd(s, coin)
+            then_oi = sum(m4['oi'][k] for k in same) + _hl_oi_usd(s4, coin)
+            doi = now_oi / then_oi - 1 if then_oi else 0
+            d['cexOiTrend'] = (1 if p1 > p0 else (-1 if p1 < p0 else 0)) if doi >= th.get('oiTrend', 0.015) else 0
+
+    # Große Positionen (Top-Trader nach Größe) an OKX, Bitget, Gate
+    vals = [ls[k] for k in ('okxTop', 'bitgetPos', 'gateTop') if ls.get(k) is not None]
+    if vals:
+        avg, band = sum(vals) / len(vals), th.get('topTraderBand', 0.03)
+        d['cexTopTraders'] = 1 if avg >= 0.5 + band else (-1 if avg <= 0.5 - band else 0)
+
+    # Binance Spot: Anteil der Taker-Käufe am Volumen der letzten Stunde
+    bs = tk.get('bnSpot')
+    if bs and bs[1]:
+        sh, band = bs[0] / bs[1], th.get('spotTakerBand', 0.05)
+        d['bnSpotTaker'] = 1 if sh >= 0.5 + band else (-1 if sh <= 0.5 - band else 0)
+    return d
+
+
 def de_num(v, d=0):
     s = f'{v:,.{d}f}'
     return s.replace(',', 'X').replace('.', ',').replace('X', '.')

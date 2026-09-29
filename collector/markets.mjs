@@ -107,16 +107,6 @@ export async function collectMarkets(coins = ['BTC', 'ETH'], now = Date.now()) {
       const j = await get(`https://api.bitget.com/api/v2/mix/market/current-fund-rate?${bg}`, 'bitget funding ' + c);
       const x = j.data?.[0]; if (x) m.f.bitget = sig(per8h(num(x.fundingRate), num(x.fundingRateInterval)), 4);
     }));
-    const newest = arr => (arr || []).reduce((a, x) => (!a || num(x.ts) > num(a.ts)) ? x : a, null);
-    jobs.push(T('bitget acc ' + c, async () => {
-      const j = await get(`https://api.bitget.com/api/v2/mix/market/account-long-short?symbol=${c}USDT&period=5m`, 'bitget acc ' + c);
-      m.ls.bitgetAcc = sig(num(newest(j.data)?.longAccountRatio), 4);
-    }));
-    jobs.push(T('bitget pos ' + c, async () => {
-      const j = await get(`https://api.bitget.com/api/v2/mix/market/position-long-short?symbol=${c}USDT&period=5m`, 'bitget pos ' + c);
-      m.ls.bitgetPos = sig(num(newest(j.data)?.longPositionRatio), 4);
-    }));
-
     // 4) Gate – Kontrakt-Statistik (5 Min.): OI, L/S nach Konten und Top-Tradern, Taker, Liquidationen
     jobs.push(T('gate stats ' + c, async () => {
       const j = await get(`https://api.gateio.ws/api/v4/futures/usdt/contract_stats?contract=${c}_USDT&interval=5m&limit=2`, 'gate stats ' + c);
@@ -173,6 +163,23 @@ export async function collectMarkets(coins = ['BTC', 'ETH'], now = Date.now()) {
       if (Array.isArray(j) && j.length) m.tk.bnSpot = [r0(j.reduce((a, k) => a + num(k[10]), 0)), r0(j.reduce((a, k) => a + num(k[7]), 0))];
     }));
   }
+
+  // Bitget Long/Short: nur etwa 1 Abfrage pro Sekunde erlaubt, daher nacheinander mit Pause
+  const newest = arr => (arr || []).reduce((a, x) => (!a || num(x.ts) > num(a.ts)) ? x : a, null);
+  jobs.push((async () => {
+    for (const c of coins) {
+      await T('bitget acc ' + c, async () => {
+        const j = await get(`https://api.bitget.com/api/v2/mix/market/account-long-short?symbol=${c}USDT&period=5m`, 'bitget acc ' + c);
+        out[c].ls.bitgetAcc = sig(num(newest(j.data)?.longAccountRatio), 4);
+      });
+      await new Promise(r => setTimeout(r, 1100));
+      await T('bitget pos ' + c, async () => {
+        const j = await get(`https://api.bitget.com/api/v2/mix/market/position-long-short?symbol=${c}USDT&period=5m`, 'bitget pos ' + c);
+        out[c].ls.bitgetPos = sig(num(newest(j.data)?.longPositionRatio), 4);
+      });
+      await new Promise(r => setTimeout(r, 1100));
+    }
+  })());
 
   // 9) Marktweite Zahlen: OI je Börse (CoinGecko, alle Coins, in BTC) und Fear & Greed
   jobs.push(T('coingecko', async () => {

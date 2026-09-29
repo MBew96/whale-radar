@@ -5,6 +5,7 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { collectMarkets } from './markets.mjs';
 
 const API = process.env.HL_API || 'https://api.hyperliquid.xyz/info';
 const LB_URL = process.env.HL_LB || 'https://stats-data.hyperliquid.xyz/Mainnet/leaderboard';
@@ -12,6 +13,9 @@ const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const NOW = +process.env.NOW_MS || Date.now();
 const cfg = JSON.parse(await fs.readFile(path.join(ROOT, 'config/settings.json'), 'utf8'));
 const C = cfg.collector;
+// Marktdaten der großen Börsen (Beobachtungsmodus) laufen parallel zur Wal-Messung und bremsen sie nie
+const mktP = (C.marketCoins && C.marketCoins.length ? collectMarkets(C.marketCoins, NOW) : Promise.resolve(null))
+  .catch(e => ({ _: { err: [String(e.message || e).slice(0, 90)] } }));
 const watch = JSON.parse(await fs.readFile(path.join(ROOT, 'config/watchlist.json'), 'utf8').catch(() => '[]')).map(a => String(a).toLowerCase());
 
 const sleep = ms => new Promise(r => setTimeout(r, ms));
@@ -166,7 +170,9 @@ const topCoins = Object.keys(ctx).sort((a, b) => (ctx[b].vol || 0) - (ctx[a].vol
 for (const c of topCoins) px[c] = sig(ctx[c].mark, 6);
 for (const c of C.mainCoins) if (ctx[c]) cx[c] = { f: ctx[c].f, oi: sig(ctx[c].oi, 6), vol: r0(ctx[c].vol), prev: sig(ctx[c].prev, 6) };
 
+const mkt = await Promise.race([mktP, new Promise(r => setTimeout(r, 30000, null).unref())]);  // höchstens 30 s warten
 const snap = { v: 1, t: NOW, bp: C.liqBucketPct, n: { cand: cand.size, ok: wallets.length, err: errs, withPos: W.filter(w => w.pos.length).length }, px, ctx: cx, coins, top };
+if (mkt) snap.mkt = mkt;
 
 /* ---------- 5. Speichern ---------- */
 const d = new Date(NOW);
@@ -224,4 +230,10 @@ if (b && process.env.GITHUB_STEP_SUMMARY) {
   const tot = b.all.L[0] + b.all.S[0];
   const line = `BTC ${px.BTC} · Wale ${tot ? Math.round(b.all.L[0] / tot * 100) : 0} % long · Long $${(b.all.L[0] / 1e6).toFixed(1)} Mio. / Short $${(b.all.S[0] / 1e6).toFixed(1)} Mio. · ${snap.n.withPos} Wallets mit Positionen`;
   await fs.appendFile(process.env.GITHUB_STEP_SUMMARY, `### Whale Radar – Momentaufnahme\n${line}\n`);
+  const m = mkt && mkt.BTC;
+  if (m) {
+    const oi = Object.values(m.oi || {}).reduce((a, v) => a + v, 0);
+    const mline = `Börsen (Beobachtung): BTC-OI $${(oi / 1e9).toFixed(2)} Mrd. an ${Object.keys(m.oi || {}).length} Börsen · Coinbase-Premium ${m.cb != null ? (m.cb * 100).toFixed(3) + ' %' : '–'} · Ausfälle: ${(mkt._.err || []).length}`;
+    await fs.appendFile(process.env.GITHUB_STEP_SUMMARY, mline + '\n' + ((mkt._.err || []).length ? '\n' + mkt._.err.map(e => '- ' + e).join('\n') + '\n' : ''));
+  }
 }

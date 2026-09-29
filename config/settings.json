@@ -17,7 +17,11 @@
     ],
     "liqBucketPct": 0.25,
     "liqRangePct": 20,
-    "topPositionsPerCoin": 25
+    "topPositionsPerCoin": 25,
+    "marketCoins": [
+      "BTC",
+      "ETH"
+    ]
   },
   "classes": {
     "_hinweis": "Gewinner = 30-Tage-PnL > 0 UND Gesamt-PnL > 0; Verlierer = beide < 0; Rest = gemischt",
@@ -90,5 +94,35 @@
     "magnetNearPct": 0.03,
     "magnetMinShareOfTotal": 0.01,
     "_hinweis": "biasStrong: Anteil ab dem eine Seite als deutlich gilt · flowSignificantUsd: Netto-Aufbau in 4 Std. · magnetMinShareOfMax/-OfTotal: Mindestgröße eines Liq.-Clusters relativ zum größten Cluster bzw. zum gesamten Wal-Notional · magnetNearPct: Bereich für das Magnet-Signal · compassMin: ab diesem Betrag zeigt der Kompass eine Richtung"
+  },
+  "beobachtung": {
+    "_hinweis": "Marktdaten der großen Börsen (collector/markets.mjs: OKX, Bitget, Gate, HTX, Deribit, Kraken, Coinbase, Binance Spot, CoinGecko, Fear & Greed). Seit 29.09.2026 nur mitgeschrieben (Feld mkt der Momentaufnahme): nicht im Kompass, nicht im Dashboard. Der Wochen-Review bewertet die Signale wie die Wal-Signale; frühestens nach 3 Wochen (ab 20.10.2026) Vorschlag an Mirco, ob eines davon ins Dashboard bzw. in den Kompass kommt. Binance Futures und Bybit sperren die US-Rechner von GitHub und fehlen deshalb.",
+    "seit": "2026-09-29",
+    "schwellen": {
+      "cbPremium": 0.0003,
+      "fundingHigh": 0.0002,
+      "fundingLow": 0,
+      "oiTrend": 0.015,
+      "topTraderBand": 0.03,
+      "spotTakerBand": 0.05,
+      "_hinweis": "cbPremium: Coinbase-Premium ab ±0,03 % · fundingHigh/-Low: OI-gewichtetes Funding je 8 Std. (0,0001 = 0,01 % = normal) · oiTrend: OI-Anstieg in 4 Std. über alle Börsen inkl. Hyperliquid · topTraderBand: Long-Anteil der großen Positionen ab 50 % ± Band · spotTakerBand: Anteil Taker-Käufe am Binance-Spot-Volumen ab 50 % ± Band"
+    },
+    "signals": {
+      "cbPremium": {
+        "label": "Coinbase-Premium (US-Nachfrage)"
+      },
+      "cexFundingFade": {
+        "label": "Gegen teures Funding der Börsen"
+      },
+      "cexOiTrend": {
+        "label": "Neues Geld an den Börsen (OI 4 Std. + Kursrichtung)"
+      },
+      "cexTopTraders": {
+        "label": "Große Positionen an OKX/Bitget/Gate"
+      },
+      "bnSpotTaker": {
+        "label": "Binance-Spot-Käufe gegen -Verkäufe (1 Std.)"
+      }
+    }
   }
 }

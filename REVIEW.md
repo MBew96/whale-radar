@@ -31,6 +31,17 @@ Für jedes Signal aus `config/settings.json` → `signals`:
 - Gewichte (`signals.*.weight`) frühestens nach 21 Tagen und höchstens in Schritten von ±0,5 ändern, und nur, wenn ein Signal in beiden Hälften des Zeitraums klar besser bzw. schlechter als der Vergleichswert abschneidet. Ein Signal mit Gewicht 0 bleibt im Beobachtungsmodus.
 - Jede Gewichtsänderung mit Vorher/Nachher-Trefferquote des Kompasses im CHANGELOG belegen.
 
+### Börsendaten (Beobachtungsmodus seit 29.09.2026)
+- `review.py` bewertet zusätzlich die Signale aus `settings.json` → `beobachtung.signals` (in der Tabelle mit „(Beobachtung)“ markiert). Gleiche Regeln: nicht überlappend, ≥ 30 Fälle, ≥ 56 % und beide Hälften > 50 %.
+- Vorab festgelegte Hypothesen (nicht nachträglich umdeuten):
+  - `cbPremium`: Coinbase-Premium ≥ +0,03 % → long, ≤ −0,03 % → short (US-Nachfrage führt).
+  - `cexFundingFade`: OI-gewichtetes Funding ≥ 0,02 %/8 Std. → short, < 0 → long (überfüllte Seite zahlt).
+  - `cexOiTrend`: OI aller Börsen inkl. Hyperliquid +1,5 % in 4 Std. → in Kursrichtung derselben 4 Std. (neues Geld drückt).
+  - `cexTopTraders`: große Positionen an OKX/Bitget/Gate ≥ 53 % long → long, ≤ 47 % → short.
+  - `bnSpotTaker`: Taker-Käufe Binance Spot ≥ 55 % der letzten Std. → long, ≤ 45 % → short.
+- Datenlage der Börsendaten mitberichten (Zeile „Börsendaten“: Anzahl Messungen, häufigste Ausfälle). Fällt eine Quelle dauerhaft aus (> 50 % der Messungen), im Bericht nennen und mit dem Workflow „Quellen-Test“ neu prüfen.
+- Frühestens nach 3 Wochen (ab 20.10.2026): Vorschlag an Mirco, welches Beobachtungs-Signal ins Dashboard bzw. mit welchem Startgewicht in den Kompass kommt. Ohne sein OK nichts davon in Kompass oder Dashboard übernehmen.
+
 ### Optimieren
 - Signale, die die Hürde klar reißen, bleiben aktiv; Signale, die über ≥ 3 Wochen klar unter 50 % liegen, als „Gegenindikator“ prüfen oder deaktivieren (Vorschlag an Mirco).
 - Schwellenwerte (z. B. `biasStrong`) höchstens in kleinen Schritten ändern und nur, wenn die Verbesserung in beiden Hälften des Zeitraums auftritt.
