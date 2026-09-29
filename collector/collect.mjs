@@ -192,7 +192,7 @@ await fs.copyFile(path.join(ROOT, 'config/settings.json'), path.join(SITE, 'data
 // latest.json: alle gescannten Wallets mit Positionen ab Mindestgröße (Startwert fürs Dashboard)
 const minPos = C.minPositionUsdInLatest;
 const latest = {
-  v: 1, t: NOW, n: snap.n,
+  v: 1, t: NOW, n: snap.n, ...(mkt ? { mkt } : {}),
   ctx: Object.fromEntries(topCoins.map(c => [c, [sig(ctx[c].mark, 6), sig(ctx[c].prev, 6), ctx[c].f, sig(ctx[c].oi, 6), r0(ctx[c].vol)]])),
   w: W.map(w => [
     w.a, w.src, w.cls, w.mm ? 1 : 0, r0(w.eq), r0(w.ntl), r0(w.free),
@@ -220,7 +220,23 @@ for (const coin of C.mainCoins) {
   });
   heat[coin] = snaps.filter(s => s.coins && s.coins[coin] && NOW - s.t <= 24 * 3600e3).map(s => [s.t, s.px[coin] || 0, s.coins[coin].liq, s.bp || 0.5]);
 }
-const recent = { v: 1, t: NOW, cols: ['t', 'px', 'allL', 'allS', 'winL', 'winS', 'loseL', 'loseS', 'nearL', 'nearS', 'underL', 'underS'], bucketPct: C.liqBucketPct, series, heat };
+// Börsendaten (Beobachtung) als Kurzreihe für die Infokachel „Gesamtmarkt“
+const avg = a => a.length ? a.reduce((x, y) => x + y, 0) / a.length : null;
+const mkt48 = {};
+for (const coin of (C.marketCoins || [])) {
+  mkt48[coin] = snaps.filter(s => s.mkt && s.mkt[coin] && s.mkt[coin].oi).map(s => {
+    const m = s.mkt[coin], oi = m.oi || {}, f = m.f || {}, ls = m.ls || {}, tk = m.tk || {};
+    const ex = Object.keys(oi), fk = Object.keys(f).filter(k => oi[k]);
+    const hl = s.ctx && s.ctx[coin] && s.px[coin] ? s.ctx[coin].oi * s.px[coin] : 0;
+    const fw = fk.length ? fk.reduce((a, k) => a + f[k] * oi[k], 0) / fk.reduce((a, k) => a + oi[k], 0) : null;
+    const acc = avg(['okxAcc', 'bitgetAcc', 'gateAcc'].filter(k => ls[k] != null).map(k => ls[k]));
+    const top = avg(['okxTop', 'bitgetPos', 'gateTop'].filter(k => ls[k] != null).map(k => ls[k]));
+    const bn = tk.bnSpot && tk.bnSpot[1] ? tk.bnSpot[0] / tk.bnSpot[1] : null;
+    return [s.t, r0(ex.reduce((a, k) => a + oi[k], 0)), ex.sort().join(','), r0(hl), fw == null ? null : sig(fw, 4), m.cb == null ? null : sig(m.cb, 4), acc == null ? null : sig(acc, 4), top == null ? null : sig(top, 4), bn == null ? null : sig(bn, 4)];
+  });
+}
+const recent = { v: 1, t: NOW, cols: ['t', 'px', 'allL', 'allS', 'winL', 'winS', 'loseL', 'loseS', 'nearL', 'nearS', 'underL', 'underS'], bucketPct: C.liqBucketPct, series, heat,
+  mktCols: ['t', 'oiBoersen', 'boersen', 'oiHyperliquid', 'fundingGewichtet', 'coinbasePremium', 'kontenLong', 'grosseLong', 'binanceSpotKauf'], mkt: mkt48 };
 await fs.writeFile(path.join(SITE, 'data/recent.json'), JSON.stringify(recent));
 log('Website gebaut:', snaps.length, 'Momentaufnahmen im Verlauf');
 

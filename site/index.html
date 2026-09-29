@@ -251,9 +251,33 @@ footer p{margin:4px 0;max-width:110ch}
 .grad i{display:inline-block;width:70px;height:8px;border-radius:4px;background:linear-gradient(90deg,rgba(31,211,154,.12),rgba(31,211,154,.95))}
 .grad i.s{background:linear-gradient(90deg,rgba(255,91,110,.12),rgba(255,91,110,.95))}
 
+/* Gesamtmarkt (Börsen außerhalb von Hyperliquid, nur Info) */
+.mkt{margin-top:14px}
+.mkt-oi{padding:12px 14px 2px}
+.mkt-oi-top{display:flex;flex-wrap:wrap;align-items:baseline;gap:2px 18px}
+.mkt-oi-v{font:600 17px/1.3 var(--f-mono);font-variant-numeric:tabular-nums}
+.mkt-bar{display:flex;gap:2px;height:16px;margin-top:9px;border-radius:4px;overflow:hidden}
+.mkt-bar i{display:block;height:100%;min-width:2px;background:#2c3a4b}
+.mkt-bar i.hl{background:var(--accent)}
+.mkt-leg{display:flex;flex-wrap:wrap;gap:4px 14px;margin-top:7px;font-size:12px;color:var(--muted)}
+.mkt-leg span{display:inline-flex;align-items:center;gap:5px;white-space:nowrap}
+.mkt-leg i{display:inline-block;width:9px;height:9px;border-radius:2px}
+.mkt-leg b{font:500 12px var(--f-mono);color:var(--text);font-variant-numeric:tabular-nums}
+.mkt-note{font-size:11.5px;color:var(--dim);margin-top:5px}
+.mkt-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--line);border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-top:12px}
+.mkt-ls{display:grid;gap:6px;margin-top:7px}
+.mkt-ls>div{display:grid;grid-template-columns:118px minmax(0,1fr) 40px;gap:8px;align-items:center;font-size:11.5px;color:var(--muted)}
+.mkt-ls b{font:500 12px var(--f-mono);color:var(--text);text-align:right;font-variant-numeric:tabular-nums}
+.mkt-tr{position:relative;height:9px;border-radius:3px;background:var(--short-bg);overflow:hidden}
+.mkt-tr i{position:absolute;left:0;top:0;bottom:0;background:var(--long);opacity:.85}
+.mkt-tr:after{content:'';position:absolute;left:50%;top:0;bottom:0;width:1px;background:var(--text);opacity:.55}
+.mkt-fl{margin-top:5px;font:11.5px/1.5 var(--f-mono);color:var(--muted);font-variant-numeric:tabular-nums}
+.mkt-empty{padding:14px;color:var(--muted);font-size:13px}
+
 @media (max-width:1180px){
   .signal{grid-template-columns:1fr 1fr}.sig-main{grid-column:1/-1}
   .grid,.grid2,.row-k{grid-template-columns:1fr}
+  .mkt-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
   .ticker{margin-left:0;width:100%}
 }
 @media (max-width:620px){
@@ -261,6 +285,8 @@ footer p{margin:4px 0;max-width:110ch}
   .top-in,.statusbar,.wrap,footer{padding-inline:16px}
   .signal{grid-template-columns:1fr}
   .kpis,.dr-kpis{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .mkt-grid{grid-template-columns:1fr}
+  .mkt-ls>div{grid-template-columns:104px minmax(0,1fr) 40px}
   .dr-lb{grid-template-columns:repeat(2,minmax(0,1fr))}
   .liq-call{grid-template-columns:1fr}
   .spot-g{grid-template-columns:repeat(2,minmax(0,1fr))}
@@ -332,6 +358,14 @@ footer p{margin:4px 0;max-width:110ch}
   </div>
 
   <section class="kpis" id="kpis" aria-label="Kennzahlen"></section>
+
+  <section class="panel mkt" id="mktPanel" aria-label="Gesamtmarkt">
+    <div class="panel-head"><h2>Gesamtmarkt · <span id="mktCoin">BTC</span></h2>
+      <div class="controls"><span class="hint" id="mktFng"></span><span class="hint" id="mktStand"></span><span class="pill N" title="Nur zur Einordnung. Fließt nicht in Kompass oder Lagebild. Ob diese Werte etwas vorhersagen, prüft erst der Wochen-Review.">Info · kein Signal</span></div>
+    </div>
+    <div id="mktBody"><div class="mkt-empty">Lade Börsendaten …</div></div>
+    <p class="help">Hyperliquid ist nur einer von vielen Seen. Hier stehen die Pegel der großen Nachbarn: OKX, Bitget, Gate, HTX, Deribit, Kraken sowie Coinbase und der Binance-Spotmarkt. Binance Futures und Bybit sperren die Messstation (sie läuft auf US-Rechnern), deshalb fehlen sie im Balken. „Konten“ zählen Köpfe, „große Positionen“ zählen Dollar. Sind viele Konten long, die großen Positionen aber nicht, sitzt die Masse auf der einen Seite und das große Geld auf der anderen. Aktualisiert mit jeder Messung der Wetterstation (etwa alle 10 Minuten).</p>
+  </section>
 
   <main class="grid">
     <section class="panel">
@@ -441,7 +475,7 @@ footer p{margin:4px 0;max-width:110ch}
 </div>
 
 <footer>
-  <p>Quelle: öffentliche Hyperliquid-API. Eine Wetterstation misst alle 10 Minuten rund 550 Wallets: die größten nach Kapital, nach Wochenvolumen und nach Wochen-PnL, dazu die Watchlist. Diese Seite startet mit der letzten Messung und aktualisiert die großen Positionen danach live im Browser. Kurs und Marktorders kommen in Echtzeit.</p>
+  <p>Quelle: öffentliche Hyperliquid-API; Kachel „Gesamtmarkt“: öffentliche Daten von OKX, Bitget, Gate, HTX, Deribit, Kraken, Coinbase, Binance (Spot), CoinGecko und alternative.me. Eine Wetterstation misst alle 10 Minuten rund 550 Wallets: die größten nach Kapital, nach Wochenvolumen und nach Wochen-PnL, dazu die Watchlist. Diese Seite startet mit der letzten Messung und aktualisiert die großen Positionen danach live im Browser. Kurs und Marktorders kommen in Echtzeit.</p>
   <p>Wem eine Wallet gehört, ist nicht verifiziert. Keine Anlageberatung.</p>
 </footer>
 
@@ -772,7 +806,7 @@ async function loadRecent(){try{S.recent=await getJSON('data/recent.json'); S.fo
 async function loadLatest(first){
   let L; try{L=await getJSON('data/latest.json');}catch(e){return false;}
   if(!L||!Array.isArray(L.w)) return false;
-  S.latestT=L.t;
+  S.latestT=L.t; S.mkt=L.mkt||null;
   if(first) for(const [c,v] of Object.entries(L.ctx||{})) if(!S.ctx[c]) S.ctx[c]={mark:v[0],prev:v[1],funding:v[2],oi:v[3],vol:v[4]};
   for(const [addr,src,cls,mm,eq,ntl,free,lb,pos] of L.w){
     const lbo=lb?{av:lb[0],pnlDay:lb[1],pnlWeek:lb[2],pnlMonth:lb[3],pnlAll:lb[4],vlmMonth:lb[5],name:lb[6]||null}:null;
@@ -828,6 +862,58 @@ function magnets(base){
   const above=arr.filter(x=>x.i>=0&&x.S>0&&x.S>=Math.max(maxS*share,minUsd)).sort((a,b)=>a.i-b.i)[0];
   const f=(x,v,n)=>x?{lo:m*(1+x.i*bw),hi:m*(1+(x.i+1)*bw),d:(x.i+0.5)*bw,v,n}:null;
   return {m,below:below?f(below,below.L,below.nL):null,above:above?f(above,above.S,above.nS):null};
+}
+/* ---------- Gesamtmarkt (Börsendaten der Wetterstation, nur Info) ---------- */
+const EXN={okx:'OKX',bitget:'Bitget',gate:'Gate',htx:'HTX',deribit:'Deribit',kraken:'Kraken'};
+const EXC=['#3d5068','#34465c','#2d3d50','#415670','#374b62','#2f4054'];
+const fpct=(v,d=3)=>pct(v,d,false);
+const mean=a=>a.length?a.reduce((x,y)=>x+y,0)/a.length:null;
+function renderMarket(){
+  const body=$('#mktBody'); if(!body) return;
+  const c=S.coin; $('#mktCoin').textContent=c;
+  const M=S.mkt, m=M&&M[c];
+  $('#mktStand').textContent=M&&S.latestT?`Messung ${ago(S.latestT)}`:'';
+  const fg=M&&M._&&M._.fng; $('#mktFng').innerHTML=fg!=null?`<span title="Stimmungsindex für den ganzen Kryptomarkt (alternative.me), einmal täglich">Fear &amp; Greed <b style="color:var(--text)">${num(fg)}</b> · ${fg<25?'extreme Angst':fg<45?'Angst':fg<55?'neutral':fg<75?'Gier':'extreme Gier'}</span>`:'';
+  if(!ONLINE){body.innerHTML='<div class="mkt-empty">Börsendaten gibt es nur auf der Website (Wetterstation).</div>'; return;}
+  if(!M){body.innerHTML='<div class="mkt-empty">Noch keine Börsendaten in der letzten Messung.</div>'; return;}
+  if(!m){body.innerHTML=`<div class="mkt-empty">Börsendaten werden nur für ${Object.keys(M).filter(k=>k!=='_').join(' und ')} erfasst. Wähle oben BTC oder ETH.</div>`; return;}
+  const oi=m.oi||{}, f=m.f||{}, ls=m.ls||{}, tk=m.tk||{}, lq=m.liq||{}, g=M._||{};
+  const hlx=S.ctx[c], hlOi=hlx&&mid(c)?hlx.oi*mid(c):0;
+  const parts=[['Hyperliquid',hlOi,'hl'],...Object.entries(oi).sort((a,b)=>b[1]-a[1]).map(([k,v])=>[EXN[k]||k,v,k])].filter(x=>x[1]>0);
+  const tot=parts.reduce((a,x)=>a+x[1],0);
+  // Veränderung 4 Std. aus der Kurzreihe (nur bei gleichen Börsen)
+  const R=S.recent, ser=(R&&R.mkt&&R.mkt[c])||[]; let d4='';
+  if(ser.length>1){const last=ser[ser.length-1], ref=atAgo(ser,4*3600e3); if(ref&&ref[2]===last[2]&&ref[1]+ref[3]>0) d4=`4 Std.: <span class="${cls(last[1]+last[3]-ref[1]-ref[3])}">${pct((last[1]+last[3])/(ref[1]+ref[3])-1,1)}</span>`; else if(!ref) d4=`<span class="dim">4-Std.-Vergleich ab ${hm(ser[0][0]+4*3600e3)} Uhr</span>`;}
+  let ei=0; const col=k=>k==='hl'?'var(--accent)':EXC[(ei++)%EXC.length];
+  const cols=parts.map(x=>col(x[2]));
+  const exG=g.ex||{}, bnF=exG.binance_futures, byb=exG.bybit;
+  const oiHtml=`<div class="mkt-oi">
+    <div class="mkt-oi-top"><span class="kpi-l">Offene Positionen (OI), erfasst</span><span class="mkt-oi-v">${usd(tot)}</span><span class="hint">Hyperliquid-Anteil <b style="color:var(--accent)">${pct(hlOi/tot,0,false)}</b></span>${d4?`<span class="hint">${d4}</span>`:''}</div>
+    <div class="mkt-bar" role="img" aria-label="Open Interest je Börse">${parts.map((x,i)=>`<i class="${x[2]==='hl'?'hl':''}" style="width:${(x[1]/tot*100).toFixed(2)}%;${x[2]==='hl'?'':'background:'+cols[i]}" title="${esc(x[0])}: ${usd(x[1])}"></i>`).join('')}</div>
+    <div class="mkt-leg">${parts.map((x,i)=>`<span><i style="background:${cols[i]}"></i>${esc(x[0])} <b>${usd(x[1])}</b></span>`).join('')}</div>
+    ${bnF||byb?`<div class="mkt-note">Nicht im Balken: Binance Futures${bnF?` (${num(bnF[0])} BTC)`:''} und Bybit${byb?` (${num(byb[0])} BTC)`:''}, jeweils über alle Coins laut CoinGecko, einzeln für ${esc(c)} nicht abrufbar.</div>`:''}
+  </div>`;
+  // Kacheln
+  const accV=['okxAcc','bitgetAcc','gateAcc'].map(k=>ls[k]).filter(v=>v!=null), topV=['okxTop','bitgetPos','gateTop'].map(k=>ls[k]).filter(v=>v!=null);
+  const acc=mean(accV), top=mean(topV);
+  const bar=(lab,v,t)=>`<div title="${esc(t)}"><span>${lab}</span><span class="mkt-tr"><i style="width:${(v*100).toFixed(1)}%"></i></span><b>${pct(v,0,false)}</b></div>`;
+  let lsTxt='–';
+  if(acc!=null&&top!=null){const dv=acc-top; lsTxt=dv>=0.08?'Viele Kleine long, das große Geld nicht':dv<=-0.08?'Große Positionen longer als die Masse':'Masse und große Positionen ähnlich';}
+  const tiles=[];
+  tiles.push(['Masse gegen große Positionen',acc!=null||top!=null?`<div class="mkt-ls">${acc!=null?bar('Konten (Köpfe)',acc,'Anteil der Konten mit Long-Position, Mittel aus OKX, Bitget, Gate'):''}${top!=null?bar('Große Positionen',top,'Long-Anteil nach Positionsgröße bzw. Top-Tradern, Mittel aus OKX, Bitget, Gate'):''}</div>`:'–',`${lsTxt} · Anteil long, Strich = 50 %`]);
+  const fk=Object.keys(f).filter(k=>oi[k]); const fw=fk.length?fk.reduce((a,k)=>a+f[k]*oi[k],0)/fk.reduce((a,k)=>a+oi[k],0):null;
+  const hlF=hlx&&hlx.funding!=null?hlx.funding*8:null;
+  const fLab=fw==null?'':fw<0?'negativ: Shorts zahlen':fw<0.00015?'normal':fw<0.0003?'erhöht: Longs zahlen mehr':'heiß: Longs sehr teuer';
+  tiles.push(['Funding je 8 Std. (Ø nach OI)',fpct(fw),`${fLab}<div class="mkt-fl">${[...Object.entries(f).map(([k,v])=>`${EXN[k]||k} ${fpct(v)}`),hlF!=null?`Hyperliquid ${fpct(hlF)}`:null].filter(Boolean).join(' · ')}</div>`]);
+  const cbT=(S.settings&&S.settings.beobachtung&&S.settings.beobachtung.schwellen&&S.settings.beobachtung.schwellen.cbPremium)||0.0003;
+  tiles.push(['Coinbase-Premium',m.cb!=null?`<span class="${m.cb>=cbT?'L':m.cb<=-cbT?'S':''}">${pct(m.cb,3)}</span>`:'–',`${m.cb==null?'':m.cb>=cbT?'US-Käufer zahlen mehr als der Rest':m.cb<=-cbT?'US-Seite schwächer als der Rest':'US-Nachfrage neutral'} · Coinbase gegen Binance`]);
+  const bs=tk.bnSpot; const bsh=bs&&bs[1]?bs[0]/bs[1]:null;
+  tiles.push(['Binance Spot · Käufe 1 Std.',bsh!=null?`<span class="${bsh>=0.55?'L':bsh<=0.45?'S':''}">${pct(bsh,0,false)}</span> Käufe`:'–',bs?`Taker-Käufe am Volumen von ${usd(bs[1])} · aktive Käufer gegen aktive Verkäufer`:'nicht verfügbar']);
+  const lL=(lq.okx?lq.okx[0]:0)+(lq.gate?lq.gate[0]:0), lS=(lq.okx?lq.okx[1]:0)+(lq.gate?lq.gate[1]:0);
+  tiles.push(['Liquidationen 10 Min.',lq.okx||lq.gate?`<span class="L">${usd(lL)}</span> / <span class="S">${usd(lS)}</span>`:'–','Longs / Shorts zwangsgeschlossen · OKX + Gate']);
+  const o=m.opt;
+  tiles.push(['Optionen Deribit · Put/Call',o&&o.pc!=null?num(o.pc,2):'–',o?`${o.pc<0.8?'deutlich mehr Calls als Puts offen':o.pc>1.2?'deutlich mehr Puts als Calls offen':'Calls und Puts ähnlich'} · Volumen 24 Std. ${o.pcv!=null?num(o.pcv,2):'–'}`:'nicht verfügbar']);
+  body.innerHTML=oiHtml+`<div class="mkt-grid">${tiles.map(([l,v,s])=>`<div class="kpi"><div class="kpi-l">${l}</div><div class="kpi-v">${v}</div><div class="kpi-s">${s}</div></div>`).join('')}</div>`+((g.err&&g.err.length)?`<div class="mkt-note" style="padding:6px 14px 0">Ausfälle in dieser Messung: ${esc(g.err.map(e=>e.split(':')[0]).join(', '))}</div>`:'');
 }
 function renderLage(base,g){
   const el=$('#lage'), c=esc(S.coin), items=[], tot=g.L.ntl+g.S.ntl;
@@ -1382,7 +1468,7 @@ function render(){
   const now=Date.now();
   if(S.tableDirty||S.ver!==lastVer||now-lastTable>2500){renderTable(all); lastTable=now; lastVer=S.ver; S.tableDirty=false;}
   if(S.feedDirty){renderFeed(); S.feedDirty=false;}
-  if(S.forceSlow||now-lastSlow>3000){renderLiq(base); renderCoinBias(); renderLage(base,g); renderKompass(); renderHist(); renderHeat(); lastSlow=now; S.forceSlow=false;}
+  if(S.forceSlow||now-lastSlow>3000){renderLiq(base); renderCoinBias(); renderLage(base,g); renderKompass(); renderMarket(); renderHist(); renderHeat(); lastSlow=now; S.forceSlow=false;}
   if(S.selected) renderDrLive();
 }
 function boot(){

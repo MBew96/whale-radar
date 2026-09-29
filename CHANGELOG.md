@@ -1,5 +1,19 @@
 # Änderungsprotokoll
 
+## 2026-09-29 – Infokachel „Gesamtmarkt“ im Dashboard (OK von Mirco, 22:07)
+- Neue Kachel unter den Kennzahlen, für BTC und ETH. Sie zeigt:
+  - OI-Balken je Börse inkl. Hyperliquid-Anteil (BTC gerade etwa 21 % von 17,2 Mrd. $ erfasstem OI) und Veränderung in 4 Std.
+  - Masse (Konten) gegen große Positionen
+  - Funding je Börse inkl. Hyperliquid
+  - Coinbase-Premium
+  - Binance-Spot-Käufe
+  - Liquidationen der letzten 10 Min.
+  - Deribit Put/Call
+  - Fear & Greed
+- Ausdrücklich **kein Signal**: fließt nicht in Kompass, Lagebild oder Morgencheck. Die Bewertung der fünf Beobachtungs-Signale bleibt beim Wochen-Review, frühestens ab 20.10.2026.
+- Datenweg: `latest.json` enthält jetzt `mkt` (letzte Messung). `recent.json` enthält `mkt` als 48-Std.-Kurzreihe (`mktCols`); die 4-Std.-Veränderung wird nur gezeigt, wenn beide Messungen dieselben Börsen haben.
+- OKX-Taker-Fluss wird noch nicht angezeigt, weil die Spaltenreihenfolge (Kauf/Verkauf) nicht belegt ist.
+
 ## 2026-09-29 – Börsendaten im Beobachtungsmodus (Wunsch von Mirco: Hyperliquid allein ist einseitig)
 - Anlass: Hyperliquid hält nur etwa 4–5 % des BTC-Perp-OI. Die Wale dort sind ein Ausschnitt, nicht der Markt.
 - Quellen-Test (`collector/probe.mjs`, 3 GitHub-Rechner in Washington, Illinois und Iowa, `data/probe/quellen-20260929-1901.json`): 38 Endpunkte geprüft.

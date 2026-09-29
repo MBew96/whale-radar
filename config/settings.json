@@ -96,7 +96,7 @@
     "_hinweis": "biasStrong: Anteil ab dem eine Seite als deutlich gilt · flowSignificantUsd: Netto-Aufbau in 4 Std. · magnetMinShareOfMax/-OfTotal: Mindestgröße eines Liq.-Clusters relativ zum größten Cluster bzw. zum gesamten Wal-Notional · magnetNearPct: Bereich für das Magnet-Signal · compassMin: ab diesem Betrag zeigt der Kompass eine Richtung"
   },
   "beobachtung": {
-    "_hinweis": "Marktdaten der großen Börsen (collector/markets.mjs: OKX, Bitget, Gate, HTX, Deribit, Kraken, Coinbase, Binance Spot, CoinGecko, Fear & Greed). Seit 29.09.2026 nur mitgeschrieben (Feld mkt der Momentaufnahme): nicht im Kompass, nicht im Dashboard. Der Wochen-Review bewertet die Signale wie die Wal-Signale; frühestens nach 3 Wochen (ab 20.10.2026) Vorschlag an Mirco, ob eines davon ins Dashboard bzw. in den Kompass kommt. Binance Futures und Bybit sperren die US-Rechner von GitHub und fehlen deshalb.",
+    "_hinweis": "Marktdaten der großen Börsen (collector/markets.mjs: OKX, Bitget, Gate, HTX, Deribit, Kraken, Coinbase, Binance Spot, CoinGecko, Fear & Greed). Seit 29.09.2026 nur mitgeschrieben (Feld mkt der Momentaufnahme): nicht im Kompass und nicht im Lagebild; das Dashboard zeigt die Rohwerte nur als Infokachel „Gesamtmarkt“ (seit 29.09.2026, OK von Mirco). Der Wochen-Review bewertet die Signale wie die Wal-Signale; frühestens nach 3 Wochen (ab 20.10.2026) Vorschlag an Mirco, ob eines davon ins Dashboard bzw. in den Kompass kommt. Binance Futures und Bybit sperren die US-Rechner von GitHub und fehlen deshalb.",
     "seit": "2026-09-29",
     "schwellen": {
       "cbPremium": 0.0003,

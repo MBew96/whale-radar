@@ -40,7 +40,7 @@ Für jedes Signal aus `config/settings.json` → `signals`:
   - `cexTopTraders`: große Positionen an OKX/Bitget/Gate ≥ 53 % long → long, ≤ 47 % → short.
   - `bnSpotTaker`: Taker-Käufe Binance Spot ≥ 55 % der letzten Std. → long, ≤ 45 % → short.
 - Datenlage der Börsendaten mitberichten (Zeile „Börsendaten“: Anzahl Messungen, häufigste Ausfälle). Fällt eine Quelle dauerhaft aus (> 50 % der Messungen), im Bericht nennen und mit dem Workflow „Quellen-Test“ neu prüfen.
-- Frühestens nach 3 Wochen (ab 20.10.2026): Vorschlag an Mirco, welches Beobachtungs-Signal ins Dashboard bzw. mit welchem Startgewicht in den Kompass kommt. Ohne sein OK nichts davon in Kompass oder Dashboard übernehmen.
+- Frühestens nach 3 Wochen (ab 20.10.2026): Vorschlag an Mirco, welches Beobachtungs-Signal ins Dashboard bzw. mit welchem Startgewicht in den Kompass kommt. Ohne sein OK nichts davon als Signal in Kompass, Lagebild oder Morgencheck übernehmen. (Die Infokachel „Gesamtmarkt“ zeigt die Rohwerte seit 29.09.2026 ohne Wertung.)
 
 ### Optimieren
 - Signale, die die Hürde klar reißen, bleiben aktiv; Signale, die über ≥ 3 Wochen klar unter 50 % liegen, als „Gegenindikator“ prüfen oder deaktivieren (Vorschlag an Mirco).

@@ -32,7 +32,7 @@ Ein Tracker für die Positionierung der größten Trader („Wale“) auf der Kr
 - `python3 tools/wal_block.py BTC ETH` → JSON mit Bias (alle/Gewinner/Verlierer), Fluss seit 22 Uhr/24 Std./4 Std., Druck, Liquiditätsmagneten und fertigen deutschen Kurzzeilen (`zeilen`), nur aktive Signale.
 - `python3 tools/review.py --coin BTC` → Signal-Bilanz als Markdown-Tabelle (Trefferquoten 1/4/24 Std., Fallzahlen, Hälften-Vergleich, Urteil). `--json` für Maschinenformat.
 
-- Beobachtungs-Signale aus den Börsendaten stehen in `tools/common.py` (`market_dirs`) und in `config/settings.json` → `beobachtung`. Sie laufen nur im Review mit, nicht im Kompass und nicht im Dashboard, bis Mirco nach der Bewertung (frühestens ab 20.10.2026) zustimmt.
+- Beobachtungs-Signale aus den Börsendaten stehen in `tools/common.py` (`market_dirs`) und in `config/settings.json` → `beobachtung`. Sie laufen nur im Review mit, nicht im Kompass und nicht im Lagebild, bis Mirco nach der Bewertung (frühestens ab 20.10.2026) zustimmt. Die Rohwerte zeigt das Dashboard seit 29.09.2026 (mit Mircos OK) in der Infokachel „Gesamtmarkt“ (`renderMarket` in `site/index.html`, Daten aus `latest.json` → `mkt` und `recent.json` → `mkt`), ausdrücklich ohne Signal-Wertung.
 - Signale und Intraday-Kompass sind **einmal** in `tools/common.py` definiert (`signal_dirs`, `compass`, `compass_dir`) und im Dashboard identisch nachgebaut (`stationSignals` in `site/index.html`). Wer die Regeln ändert, ändert beide Stellen und prüft, dass Dashboard und `wal_block.py` denselben Score zeigen.
 
 ## Aufgaben, die per Zeitplan laufen
