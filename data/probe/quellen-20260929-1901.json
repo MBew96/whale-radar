@@ -1,0 +1,1166 @@
+[
+ {
+  "t": 1790708493201,
+  "runner": "{\"country\":\"US\",\"region\":\"Washington\",\"org\":\"AS8075 Microsoft Corporation\"}",
+  "ok": 28,
+  "total": 38,
+  "results": [
+   {
+    "group": "Kontrolle",
+    "name": "Hyperliquid meta",
+    "url": "https://api.hyperliquid.xyz/info",
+    "status": 200,
+    "ms": 398,
+    "bytes": 72268,
+    "ok": true,
+    "sample": "[{\"universe\":[{\"szDecimals\":5,\"name\":\"BTC\",\"maxLeverage\":40,\"marginTableId\":56},{\"szDecimals\":4,\"name\":\"ETH\",\"maxLeverage\":25,\"marginTableId\":55},{\"szDecimals\":2,\"name\":\"ATOM\",\"maxLeverage\":5,\"marginTableId\":5},{\"szDecimals\":1,\"name\":\"MATIC\",\"maxLeverage\":20,\"marginTableId\":20,\"i"
+   },
+   {
+    "group": "Kontrolle",
+    "name": "Standort Runner",
+    "url": "https://ipinfo.io/json",
+    "status": 200,
+    "ms": 148,
+    "bytes": 268,
+    "ok": true,
+    "sample": "{\"country\":\"US\",\"region\":\"Washington\",\"org\":\"AS8075 Microsoft Corporation\"}"
+   },
+   {
+    "group": "Binance Futures",
+    "name": "Open Interest",
+    "url": "https://fapi.binance.com/fapi/v1/openInterest?symbol=BTCUSDT",
+    "status": 451,
+    "ms": 146,
+    "bytes": 224,
+    "ok": false,
+    "sample": "{ \"code\": 0, \"msg\": \"Service unavailable from a restricted location according to 'b. Eligibility' in https://www.binance.com/en/terms. Please contact customer service if you believe you received this message in error.\" }"
+   },
+   {
+    "group": "Binance Futures",
+    "name": "Funding/Mark",
+    "url": "https://fapi.binance.com/fapi/v1/premiumIndex?symbol=BTCUSDT",
+    "status": 451,
+    "ms": 141,
+    "bytes": 224,
+    "ok": false,
+    "sample": "{ \"code\": 0, \"msg\": \"Service unavailable from a restricted location according to 'b. Eligibility' in https://www.binance.com/en/terms. Please contact customer service if you believe you received this message in error.\" }"
+   },
+   {
+    "group": "Binance Futures",
+    "name": "Top-Trader Positionen L/S",
+    "url": "https://fapi.binance.com/futures/data/topLongShortPositionRatio?symbol=BTCUSDT&period=5m&limit=1",
+    "status": 451,
+    "ms": 187,
+    "bytes": 224,
+    "ok": false,
+    "sample": "{ \"code\": 0, \"msg\": \"Service unavailable from a restricted location according to 'b. Eligibility' in https://www.binance.com/en/terms. Please contact customer service if you believe you received this message in error.\" }"
+   },
+   {
+    "group": "Binance Futures",
+    "name": "Top-Trader Konten L/S",
+    "url": "https://fapi.binance.com/futures/data/topLongShortAccountRatio?symbol=BTCUSDT&period=5m&limit=1",
+    "status": 451,
+    "ms": 183,
+    "bytes": 224,
+    "ok": false,
+    "sample": "{ \"code\": 0, \"msg\": \"Service unavailable from a restricted location according to 'b. Eligibility' in https://www.binance.com/en/terms. Please contact customer service if you believe you received this message in error.\" }"
+   },
+   {
+    "group": "Binance Futures",
+    "name": "Alle Konten L/S",
+    "url": "https://fapi.binance.com/futures/data/globalLongShortAccountRatio?symbol=BTCUSDT&period=5m&limit=1",
+    "status": 451,
+    "ms": 12,
+    "bytes": 224,
+    "ok": false,
+    "sample": "{ \"code\": 0, \"msg\": \"Service unavailable from a restricted location according to 'b. Eligibility' in https://www.binance.com/en/terms. Please contact customer service if you believe you received this message in error.\" }"
+   },
+   {
+    "group": "Binance Futures",
+    "name": "Taker Kauf/Verkauf",
+    "url": "https://fapi.binance.com/futures/data/takerlongshortRatio?symbol=BTCUSDT&period=5m&limit=1",
+    "status": 451,
+    "ms": 12,
+    "bytes": 224,
+    "ok": false,
+    "sample": "{ \"code\": 0, \"msg\": \"Service unavailable from a restricted location according to 'b. Eligibility' in https://www.binance.com/en/terms. Please contact customer service if you believe you received this message in error.\" }"
+   },
+   {
+    "group": "Binance Futures",
+    "name": "OI-Verlauf",
+    "url": "https://fapi.binance.com/futures/data/openInterestHist?symbol=BTCUSDT&period=5m&limit=1",
+    "status": 451,
+    "ms": 12,
+    "bytes": 224,
+    "ok": false,
+    "sample": "{ \"code\": 0, \"msg\": \"Service unavailable from a restricted location according to 'b. Eligibility' in https://www.binance.com/en/terms. Please contact customer service if you believe you received this message in error.\" }"
+   },
+   {
+    "group": "Binance Spot",
+    "name": "Kurs api.binance.com",
+    "url": "https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT",
+    "status": 451,
+    "ms": 237,
+    "bytes": 224,
+    "ok": false,
+    "sample": "{ \"code\": 0, \"msg\": \"Service unavailable from a restricted location according to 'b. Eligibility' in https://www.binance.com/en/terms. Please contact customer service if you believe you received this message in error.\" }"
+   },
+   {
+    "group": "Binance Spot",
+    "name": "Kurs data-api.binance.vision",
+    "url": "https://data-api.binance.vision/api/v3/ticker/price?symbol=BTCUSDT",
+    "status": 200,
+    "ms": 446,
+    "bytes": 45,
+    "ok": true,
+    "sample": "{\"symbol\":\"BTCUSDT\",\"price\":\"83619.81000000\"}"
+   },
+   {
+    "group": "Bybit",
+    "name": "Ticker (OI, Funding)",
+    "url": "https://api.bybit.com/v5/market/tickers?category=linear&symbol=BTCUSDT",
+    "status": 403,
+    "ms": 164,
+    "bytes": 96,
+    "ok": false,
+    "sample": "{ error:The Amazon CloudFront distribution is configured to block access from your country }"
+   },
+   {
+    "group": "Bybit",
+    "name": "Konten L/S",
+    "url": "https://api.bybit.com/v5/market/account-ratio?category=linear&symbol=BTCUSDT&period=5min&limit=1",
+    "status": 403,
+    "ms": 11,
+    "bytes": 96,
+    "ok": false,
+    "sample": "{ error:The Amazon CloudFront distribution is configured to block access from your country }"
+   },
+   {
+    "group": "OKX",
+    "name": "Open Interest",
+    "url": "https://www.okx.com/api/v5/public/open-interest?instType=SWAP&instId=BTC-USDT-SWAP",
+    "status": 200,
+    "ms": 233,
+    "bytes": 189,
+    "ok": true,
+    "sample": "{\"code\":\"0\",\"data\":[{\"instId\":\"BTC-USDT-SWAP\",\"instType\":\"SWAP\",\"oi\":\"2808470.05000000725\",\"oiCcy\":\"28084.7005000000725\",\"oiUsd\":\"2347647858.78585606039825\",\"ts\":\"1790708490541\"}],\"msg\":\"\"}"
+   },
+   {
+    "group": "OKX",
+    "name": "Funding",
+    "url": "https://www.okx.com/api/v5/public/funding-rate?instId=BTC-USDT-SWAP",
+    "status": 200,
+    "ms": 237,
+    "bytes": 524,
+    "ok": true,
+    "sample": "{\"code\":\"0\",\"data\":[{\"formulaType\":\"withRate\",\"fundingRate\":\"0.0001000000000000\",\"fundingTime\":\"1790726400000\",\"impactValue\":\"20000.0000000000000000\",\"instId\":\"BTC-USDT-SWAP\",\"instType\":\"SWAP\",\"interestRate\":\"0.0001000000000000\",\"maxFundingRate\":\"0.00375\",\"method\":\"current_period"
+   },
+   {
+    "group": "OKX",
+    "name": "Konten L/S",
+    "url": "https://www.okx.com/api/v5/rubik/stat/contracts/long-short-account-ratio?ccy=BTC&period=5m",
+    "status": 200,
+    "ms": 297,
+    "bytes": 14390,
+    "ok": true,
+    "sample": "{\"code\":\"0\",\"data\":[[\"1790708400000\",\"1.44\"],[\"1790708100000\",\"1.44\"],[\"1790707800000\",\"1.44\"],[\"1790707500000\",\"1.44\"],[\"1790707200000\",\"1.45\"],[\"1790706900000\",\"1.44\"],[\"1790706600000\",\"1.44\"],[\"1790706300000\",\"1.41\"],[\"1790706000000\",\"1.41\"],[\"1790705700000\",\"1.41\"],[\"17907054"
+   },
+   {
+    "group": "OKX",
+    "name": "Top-Trader Positionen L/S",
+    "url": "https://www.okx.com/api/v5/rubik/stat/contracts/long-short-position-ratio-contract-top-trader?instId=BTC-USDT-SWAP&period=5m",
+    "status": 200,
+    "ms": 294,
+    "bytes": 3919,
+    "ok": true,
+    "sample": "{\"code\":\"0\",\"data\":[[\"1790708400000\",\"0.9572777595545178\"],[\"1790708100000\",\"0.9574484289085615\"],[\"1790707800000\",\"0.956972684968365\"],[\"1790707500000\",\"0.9567165805224314\"],[\"1790707200000\",\"0.9565716251535355\"],[\"1790706900000\",\"0.9562962829982583\"],[\"1790706600000\",\"0.9560668"
+   },
+   {
+    "group": "OKX",
+    "name": "Taker-Volumen",
+    "url": "https://www.okx.com/api/v5/rubik/stat/taker-volume?ccy=BTC&instType=CONTRACTS&period=5m",
+    "status": 200,
+    "ms": 297,
+    "bytes": 3558,
+    "ok": true,
+    "sample": "{\"code\":\"0\",\"data\":[[\"1790708100000\",\"4274176.7473\",\"2448025.0394\"],[\"1790707800000\",\"5883416.9734\",\"6657854.0478\"],[\"1790707500000\",\"9965643.6796\",\"12405111.4595\"],[\"1790707200000\",\"10197203.0474\",\"18480686.4057\"],[\"1790706900000\",\"18978530.5229\",\"34473148.6886\"],[\"1790706600000"
+   },
+   {
+    "group": "OKX",
+    "name": "Liquidationen",
+    "url": "https://www.okx.com/api/v5/public/liquidation-orders?instType=SWAP&uly=BTC-USDT&state=filled&limit=5",
+    "status": 200,
+    "ms": 196,
+    "bytes": 774,
+    "ok": true,
+    "sample": "{\"code\":\"0\",\"data\":[{\"details\":[{\"bkLoss\":\"0\",\"bkPx\":\"83646.3\",\"ccy\":\"\",\"posSide\":\"short\",\"side\":\"buy\",\"sz\":\"1.54\",\"time\":1790707985962,\"ts\":\"1790707985962\"},{\"bkLoss\":\"0\",\"bkPx\":\"83671.2\",\"ccy\":\"\",\"posSide\":\"short\",\"side\":\"buy\",\"sz\":\"0.25\",\"time\":1790707330190,\"ts\":\"179070733019"
+   },
+   {
+    "group": "Coinbase",
+    "name": "Spot BTC-USD (Exchange)",
+    "url": "https://api.exchange.coinbase.com/products/BTC-USD/ticker",
+    "status": 200,
+    "ms": 87,
+    "bytes": 180,
+    "ok": true,
+    "sample": "{\"ask\":\"83580.01\",\"bid\":\"83580\",\"volume\":\"4890.60086132\",\"trade_id\":1100121345,\"price\":\"83580.81\",\"size\":\"0.00067\",\"time\":\"2026-09-29T19:01:29.545197229Z\",\"rfq_volume\":\"59.563596\"}"
+   },
+   {
+    "group": "Coinbase",
+    "name": "Spot BTC-USD (v2)",
+    "url": "https://api.coinbase.com/v2/prices/BTC-USD/spot",
+    "status": 200,
+    "ms": 128,
+    "bytes": 61,
+    "ok": true,
+    "sample": "{\"data\":{\"amount\":\"83609.535\",\"base\":\"BTC\",\"currency\":\"USD\"}}"
+   },
+   {
+    "group": "Coinbase",
+    "name": "International Perp",
+    "url": "https://api.international.coinbase.com/api/v1/instruments/BTC-PERP/quote",
+    "status": 200,
+    "ms": 488,
+    "bytes": 340,
+    "ok": true,
+    "sample": "{\"best_bid_price\":\"83646.1\",\"best_bid_size\":\"4.5402\",\"best_ask_price\":\"83646.2\",\"best_ask_size\":\"5.0552\",\"trade_price\":\"83647.6\",\"trade_qty\":\"0.0003\",\"index_price\":\"83582.2\",\"mark_price\":\"83646.2\",\"settlement_price\":\"83682.1\",\"limit_up\":\"89432.9\",\"limit_down\":\"77731.5\",\"predicted"
+   },
+   {
+    "group": "Deribit",
+    "name": "Futures (OI, Funding)",
+    "url": "https://www.deribit.com/api/v2/public/get_book_summary_by_currency?currency=BTC&kind=future",
+    "status": 200,
+    "ms": 267,
+    "bytes": 5293,
+    "ok": true,
+    "sample": "{\"jsonrpc\":\"2.0\",\"result\":[{\"high\":88897.5,\"low\":87345.0,\"last\":88095.0,\"instrument_name\":\"BTC-24SEP27\",\"bid_price\":88020.0,\"ask_price\":88055.0,\"open_interest\":3555730,\"mark_price\":88043.52,\"creation_timestamp\":1790708490069,\"estimated_delivery_price\":83584.11,\"price_change\":0.03"
+   },
+   {
+    "group": "Deribit",
+    "name": "Optionen (Put/Call-OI)",
+    "url": "https://www.deribit.com/api/v2/public/get_book_summary_by_currency?currency=BTC&kind=option",
+    "status": 200,
+    "ms": 277,
+    "bytes": 421897,
+    "ok": true,
+    "sample": "{\"jsonrpc\":\"2.0\",\"result\":[{\"high\":0.0037,\"low\":0.0014,\"last\":0.0022,\"instrument_name\":\"BTC-2OCT26-81000-P\",\"bid_price\":0.0015,\"ask_price\":0.0018,\"open_interest\":233.2,\"mark_price\":0.00166087,\"interest_rate\":0.0,\"creation_timestamp\":1790708488408,\"estimated_delivery_price\":83586."
+   },
+   {
+    "group": "Bitget",
+    "name": "Open Interest",
+    "url": "https://api.bitget.com/api/v2/mix/market/open-interest?symbol=BTCUSDT&productType=USDT-FUTURES",
+    "status": 200,
+    "ms": 278,
+    "bytes": 160,
+    "ok": true,
+    "sample": "{\"code\":\"00000\",\"msg\":\"success\",\"requestTime\":1790708491378,\"data\":{\"openInterestList\":[{\"symbol\":\"BTCUSDT\",\"size\":\"32724.667599999994\"}],\"ts\":\"1790708491380\"}}"
+   },
+   {
+    "group": "Bitget",
+    "name": "Funding",
+    "url": "https://api.bitget.com/api/v2/mix/market/current-fund-rate?symbol=BTCUSDT&productType=USDT-FUTURES",
+    "status": 200,
+    "ms": 261,
+    "bytes": 219,
+    "ok": true,
+    "sample": "{\"code\":\"00000\",\"msg\":\"success\",\"requestTime\":1790708491363,\"data\":[{\"symbol\":\"BTCUSDT\",\"fundingRate\":\"0.0001\",\"fundingRateInterval\":\"8\",\"nextUpdate\":\"1790726400000\",\"minFundingRate\":\"-0.003\",\"maxFundingRate\":\"0.003\"}]}"
+   },
+   {
+    "group": "Bitget",
+    "name": "Konten L/S",
+    "url": "https://api.bitget.com/api/v2/mix/market/account-long-short?symbol=BTCUSDT&period=5m",
+    "status": 200,
+    "ms": 286,
+    "bytes": 3448,
+    "ok": true,
+    "sample": "{\"code\":\"00000\",\"msg\":\"success\",\"requestTime\":1790708491384,\"data\":[{\"longAccountRatio\":\"0.6236\",\"shortAccountRatio\":\"0.3764\",\"longShortAccountRatio\":\"1.6567\",\"ts\":\"1790699400000\"},{\"longAccountRatio\":\"0.6249\",\"shortAccountRatio\":\"0.3751\",\"longShortAccountRatio\":\"1.6659\",\"ts\":\"17"
+   },
+   {
+    "group": "Bitget",
+    "name": "Positionen L/S",
+    "url": "https://api.bitget.com/api/v2/mix/market/position-long-short?symbol=BTCUSDT&period=5m",
+    "status": 200,
+    "ms": 279,
+    "bytes": 3542,
+    "ok": true,
+    "sample": "{\"code\":\"00000\",\"msg\":\"success\",\"requestTime\":1790708491376,\"data\":[{\"longPositionRatio\":\"0.4904\",\"shortPositionRatio\":\"0.5096\",\"longShortPositionRatio\":\"0.9623\",\"ts\":\"1790699400000\"},{\"longPositionRatio\":\"0.4904\",\"shortPositionRatio\":\"0.5096\",\"longShortPositionRatio\":\"0.9623\",\"t"
+   },
+   {
+    "group": "Kraken",
+    "name": "Futures Ticker",
+    "url": "https://futures.kraken.com/derivatives/api/v3/tickers/PF_XBTUSD",
+    "status": 200,
+    "ms": 355,
+    "bytes": 585,
+    "ok": true,
+    "sample": "{\"result\":\"success\",\"serverTime\":\"2026-09-29T19:01:31.435Z\",\"ticker\":{\"symbol\":\"PF_XBTUSD\",\"last\":83580,\"lastTime\":\"2026-09-29T19:01:30.684125Z\",\"tag\":\"perpetual\",\"pair\":\"XBT:USD\",\"markPrice\":83585.22074673992,\"bid\":83579,\"bidSize\":0.0879,\"ask\":83580,\"askSize\":0.2381,\"vol24h\":560"
+   },
+   {
+    "group": "Kraken",
+    "name": "Spot XBT/USD",
+    "url": "https://api.kraken.com/0/public/Ticker?pair=XBTUSD",
+    "status": 200,
+    "ms": 190,
+    "bytes": 311,
+    "ok": true,
+    "sample": "{\"error\":[],\"result\":{\"XXBTZUSD\":{\"a\":[\"83585.40000\",\"1\",\"1.000\"],\"b\":[\"83585.30000\",\"1\",\"1.000\"],\"c\":[\"83585.90000\",\"0.00128247\"],\"v\":[\"1815.69005207\",\"2258.53842045\"],\"p\":[\"83558.94502\",\"83534.81595\"],\"t\":[121008,144548],\"l\":[\"82735.10000\",\"82735.10000\"],\"h\":[\"84527.10000\",\"845"
+   },
+   {
+    "group": "Gate",
+    "name": "Kontrakt-Statistik (L/S, Liq.)",
+    "url": "https://api.gateio.ws/api/v4/futures/usdt/contract_stats?contract=BTC_USDT&interval=5m&limit=1",
+    "status": 200,
+    "ms": 497,
+    "bytes": 595,
+    "ok": true,
+    "sample": "[{\"time\":1790708100,\"lsr_taker\":0.449333446548357,\"lsr_account\":1.3548757719373834,\"long_liq_size\":0,\"short_liq_size\":0,\"open_interest\":516924040,\"short_liq_usd\":0,\"mark_price\":83591.5,\"top_lsr_size\":0.9552423210671803,\"top_long_size\":25233471,\"top_short_size\":26415780,\"short_liq"
+   },
+   {
+    "group": "Gate",
+    "name": "Kontrakt (Funding)",
+    "url": "https://api.gateio.ws/api/v4/futures/usdt/contracts/BTC_USDT",
+    "status": 200,
+    "ms": 497,
+    "bytes": 1328,
+    "ok": true,
+    "sample": "{\"funding_rate_indicative\":\"0.000048\",\"mark_price_round\":\"0.01\",\"funding_offset\":0,\"in_delisting\":false,\"risk_limit_base\":\"500000\",\"interest_rate\":\"0.0003\",\"index_price\":\"83620.91\",\"order_price_round\":\"0.1\",\"order_size_min\":1,\"enable_decimal\":false,\"ref_rebate_rate\":\"0.2\",\"name\":"
+   },
+   {
+    "group": "Weitere",
+    "name": "MEXC Ticker",
+    "url": "https://contract.mexc.com/api/v1/contract/ticker?symbol=BTC_USDT",
+    "status": 200,
+    "ms": 495,
+    "bytes": 584,
+    "ok": true,
+    "sample": "{\"success\":true,\"code\":0,\"data\":{\"contractId\":10,\"symbol\":\"BTC_USDT\",\"lastPrice\":83588.8,\"bid1\":83588.8,\"ask1\":83588.9,\"volume24\":309351583,\"amount24\":2586073801.27289,\"holdVol\":522970734,\"lower24Price\":82726.5,\"high24Price\":84519.3,\"riseFallRate\":0.0066,\"riseFallValue\":549.5,\"in"
+   },
+   {
+    "group": "Weitere",
+    "name": "HTX Open Interest",
+    "url": "https://api.hbdm.com/linear-swap-api/v1/swap_open_interest?contract_code=BTC-USDT",
+    "status": 200,
+    "ms": 689,
+    "bytes": 342,
+    "ok": true,
+    "sample": "{\"status\":\"ok\",\"data\":[{\"volume\":24627605,\"amount\":24627.605000000000000000,\"symbol\":\"BTC\",\"value\":2058183130.581000000000000000,\"contract_code\":\"BTC-USDT\",\"trade_amount\":4707.5,\"trade_volume\":4707500,\"trade_turnover\":393068101.874,\"business_type\":\"swap\",\"pair\":\"BTC-USDT\",\"contra"
+   },
+   {
+    "group": "Weitere",
+    "name": "dYdX Markt",
+    "url": "https://indexer.dydx.trade/v4/perpetualMarkets?ticker=BTC-USD",
+    "status": 200,
+    "ms": 495,
+    "bytes": 564,
+    "ok": true,
+    "sample": "{\"markets\":{\"BTC-USD\":{\"clobPairId\":\"0\",\"ticker\":\"BTC-USD\",\"status\":\"ACTIVE\",\"oraclePrice\":\"83611.95\",\"priceChange24H\":\"-327.24\",\"volume24H\":\"10895079.6683\",\"trades24H\":2316,\"nextFundingRate\":\"0\",\"initialMarginFraction\":\"0.02\",\"maintenanceMarginFraction\":\"0.012\",\"openInterest\":\"2"
+   },
+   {
+    "group": "Aggregatoren",
+    "name": "CoinGecko Derivate-Börsen (OI je Börse)",
+    "url": "https://api.coingecko.com/api/v3/derivatives/exchanges?order=open_interest_btc_desc&per_page=15",
+    "status": 200,
+    "ms": 283,
+    "bytes": 10884,
+    "ok": true,
+    "sample": "[{\"name\":\"Binance (Futures)\",\"id\":\"binance_futures\",\"open_interest_btc\":414895.01,\"trade_volume_24h_btc\":\"775076.39\",\"number_of_perpetual_pairs\":586,\"number_of_futures_pairs\":233,\"image\":\"https://coin-images.coingecko.com/markets/images/466/small/binance_futures.jpg?1706864452\",\""
+   },
+   {
+    "group": "Aggregatoren",
+    "name": "Fear & Greed",
+    "url": "https://api.alternative.me/fng/?limit=1",
+    "status": 200,
+    "ms": 230,
+    "bytes": 209,
+    "ok": true,
+    "sample": "{ \"name\": \"Fear and Greed Index\", \"data\": [ { \"value\": \"73\", \"value_classification\": \"Greed\", \"timestamp\": \"1790640000\", \"time_until_update\": \"17908\" } ], \"metadata\": { \"error\": null } }"
+   },
+   {
+    "group": "Aggregatoren",
+    "name": "Farside ETF-Flüsse (Webseite)",
+    "url": "https://farside.co.uk/btc/",
+    "status": 200,
+    "ms": 996,
+    "bytes": 271976,
+    "ok": true,
+    "sample": " <!DOCTYPE html> <html class=\"no-js\" lang=\"en-US\"> <head> <link rel=\"shortcut icon\" type=\"image/jpg\" href=\"/wp-content/themes/twentytwenty/assets/images/favicon.ico\"/> <meta charset=\"UTF-8\"> <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" > <link rel=\"profil"
+   }
+  ]
+ },
+ {
+  "t": 1790708492999,
+  "runner": "{\"country\":\"US\",\"region\":\"Illinois\",\"org\":\"AS8075 Microsoft Corporation\"}",
+  "ok": 28,
+  "total": 38,
+  "results": [
+   {
+    "group": "Kontrolle",
+    "name": "Hyperliquid meta",
+    "url": "https://api.hyperliquid.xyz/info",
+    "status": 200,
+    "ms": 554,
+    "bytes": 72267,
+    "ok": true,
+    "sample": "[{\"universe\":[{\"szDecimals\":5,\"name\":\"BTC\",\"maxLeverage\":40,\"marginTableId\":56},{\"szDecimals\":4,\"name\":\"ETH\",\"maxLeverage\":25,\"marginTableId\":55},{\"szDecimals\":2,\"name\":\"ATOM\",\"maxLeverage\":5,\"marginTableId\":5},{\"szDecimals\":1,\"name\":\"MATIC\",\"maxLeverage\":20,\"marginTableId\":20,\"i"
+   },
+   {
+    "group": "Kontrolle",
+    "name": "Standort Runner",
+    "url": "https://ipinfo.io/json",
+    "status": 200,
+    "ms": 144,
+    "bytes": 260,
+    "ok": true,
+    "sample": "{\"country\":\"US\",\"region\":\"Illinois\",\"org\":\"AS8075 Microsoft Corporation\"}"
+   },
+   {
+    "group": "Binance Futures",
+    "name": "Open Interest",
+    "url": "https://fapi.binance.com/fapi/v1/openInterest?symbol=BTCUSDT",
+    "status": 451,
+    "ms": 82,
+    "bytes": 224,
+    "ok": false,
+    "sample": "{ \"code\": 0, \"msg\": \"Service unavailable from a restricted location according to 'b. Eligibility' in https://www.binance.com/en/terms. Please contact customer service if you believe you received this message in error.\" }"
+   },
+   {
+    "group": "Binance Futures",
+    "name": "Funding/Mark",
+    "url": "https://fapi.binance.com/fapi/v1/premiumIndex?symbol=BTCUSDT",
+    "status": 451,
+    "ms": 78,
+    "bytes": 224,
+    "ok": false,
+    "sample": "{ \"code\": 0, \"msg\": \"Service unavailable from a restricted location according to 'b. Eligibility' in https://www.binance.com/en/terms. Please contact customer service if you believe you received this message in error.\" }"
+   },
+   {
+    "group": "Binance Futures",
+    "name": "Top-Trader Positionen L/S",
+    "url": "https://fapi.binance.com/futures/data/topLongShortPositionRatio?symbol=BTCUSDT&period=5m&limit=1",
+    "status": 451,
+    "ms": 87,
+    "bytes": 224,
+    "ok": false,
+    "sample": "{ \"code\": 0, \"msg\": \"Service unavailable from a restricted location according to 'b. Eligibility' in https://www.binance.com/en/terms. Please contact customer service if you believe you received this message in error.\" }"
+   },
+   {
+    "group": "Binance Futures",
+    "name": "Top-Trader Konten L/S",
+    "url": "https://fapi.binance.com/futures/data/topLongShortAccountRatio?symbol=BTCUSDT&period=5m&limit=1",
+    "status": 451,
+    "ms": 84,
+    "bytes": 224,
+    "ok": false,
+    "sample": "{ \"code\": 0, \"msg\": \"Service unavailable from a restricted location according to 'b. Eligibility' in https://www.binance.com/en/terms. Please contact customer service if you believe you received this message in error.\" }"
+   },
+   {
+    "group": "Binance Futures",
+    "name": "Alle Konten L/S",
+    "url": "https://fapi.binance.com/futures/data/globalLongShortAccountRatio?symbol=BTCUSDT&period=5m&limit=1",
+    "status": 451,
+    "ms": 7,
+    "bytes": 224,
+    "ok": false,
+    "sample": "{ \"code\": 0, \"msg\": \"Service unavailable from a restricted location according to 'b. Eligibility' in https://www.binance.com/en/terms. Please contact customer service if you believe you received this message in error.\" }"
+   },
+   {
+    "group": "Binance Futures",
+    "name": "Taker Kauf/Verkauf",
+    "url": "https://fapi.binance.com/futures/data/takerlongshortRatio?symbol=BTCUSDT&period=5m&limit=1",
+    "status": 451,
+    "ms": 7,
+    "bytes": 224,
+    "ok": false,
+    "sample": "{ \"code\": 0, \"msg\": \"Service unavailable from a restricted location according to 'b. Eligibility' in https://www.binance.com/en/terms. Please contact customer service if you believe you received this message in error.\" }"
+   },
+   {
+    "group": "Binance Futures",
+    "name": "OI-Verlauf",
+    "url": "https://fapi.binance.com/futures/data/openInterestHist?symbol=BTCUSDT&period=5m&limit=1",
+    "status": 451,
+    "ms": 7,
+    "bytes": 224,
+    "ok": false,
+    "sample": "{ \"code\": 0, \"msg\": \"Service unavailable from a restricted location according to 'b. Eligibility' in https://www.binance.com/en/terms. Please contact customer service if you believe you received this message in error.\" }"
+   },
+   {
+    "group": "Binance Spot",
+    "name": "Kurs api.binance.com",
+    "url": "https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT",
+    "status": 451,
+    "ms": 85,
+    "bytes": 224,
+    "ok": false,
+    "sample": "{ \"code\": 0, \"msg\": \"Service unavailable from a restricted location according to 'b. Eligibility' in https://www.binance.com/en/terms. Please contact customer service if you believe you received this message in error.\" }"
+   },
+   {
+    "group": "Binance Spot",
+    "name": "Kurs data-api.binance.vision",
+    "url": "https://data-api.binance.vision/api/v3/ticker/price?symbol=BTCUSDT",
+    "status": 200,
+    "ms": 815,
+    "bytes": 45,
+    "ok": true,
+    "sample": "{\"symbol\":\"BTCUSDT\",\"price\":\"83614.38000000\"}"
+   },
+   {
+    "group": "Bybit",
+    "name": "Ticker (OI, Funding)",
+    "url": "https://api.bybit.com/v5/market/tickers?category=linear&symbol=BTCUSDT",
+    "status": 403,
+    "ms": 200,
+    "bytes": 96,
+    "ok": false,
+    "sample": "{ error:The Amazon CloudFront distribution is configured to block access from your country }"
+   },
+   {
+    "group": "Bybit",
+    "name": "Konten L/S",
+    "url": "https://api.bybit.com/v5/market/account-ratio?category=linear&symbol=BTCUSDT&period=5min&limit=1",
+    "status": 403,
+    "ms": 6,
+    "bytes": 96,
+    "ok": false,
+    "sample": "{ error:The Amazon CloudFront distribution is configured to block access from your country }"
+   },
+   {
+    "group": "OKX",
+    "name": "Open Interest",
+    "url": "https://www.okx.com/api/v5/public/open-interest?instType=SWAP&instId=BTC-USDT-SWAP",
+    "status": 200,
+    "ms": 343,
+    "bytes": 189,
+    "ok": true,
+    "sample": "{\"code\":\"0\",\"data\":[{\"instId\":\"BTC-USDT-SWAP\",\"instType\":\"SWAP\",\"oi\":\"2808486.24000000735\",\"oiCcy\":\"28084.8624000000735\",\"oiUsd\":\"2347661392.28208614398995\",\"ts\":\"1790708490783\"}],\"msg\":\"\"}"
+   },
+   {
+    "group": "OKX",
+    "name": "Funding",
+    "url": "https://www.okx.com/api/v5/public/funding-rate?instId=BTC-USDT-SWAP",
+    "status": 200,
+    "ms": 343,
+    "bytes": 524,
+    "ok": true,
+    "sample": "{\"code\":\"0\",\"data\":[{\"formulaType\":\"withRate\",\"fundingRate\":\"0.0001000000000000\",\"fundingTime\":\"1790726400000\",\"impactValue\":\"20000.0000000000000000\",\"instId\":\"BTC-USDT-SWAP\",\"instType\":\"SWAP\",\"interestRate\":\"0.0001000000000000\",\"maxFundingRate\":\"0.00375\",\"method\":\"current_period"
+   },
+   {
+    "group": "OKX",
+    "name": "Konten L/S",
+    "url": "https://www.okx.com/api/v5/rubik/stat/contracts/long-short-account-ratio?ccy=BTC&period=5m",
+    "status": 200,
+    "ms": 390,
+    "bytes": 14390,
+    "ok": true,
+    "sample": "{\"code\":\"0\",\"data\":[[\"1790708400000\",\"1.44\"],[\"1790708100000\",\"1.44\"],[\"1790707800000\",\"1.44\"],[\"1790707500000\",\"1.44\"],[\"1790707200000\",\"1.45\"],[\"1790706900000\",\"1.44\"],[\"1790706600000\",\"1.44\"],[\"1790706300000\",\"1.41\"],[\"1790706000000\",\"1.41\"],[\"1790705700000\",\"1.41\"],[\"17907054"
+   },
+   {
+    "group": "OKX",
+    "name": "Top-Trader Positionen L/S",
+    "url": "https://www.okx.com/api/v5/rubik/stat/contracts/long-short-position-ratio-contract-top-trader?instId=BTC-USDT-SWAP&period=5m",
+    "status": 200,
+    "ms": 378,
+    "bytes": 3919,
+    "ok": true,
+    "sample": "{\"code\":\"0\",\"data\":[[\"1790708400000\",\"0.9572777595545178\"],[\"1790708100000\",\"0.9574484289085615\"],[\"1790707800000\",\"0.956972684968365\"],[\"1790707500000\",\"0.9567165805224314\"],[\"1790707200000\",\"0.9565716251535355\"],[\"1790706900000\",\"0.9562962829982583\"],[\"1790706600000\",\"0.9560668"
+   },
+   {
+    "group": "OKX",
+    "name": "Taker-Volumen",
+    "url": "https://www.okx.com/api/v5/rubik/stat/taker-volume?ccy=BTC&instType=CONTRACTS&period=5m",
+    "status": 200,
+    "ms": 409,
+    "bytes": 3558,
+    "ok": true,
+    "sample": "{\"code\":\"0\",\"data\":[[\"1790708100000\",\"4274176.7473\",\"2448025.0394\"],[\"1790707800000\",\"5883416.9734\",\"6657854.0478\"],[\"1790707500000\",\"9965643.6796\",\"12405111.4595\"],[\"1790707200000\",\"10197203.0474\",\"18480686.4057\"],[\"1790706900000\",\"18978530.5229\",\"34473148.6886\"],[\"1790706600000"
+   },
+   {
+    "group": "OKX",
+    "name": "Liquidationen",
+    "url": "https://www.okx.com/api/v5/public/liquidation-orders?instType=SWAP&uly=BTC-USDT&state=filled&limit=5",
+    "status": 200,
+    "ms": 251,
+    "bytes": 774,
+    "ok": true,
+    "sample": "{\"code\":\"0\",\"data\":[{\"details\":[{\"bkLoss\":\"0\",\"bkPx\":\"83646.3\",\"ccy\":\"\",\"posSide\":\"short\",\"side\":\"buy\",\"sz\":\"1.54\",\"time\":1790707985962,\"ts\":\"1790707985962\"},{\"bkLoss\":\"0\",\"bkPx\":\"83671.2\",\"ccy\":\"\",\"posSide\":\"short\",\"side\":\"buy\",\"sz\":\"0.25\",\"time\":1790707330190,\"ts\":\"179070733019"
+   },
+   {
+    "group": "Coinbase",
+    "name": "Spot BTC-USD (Exchange)",
+    "url": "https://api.exchange.coinbase.com/products/BTC-USD/ticker",
+    "status": 200,
+    "ms": 140,
+    "bytes": 179,
+    "ok": true,
+    "sample": "{\"ask\":\"83580.01\",\"bid\":\"83580\",\"volume\":\"4891.50900445\",\"trade_id\":1100121349,\"price\":\"83580\",\"size\":\"0.0000002\",\"time\":\"2026-09-29T19:01:30.669515880Z\",\"rfq_volume\":\"59.391323\"}"
+   },
+   {
+    "group": "Coinbase",
+    "name": "Spot BTC-USD (v2)",
+    "url": "https://api.coinbase.com/v2/prices/BTC-USD/spot",
+    "status": 200,
+    "ms": 63,
+    "bytes": 61,
+    "ok": true,
+    "sample": "{\"data\":{\"amount\":\"83609.535\",\"base\":\"BTC\",\"currency\":\"USD\"}}"
+   },
+   {
+    "group": "Coinbase",
+    "name": "International Perp",
+    "url": "https://api.international.coinbase.com/api/v1/instruments/BTC-PERP/quote",
+    "status": 200,
+    "ms": 631,
+    "bytes": 338,
+    "ok": true,
+    "sample": "{\"best_bid_price\":\"83646.1\",\"best_bid_size\":\"4.5402\",\"best_ask_price\":\"83646.2\",\"best_ask_size\":\"5.0552\",\"trade_price\":\"83647.6\",\"trade_qty\":\"0.0003\",\"index_price\":\"83578\",\"mark_price\":\"83646.2\",\"settlement_price\":\"83682.1\",\"limit_up\":\"89428.3\",\"limit_down\":\"77727.5\",\"predicted_f"
+   },
+   {
+    "group": "Deribit",
+    "name": "Futures (OI, Funding)",
+    "url": "https://www.deribit.com/api/v2/public/get_book_summary_by_currency?currency=BTC&kind=future",
+    "status": 200,
+    "ms": 216,
+    "bytes": 5293,
+    "ok": true,
+    "sample": "{\"jsonrpc\":\"2.0\",\"result\":[{\"high\":88897.5,\"low\":87345.0,\"last\":88095.0,\"instrument_name\":\"BTC-24SEP27\",\"bid_price\":88020.0,\"ask_price\":88055.0,\"open_interest\":3555730,\"mark_price\":88043.52,\"creation_timestamp\":1790708490069,\"estimated_delivery_price\":83584.11,\"price_change\":0.03"
+   },
+   {
+    "group": "Deribit",
+    "name": "Optionen (Put/Call-OI)",
+    "url": "https://www.deribit.com/api/v2/public/get_book_summary_by_currency?currency=BTC&kind=option",
+    "status": 200,
+    "ms": 358,
+    "bytes": 422103,
+    "ok": true,
+    "sample": "{\"jsonrpc\":\"2.0\",\"result\":[{\"high\":0.0037,\"low\":0.0014,\"last\":0.0022,\"instrument_name\":\"BTC-2OCT26-81000-P\",\"bid_price\":0.0015,\"ask_price\":0.0018,\"open_interest\":233.2,\"mark_price\":0.00166294,\"interest_rate\":0.0,\"creation_timestamp\":1790708490673,\"estimated_delivery_price\":83584."
+   },
+   {
+    "group": "Bitget",
+    "name": "Open Interest",
+    "url": "https://api.bitget.com/api/v2/mix/market/open-interest?symbol=BTCUSDT&productType=USDT-FUTURES",
+    "status": 200,
+    "ms": 292,
+    "bytes": 160,
+    "ok": true,
+    "sample": "{\"code\":\"00000\",\"msg\":\"success\",\"requestTime\":1790708491789,\"data\":{\"openInterestList\":[{\"symbol\":\"BTCUSDT\",\"size\":\"32724.667599999994\"}],\"ts\":\"1790708491790\"}}"
+   },
+   {
+    "group": "Bitget",
+    "name": "Funding",
+    "url": "https://api.bitget.com/api/v2/mix/market/current-fund-rate?symbol=BTCUSDT&productType=USDT-FUTURES",
+    "status": 200,
+    "ms": 330,
+    "bytes": 219,
+    "ok": true,
+    "sample": "{\"code\":\"00000\",\"msg\":\"success\",\"requestTime\":1790708491818,\"data\":[{\"symbol\":\"BTCUSDT\",\"fundingRate\":\"0.0001\",\"fundingRateInterval\":\"8\",\"nextUpdate\":\"1790726400000\",\"minFundingRate\":\"-0.003\",\"maxFundingRate\":\"0.003\"}]}"
+   },
+   {
+    "group": "Bitget",
+    "name": "Konten L/S",
+    "url": "https://api.bitget.com/api/v2/mix/market/account-long-short?symbol=BTCUSDT&period=5m",
+    "status": 200,
+    "ms": 311,
+    "bytes": 3448,
+    "ok": true,
+    "sample": "{\"code\":\"00000\",\"msg\":\"success\",\"requestTime\":1790708491806,\"data\":[{\"longAccountRatio\":\"0.6236\",\"shortAccountRatio\":\"0.3764\",\"longShortAccountRatio\":\"1.6567\",\"ts\":\"1790699400000\"},{\"longAccountRatio\":\"0.6249\",\"shortAccountRatio\":\"0.3751\",\"longShortAccountRatio\":\"1.6659\",\"ts\":\"17"
+   },
+   {
+    "group": "Bitget",
+    "name": "Positionen L/S",
+    "url": "https://api.bitget.com/api/v2/mix/market/position-long-short?symbol=BTCUSDT&period=5m",
+    "status": 200,
+    "ms": 290,
+    "bytes": 3542,
+    "ok": true,
+    "sample": "{\"code\":\"00000\",\"msg\":\"success\",\"requestTime\":1790708491783,\"data\":[{\"longPositionRatio\":\"0.4904\",\"shortPositionRatio\":\"0.5096\",\"longShortPositionRatio\":\"0.9623\",\"ts\":\"1790699400000\"},{\"longPositionRatio\":\"0.4904\",\"shortPositionRatio\":\"0.5096\",\"longShortPositionRatio\":\"0.9623\",\"t"
+   },
+   {
+    "group": "Kraken",
+    "name": "Futures Ticker",
+    "url": "https://futures.kraken.com/derivatives/api/v3/tickers/PF_XBTUSD",
+    "status": 200,
+    "ms": 256,
+    "bytes": 585,
+    "ok": true,
+    "sample": "{\"result\":\"success\",\"serverTime\":\"2026-09-29T19:01:31.777Z\",\"ticker\":{\"symbol\":\"PF_XBTUSD\",\"last\":83580,\"lastTime\":\"2026-09-29T19:01:30.684125Z\",\"tag\":\"perpetual\",\"pair\":\"XBT:USD\",\"markPrice\":83585.22074673992,\"bid\":83579,\"bidSize\":0.8247,\"ask\":83580,\"askSize\":0.2381,\"vol24h\":560"
+   },
+   {
+    "group": "Kraken",
+    "name": "Spot XBT/USD",
+    "url": "https://api.kraken.com/0/public/Ticker?pair=XBTUSD",
+    "status": 200,
+    "ms": 258,
+    "bytes": 311,
+    "ok": true,
+    "sample": "{\"error\":[],\"result\":{\"XXBTZUSD\":{\"a\":[\"83576.70000\",\"1\",\"1.000\"],\"b\":[\"83576.60000\",\"2\",\"2.000\"],\"c\":[\"83576.70000\",\"0.00118498\"],\"v\":[\"1815.69765095\",\"2258.52979609\"],\"p\":[\"83558.94512\",\"83534.81341\"],\"t\":[121020,144554],\"l\":[\"82735.10000\",\"82735.10000\"],\"h\":[\"84527.10000\",\"845"
+   },
+   {
+    "group": "Gate",
+    "name": "Kontrakt-Statistik (L/S, Liq.)",
+    "url": "https://api.gateio.ws/api/v4/futures/usdt/contract_stats?contract=BTC_USDT&interval=5m&limit=1",
+    "status": 200,
+    "ms": 691,
+    "bytes": 595,
+    "ok": true,
+    "sample": "[{\"time\":1790708100,\"lsr_taker\":0.449333446548357,\"lsr_account\":1.3548757719373834,\"long_liq_size\":0,\"short_liq_size\":0,\"open_interest\":516924040,\"short_liq_usd\":0,\"mark_price\":83591.5,\"top_lsr_size\":0.9552423210671803,\"top_long_size\":25233471,\"top_short_size\":26415780,\"short_liq"
+   },
+   {
+    "group": "Gate",
+    "name": "Kontrakt (Funding)",
+    "url": "https://api.gateio.ws/api/v4/futures/usdt/contracts/BTC_USDT",
+    "status": 200,
+    "ms": 692,
+    "bytes": 1328,
+    "ok": true,
+    "sample": "{\"funding_rate_indicative\":\"0.000048\",\"mark_price_round\":\"0.01\",\"funding_offset\":0,\"in_delisting\":false,\"risk_limit_base\":\"500000\",\"interest_rate\":\"0.0003\",\"index_price\":\"83620.91\",\"order_price_round\":\"0.1\",\"order_size_min\":1,\"enable_decimal\":false,\"ref_rebate_rate\":\"0.2\",\"name\":"
+   },
+   {
+    "group": "Weitere",
+    "name": "MEXC Ticker",
+    "url": "https://contract.mexc.com/api/v1/contract/ticker?symbol=BTC_USDT",
+    "status": 200,
+    "ms": 557,
+    "bytes": 584,
+    "ok": true,
+    "sample": "{\"success\":true,\"code\":0,\"data\":{\"contractId\":10,\"symbol\":\"BTC_USDT\",\"lastPrice\":83588.8,\"bid1\":83588.8,\"ask1\":83588.9,\"volume24\":309351583,\"amount24\":2586073801.27289,\"holdVol\":522970734,\"lower24Price\":82726.5,\"high24Price\":84519.3,\"riseFallRate\":0.0066,\"riseFallValue\":549.5,\"in"
+   },
+   {
+    "group": "Weitere",
+    "name": "HTX Open Interest",
+    "url": "https://api.hbdm.com/linear-swap-api/v1/swap_open_interest?contract_code=BTC-USDT",
+    "status": 200,
+    "ms": 609,
+    "bytes": 342,
+    "ok": true,
+    "sample": "{\"status\":\"ok\",\"data\":[{\"volume\":24627605,\"amount\":24627.605000000000000000,\"symbol\":\"BTC\",\"value\":2058183130.581000000000000000,\"contract_code\":\"BTC-USDT\",\"trade_amount\":4707.5,\"trade_volume\":4707500,\"trade_turnover\":393068101.874,\"business_type\":\"swap\",\"pair\":\"BTC-USDT\",\"contra"
+   },
+   {
+    "group": "Weitere",
+    "name": "dYdX Markt",
+    "url": "https://indexer.dydx.trade/v4/perpetualMarkets?ticker=BTC-USD",
+    "status": 200,
+    "ms": 687,
+    "bytes": 564,
+    "ok": true,
+    "sample": "{\"markets\":{\"BTC-USD\":{\"clobPairId\":\"0\",\"ticker\":\"BTC-USD\",\"status\":\"ACTIVE\",\"oraclePrice\":\"83611.95\",\"priceChange24H\":\"-327.24\",\"volume24H\":\"10895079.6683\",\"trades24H\":2316,\"nextFundingRate\":\"0\",\"initialMarginFraction\":\"0.02\",\"maintenanceMarginFraction\":\"0.012\",\"openInterest\":\"2"
+   },
+   {
+    "group": "Aggregatoren",
+    "name": "CoinGecko Derivate-Börsen (OI je Börse)",
+    "url": "https://api.coingecko.com/api/v3/derivatives/exchanges?order=open_interest_btc_desc&per_page=15",
+    "status": 200,
+    "ms": 460,
+    "bytes": 10884,
+    "ok": true,
+    "sample": "[{\"name\":\"Binance (Futures)\",\"id\":\"binance_futures\",\"open_interest_btc\":414895.01,\"trade_volume_24h_btc\":\"775076.39\",\"number_of_perpetual_pairs\":586,\"number_of_futures_pairs\":233,\"image\":\"https://coin-images.coingecko.com/markets/images/466/small/binance_futures.jpg?1706864452\",\""
+   },
+   {
+    "group": "Aggregatoren",
+    "name": "Fear & Greed",
+    "url": "https://api.alternative.me/fng/?limit=1",
+    "status": 200,
+    "ms": 103,
+    "bytes": 209,
+    "ok": true,
+    "sample": "{ \"name\": \"Fear and Greed Index\", \"data\": [ { \"value\": \"73\", \"value_classification\": \"Greed\", \"timestamp\": \"1790640000\", \"time_until_update\": \"17908\" } ], \"metadata\": { \"error\": null } }"
+   },
+   {
+    "group": "Aggregatoren",
+    "name": "Farside ETF-Flüsse (Webseite)",
+    "url": "https://farside.co.uk/btc/",
+    "status": 200,
+    "ms": 405,
+    "bytes": 271976,
+    "ok": true,
+    "sample": " <!DOCTYPE html> <html class=\"no-js\" lang=\"en-US\"> <head> <link rel=\"shortcut icon\" type=\"image/jpg\" href=\"/wp-content/themes/twentytwenty/assets/images/favicon.ico\"/> <meta charset=\"UTF-8\"> <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" > <link rel=\"profil"
+   }
+  ]
+ },
+ {
+  "t": 1790708494815,
+  "runner": "{\"country\":\"US\",\"region\":\"Iowa\",\"org\":\"AS8075 Microsoft Corporation\"}",
+  "ok": 28,
+  "total": 38,
+  "results": [
+   {
+    "group": "Kontrolle",
+    "name": "Hyperliquid meta",
+    "url": "https://api.hyperliquid.xyz/info",
+    "status": 200,
+    "ms": 549,
+    "bytes": 72249,
+    "ok": true,
+    "sample": "[{\"universe\":[{\"szDecimals\":5,\"name\":\"BTC\",\"maxLeverage\":40,\"marginTableId\":56},{\"szDecimals\":4,\"name\":\"ETH\",\"maxLeverage\":25,\"marginTableId\":55},{\"szDecimals\":2,\"name\":\"ATOM\",\"maxLeverage\":5,\"marginTableId\":5},{\"szDecimals\":1,\"name\":\"MATIC\",\"maxLeverage\":20,\"marginTableId\":20,\"i"
+   },
+   {
+    "group": "Kontrolle",
+    "name": "Standort Runner",
+    "url": "https://ipinfo.io/json",
+    "status": 200,
+    "ms": 151,
+    "bytes": 260,
+    "ok": true,
+    "sample": "{\"country\":\"US\",\"region\":\"Iowa\",\"org\":\"AS8075 Microsoft Corporation\"}"
+   },
+   {
+    "group": "Binance Futures",
+    "name": "Open Interest",
+    "url": "https://fapi.binance.com/fapi/v1/openInterest?symbol=BTCUSDT",
+    "status": 451,
+    "ms": 217,
+    "bytes": 224,
+    "ok": false,
+    "sample": "{ \"code\": 0, \"msg\": \"Service unavailable from a restricted location according to 'b. Eligibility' in https://www.binance.com/en/terms. Please contact customer service if you believe you received this message in error.\" }"
+   },
+   {
+    "group": "Binance Futures",
+    "name": "Funding/Mark",
+    "url": "https://fapi.binance.com/fapi/v1/premiumIndex?symbol=BTCUSDT",
+    "status": 451,
+    "ms": 217,
+    "bytes": 224,
+    "ok": false,
+    "sample": "{ \"code\": 0, \"msg\": \"Service unavailable from a restricted location according to 'b. Eligibility' in https://www.binance.com/en/terms. Please contact customer service if you believe you received this message in error.\" }"
+   },
+   {
+    "group": "Binance Futures",
+    "name": "Top-Trader Positionen L/S",
+    "url": "https://fapi.binance.com/futures/data/topLongShortPositionRatio?symbol=BTCUSDT&period=5m&limit=1",
+    "status": 451,
+    "ms": 230,
+    "bytes": 224,
+    "ok": false,
+    "sample": "{ \"code\": 0, \"msg\": \"Service unavailable from a restricted location according to 'b. Eligibility' in https://www.binance.com/en/terms. Please contact customer service if you believe you received this message in error.\" }"
+   },
+   {
+    "group": "Binance Futures",
+    "name": "Top-Trader Konten L/S",
+    "url": "https://fapi.binance.com/futures/data/topLongShortAccountRatio?symbol=BTCUSDT&period=5m&limit=1",
+    "status": 451,
+    "ms": 231,
+    "bytes": 224,
+    "ok": false,
+    "sample": "{ \"code\": 0, \"msg\": \"Service unavailable from a restricted location according to 'b. Eligibility' in https://www.binance.com/en/terms. Please contact customer service if you believe you received this message in error.\" }"
+   },
+   {
+    "group": "Binance Futures",
+    "name": "Alle Konten L/S",
+    "url": "https://fapi.binance.com/futures/data/globalLongShortAccountRatio?symbol=BTCUSDT&period=5m&limit=1",
+    "status": 451,
+    "ms": 11,
+    "bytes": 224,
+    "ok": false,
+    "sample": "{ \"code\": 0, \"msg\": \"Service unavailable from a restricted location according to 'b. Eligibility' in https://www.binance.com/en/terms. Please contact customer service if you believe you received this message in error.\" }"
+   },
+   {
+    "group": "Binance Futures",
+    "name": "Taker Kauf/Verkauf",
+    "url": "https://fapi.binance.com/futures/data/takerlongshortRatio?symbol=BTCUSDT&period=5m&limit=1",
+    "status": 451,
+    "ms": 11,
+    "bytes": 224,
+    "ok": false,
+    "sample": "{ \"code\": 0, \"msg\": \"Service unavailable from a restricted location according to 'b. Eligibility' in https://www.binance.com/en/terms. Please contact customer service if you believe you received this message in error.\" }"
+   },
+   {
+    "group": "Binance Futures",
+    "name": "OI-Verlauf",
+    "url": "https://fapi.binance.com/futures/data/openInterestHist?symbol=BTCUSDT&period=5m&limit=1",
+    "status": 451,
+    "ms": 11,
+    "bytes": 224,
+    "ok": false,
+    "sample": "{ \"code\": 0, \"msg\": \"Service unavailable from a restricted location according to 'b. Eligibility' in https://www.binance.com/en/terms. Please contact customer service if you believe you received this message in error.\" }"
+   },
+   {
+    "group": "Binance Spot",
+    "name": "Kurs api.binance.com",
+    "url": "https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT",
+    "status": 451,
+    "ms": 215,
+    "bytes": 224,
+    "ok": false,
+    "sample": "{ \"code\": 0, \"msg\": \"Service unavailable from a restricted location according to 'b. Eligibility' in https://www.binance.com/en/terms. Please contact customer service if you believe you received this message in error.\" }"
+   },
+   {
+    "group": "Binance Spot",
+    "name": "Kurs data-api.binance.vision",
+    "url": "https://data-api.binance.vision/api/v3/ticker/price?symbol=BTCUSDT",
+    "status": 200,
+    "ms": 573,
+    "bytes": 45,
+    "ok": true,
+    "sample": "{\"symbol\":\"BTCUSDT\",\"price\":\"83612.19000000\"}"
+   },
+   {
+    "group": "Bybit",
+    "name": "Ticker (OI, Funding)",
+    "url": "https://api.bybit.com/v5/market/tickers?category=linear&symbol=BTCUSDT",
+    "status": 403,
+    "ms": 275,
+    "bytes": 96,
+    "ok": false,
+    "sample": "{ error:The Amazon CloudFront distribution is configured to block access from your country }"
+   },
+   {
+    "group": "Bybit",
+    "name": "Konten L/S",
+    "url": "https://api.bybit.com/v5/market/account-ratio?category=linear&symbol=BTCUSDT&period=5min&limit=1",
+    "status": 403,
+    "ms": 14,
+    "bytes": 96,
+    "ok": false,
+    "sample": "{ error:The Amazon CloudFront distribution is configured to block access from your country }"
+   },
+   {
+    "group": "OKX",
+    "name": "Open Interest",
+    "url": "https://www.okx.com/api/v5/public/open-interest?instType=SWAP&instId=BTC-USDT-SWAP",
+    "status": 200,
+    "ms": 323,
+    "bytes": 189,
+    "ok": true,
+    "sample": "{\"code\":\"0\",\"data\":[{\"instId\":\"BTC-USDT-SWAP\",\"instType\":\"SWAP\",\"oi\":\"2808486.24000000735\",\"oiCcy\":\"28084.8624000000735\",\"oiUsd\":\"2347661392.28208614398995\",\"ts\":\"1790708492070\"}],\"msg\":\"\"}"
+   },
+   {
+    "group": "OKX",
+    "name": "Funding",
+    "url": "https://www.okx.com/api/v5/public/funding-rate?instId=BTC-USDT-SWAP",
+    "status": 200,
+    "ms": 278,
+    "bytes": 524,
+    "ok": true,
+    "sample": "{\"code\":\"0\",\"data\":[{\"formulaType\":\"withRate\",\"fundingRate\":\"0.0001000000000000\",\"fundingTime\":\"1790726400000\",\"impactValue\":\"20000.0000000000000000\",\"instId\":\"BTC-USDT-SWAP\",\"instType\":\"SWAP\",\"interestRate\":\"0.0001000000000000\",\"maxFundingRate\":\"0.00375\",\"method\":\"current_period"
+   },
+   {
+    "group": "OKX",
+    "name": "Konten L/S",
+    "url": "https://www.okx.com/api/v5/rubik/stat/contracts/long-short-account-ratio?ccy=BTC&period=5m",
+    "status": 200,
+    "ms": 327,
+    "bytes": 14390,
+    "ok": true,
+    "sample": "{\"code\":\"0\",\"data\":[[\"1790708400000\",\"1.44\"],[\"1790708100000\",\"1.44\"],[\"1790707800000\",\"1.44\"],[\"1790707500000\",\"1.44\"],[\"1790707200000\",\"1.45\"],[\"1790706900000\",\"1.44\"],[\"1790706600000\",\"1.44\"],[\"1790706300000\",\"1.41\"],[\"1790706000000\",\"1.41\"],[\"1790705700000\",\"1.41\"],[\"17907054"
+   },
+   {
+    "group": "OKX",
+    "name": "Top-Trader Positionen L/S",
+    "url": "https://www.okx.com/api/v5/rubik/stat/contracts/long-short-position-ratio-contract-top-trader?instId=BTC-USDT-SWAP&period=5m",
+    "status": 200,
+    "ms": 315,
+    "bytes": 3919,
+    "ok": true,
+    "sample": "{\"code\":\"0\",\"data\":[[\"1790708400000\",\"0.9572777595545178\"],[\"1790708100000\",\"0.9574484289085615\"],[\"1790707800000\",\"0.956972684968365\"],[\"1790707500000\",\"0.9567165805224314\"],[\"1790707200000\",\"0.9565716251535355\"],[\"1790706900000\",\"0.9562962829982583\"],[\"1790706600000\",\"0.9560668"
+   },
+   {
+    "group": "OKX",
+    "name": "Taker-Volumen",
+    "url": "https://www.okx.com/api/v5/rubik/stat/taker-volume?ccy=BTC&instType=CONTRACTS&period=5m",
+    "status": 200,
+    "ms": 331,
+    "bytes": 3558,
+    "ok": true,
+    "sample": "{\"code\":\"0\",\"data\":[[\"1790708100000\",\"4274176.7473\",\"2448025.0394\"],[\"1790707800000\",\"5883416.9734\",\"6657854.0478\"],[\"1790707500000\",\"9965643.6796\",\"12405111.4595\"],[\"1790707200000\",\"10197203.0474\",\"18480686.4057\"],[\"1790706900000\",\"18978530.5229\",\"34473148.6886\"],[\"1790706600000"
+   },
+   {
+    "group": "OKX",
+    "name": "Liquidationen",
+    "url": "https://www.okx.com/api/v5/public/liquidation-orders?instType=SWAP&uly=BTC-USDT&state=filled&limit=5",
+    "status": 200,
+    "ms": 276,
+    "bytes": 774,
+    "ok": true,
+    "sample": "{\"code\":\"0\",\"data\":[{\"details\":[{\"bkLoss\":\"0\",\"bkPx\":\"83646.3\",\"ccy\":\"\",\"posSide\":\"short\",\"side\":\"buy\",\"sz\":\"1.54\",\"time\":1790707985962,\"ts\":\"1790707985962\"},{\"bkLoss\":\"0\",\"bkPx\":\"83671.2\",\"ccy\":\"\",\"posSide\":\"short\",\"side\":\"buy\",\"sz\":\"0.25\",\"time\":1790707330190,\"ts\":\"179070733019"
+   },
+   {
+    "group": "Coinbase",
+    "name": "Spot BTC-USD (Exchange)",
+    "url": "https://api.exchange.coinbase.com/products/BTC-USD/ticker",
+    "status": 200,
+    "ms": 209,
+    "bytes": 179,
+    "ok": true,
+    "sample": "{\"ask\":\"83580.01\",\"bid\":\"83580\",\"volume\":\"4889.95311279\",\"trade_id\":1100121349,\"price\":\"83580\",\"size\":\"0.0000002\",\"time\":\"2026-09-29T19:01:30.669515880Z\",\"rfq_volume\":\"59.602181\"}"
+   },
+   {
+    "group": "Coinbase",
+    "name": "Spot BTC-USD (v2)",
+    "url": "https://api.coinbase.com/v2/prices/BTC-USD/spot",
+    "status": 200,
+    "ms": 141,
+    "bytes": 61,
+    "ok": true,
+    "sample": "{\"data\":{\"amount\":\"83585.155\",\"base\":\"BTC\",\"currency\":\"USD\"}}"
+   },
+   {
+    "group": "Coinbase",
+    "name": "International Perp",
+    "url": "https://api.international.coinbase.com/api/v1/instruments/BTC-PERP/quote",
+    "status": 200,
+    "ms": 647,
+    "bytes": 338,
+    "ok": true,
+    "sample": "{\"best_bid_price\":\"83646.1\",\"best_bid_size\":\"4.5402\",\"best_ask_price\":\"83646.2\",\"best_ask_size\":\"5.0552\",\"trade_price\":\"83647.6\",\"trade_qty\":\"0.0003\",\"index_price\":\"83578\",\"mark_price\":\"83646.2\",\"settlement_price\":\"83682.1\",\"limit_up\":\"89428.4\",\"limit_down\":\"77727.6\",\"predicted_f"
+   },
+   {
+    "group": "Deribit",
+    "name": "Futures (OI, Funding)",
+    "url": "https://www.deribit.com/api/v2/public/get_book_summary_by_currency?currency=BTC&kind=future",
+    "status": 200,
+    "ms": 277,
+    "bytes": 5291,
+    "ok": true,
+    "sample": "{\"jsonrpc\":\"2.0\",\"result\":[{\"high\":88897.5,\"low\":87345.0,\"last\":88095.0,\"instrument_name\":\"BTC-24SEP27\",\"bid_price\":88017.5,\"ask_price\":88050.0,\"open_interest\":3555730,\"mark_price\":88037.33,\"creation_timestamp\":1790708492135,\"estimated_delivery_price\":83578.39,\"price_change\":0.03"
+   },
+   {
+    "group": "Deribit",
+    "name": "Optionen (Put/Call-OI)",
+    "url": "https://www.deribit.com/api/v2/public/get_book_summary_by_currency?currency=BTC&kind=option",
+    "status": 200,
+    "ms": 294,
+    "bytes": 422103,
+    "ok": true,
+    "sample": "{\"jsonrpc\":\"2.0\",\"result\":[{\"high\":0.0037,\"low\":0.0014,\"last\":0.0022,\"instrument_name\":\"BTC-2OCT26-81000-P\",\"bid_price\":0.0015,\"ask_price\":0.0018,\"open_interest\":233.2,\"mark_price\":0.00166294,\"interest_rate\":0.0,\"creation_timestamp\":1790708490673,\"estimated_delivery_price\":83584."
+   },
+   {
+    "group": "Bitget",
+    "name": "Open Interest",
+    "url": "https://api.bitget.com/api/v2/mix/market/open-interest?symbol=BTCUSDT&productType=USDT-FUTURES",
+    "status": 200,
+    "ms": 360,
+    "bytes": 160,
+    "ok": true,
+    "sample": "{\"code\":\"00000\",\"msg\":\"success\",\"requestTime\":1790708493079,\"data\":{\"openInterestList\":[{\"symbol\":\"BTCUSDT\",\"size\":\"32724.667599999994\"}],\"ts\":\"1790708493080\"}}"
+   },
+   {
+    "group": "Bitget",
+    "name": "Funding",
+    "url": "https://api.bitget.com/api/v2/mix/market/current-fund-rate?symbol=BTCUSDT&productType=USDT-FUTURES",
+    "status": 200,
+    "ms": 345,
+    "bytes": 219,
+    "ok": true,
+    "sample": "{\"code\":\"00000\",\"msg\":\"success\",\"requestTime\":1790708493073,\"data\":[{\"symbol\":\"BTCUSDT\",\"fundingRate\":\"0.0001\",\"fundingRateInterval\":\"8\",\"nextUpdate\":\"1790726400000\",\"minFundingRate\":\"-0.003\",\"maxFundingRate\":\"0.003\"}]}"
+   },
+   {
+    "group": "Bitget",
+    "name": "Konten L/S",
+    "url": "https://api.bitget.com/api/v2/mix/market/account-long-short?symbol=BTCUSDT&period=5m",
+    "status": 200,
+    "ms": 397,
+    "bytes": 3448,
+    "ok": true,
+    "sample": "{\"code\":\"00000\",\"msg\":\"success\",\"requestTime\":1790708493108,\"data\":[{\"longAccountRatio\":\"0.6236\",\"shortAccountRatio\":\"0.3764\",\"longShortAccountRatio\":\"1.6567\",\"ts\":\"1790699400000\"},{\"longAccountRatio\":\"0.6249\",\"shortAccountRatio\":\"0.3751\",\"longShortAccountRatio\":\"1.6659\",\"ts\":\"17"
+   },
+   {
+    "group": "Bitget",
+    "name": "Positionen L/S",
+    "url": "https://api.bitget.com/api/v2/mix/market/position-long-short?symbol=BTCUSDT&period=5m",
+    "status": 200,
+    "ms": 361,
+    "bytes": 3542,
+    "ok": true,
+    "sample": "{\"code\":\"00000\",\"msg\":\"success\",\"requestTime\":1790708493095,\"data\":[{\"longPositionRatio\":\"0.4904\",\"shortPositionRatio\":\"0.5096\",\"longShortPositionRatio\":\"0.9623\",\"ts\":\"1790699400000\"},{\"longPositionRatio\":\"0.4904\",\"shortPositionRatio\":\"0.5096\",\"longShortPositionRatio\":\"0.9623\",\"t"
+   },
+   {
+    "group": "Kraken",
+    "name": "Futures Ticker",
+    "url": "https://futures.kraken.com/derivatives/api/v3/tickers/PF_XBTUSD",
+    "status": 200,
+    "ms": 412,
+    "bytes": 586,
+    "ok": true,
+    "sample": "{\"result\":\"success\",\"serverTime\":\"2026-09-29T19:01:33.17Z\",\"ticker\":{\"symbol\":\"PF_XBTUSD\",\"last\":83582,\"lastTime\":\"2026-09-29T19:01:33.084813Z\",\"tag\":\"perpetual\",\"pair\":\"XBT:USD\",\"markPrice\":83580.35664725106,\"bid\":83582,\"bidSize\":0.2152,\"ask\":83583,\"askSize\":0.1166,\"vol24h\":5601"
+   },
+   {
+    "group": "Kraken",
+    "name": "Spot XBT/USD",
+    "url": "https://api.kraken.com/0/public/Ticker?pair=XBTUSD",
+    "status": 200,
+    "ms": 227,
+    "bytes": 311,
+    "ok": true,
+    "sample": "{\"error\":[],\"result\":{\"XXBTZUSD\":{\"a\":[\"83576.70000\",\"1\",\"1.000\"],\"b\":[\"83576.60000\",\"2\",\"2.000\"],\"c\":[\"83576.70000\",\"0.00118498\"],\"v\":[\"1815.69765095\",\"2258.52979609\"],\"p\":[\"83558.94512\",\"83534.81341\"],\"t\":[121020,144554],\"l\":[\"82735.10000\",\"82735.10000\"],\"h\":[\"84527.10000\",\"845"
+   },
+   {
+    "group": "Gate",
+    "name": "Kontrakt-Statistik (L/S, Liq.)",
+    "url": "https://api.gateio.ws/api/v4/futures/usdt/contract_stats?contract=BTC_USDT&interval=5m&limit=1",
+    "status": 200,
+    "ms": 702,
+    "bytes": 595,
+    "ok": true,
+    "sample": "[{\"time\":1790708100,\"lsr_taker\":0.449333446548357,\"lsr_account\":1.3548757719373834,\"long_liq_size\":0,\"short_liq_size\":0,\"open_interest\":516924040,\"short_liq_usd\":0,\"mark_price\":83591.5,\"top_lsr_size\":0.9552423210671803,\"top_long_size\":25233471,\"top_short_size\":26415780,\"short_liq"
+   },
+   {
+    "group": "Gate",
+    "name": "Kontrakt (Funding)",
+    "url": "https://api.gateio.ws/api/v4/futures/usdt/contracts/BTC_USDT",
+    "status": 200,
+    "ms": 703,
+    "bytes": 1328,
+    "ok": true,
+    "sample": "{\"funding_rate_indicative\":\"0.000048\",\"mark_price_round\":\"0.01\",\"funding_offset\":0,\"in_delisting\":false,\"risk_limit_base\":\"500000\",\"interest_rate\":\"0.0003\",\"index_price\":\"83614.92\",\"order_price_round\":\"0.1\",\"order_size_min\":1,\"enable_decimal\":false,\"ref_rebate_rate\":\"0.2\",\"name\":"
+   },
+   {
+    "group": "Weitere",
+    "name": "MEXC Ticker",
+    "url": "https://contract.mexc.com/api/v1/contract/ticker?symbol=BTC_USDT",
+    "status": 200,
+    "ms": 751,
+    "bytes": 583,
+    "ok": true,
+    "sample": "{\"success\":true,\"code\":0,\"data\":{\"contractId\":10,\"symbol\":\"BTC_USDT\",\"lastPrice\":83577.2,\"bid1\":83577.2,\"ask1\":83577.3,\"volume24\":309375515,\"amount24\":2586273845.03706,\"holdVol\":522800911,\"lower24Price\":82726.5,\"high24Price\":84519.3,\"riseFallRate\":0.0064,\"riseFallValue\":537.9,\"in"
+   },
+   {
+    "group": "Weitere",
+    "name": "HTX Open Interest",
+    "url": "https://api.hbdm.com/linear-swap-api/v1/swap_open_interest?contract_code=BTC-USDT",
+    "status": 200,
+    "ms": 797,
+    "bytes": 342,
+    "ok": true,
+    "sample": "{\"status\":\"ok\",\"data\":[{\"volume\":24627605,\"amount\":24627.605000000000000000,\"symbol\":\"BTC\",\"value\":2058183130.581000000000000000,\"contract_code\":\"BTC-USDT\",\"trade_amount\":4707.5,\"trade_volume\":4707500,\"trade_turnover\":393068101.874,\"business_type\":\"swap\",\"pair\":\"BTC-USDT\",\"contra"
+   },
+   {
+    "group": "Weitere",
+    "name": "dYdX Markt",
+    "url": "https://indexer.dydx.trade/v4/perpetualMarkets?ticker=BTC-USD",
+    "status": 200,
+    "ms": 639,
+    "bytes": 564,
+    "ok": true,
+    "sample": "{\"markets\":{\"BTC-USD\":{\"clobPairId\":\"0\",\"ticker\":\"BTC-USD\",\"status\":\"ACTIVE\",\"oraclePrice\":\"83611.95\",\"priceChange24H\":\"-327.24\",\"volume24H\":\"10895079.6683\",\"trades24H\":2316,\"nextFundingRate\":\"0\",\"initialMarginFraction\":\"0.02\",\"maintenanceMarginFraction\":\"0.012\",\"openInterest\":\"2"
+   },
+   {
+    "group": "Aggregatoren",
+    "name": "CoinGecko Derivate-Börsen (OI je Börse)",
+    "url": "https://api.coingecko.com/api/v3/derivatives/exchanges?order=open_interest_btc_desc&per_page=15",
+    "status": 200,
+    "ms": 644,
+    "bytes": 10884,
+    "ok": true,
+    "sample": "[{\"name\":\"Binance (Futures)\",\"id\":\"binance_futures\",\"open_interest_btc\":414895.01,\"trade_volume_24h_btc\":\"775076.39\",\"number_of_perpetual_pairs\":586,\"number_of_futures_pairs\":233,\"image\":\"https://coin-images.coingecko.com/markets/images/466/small/binance_futures.jpg?1706864452\",\""
+   },
+   {
+    "group": "Aggregatoren",
+    "name": "Fear & Greed",
+    "url": "https://api.alternative.me/fng/?limit=1",
+    "status": 200,
+    "ms": 117,
+    "bytes": 209,
+    "ok": true,
+    "sample": "{ \"name\": \"Fear and Greed Index\", \"data\": [ { \"value\": \"73\", \"value_classification\": \"Greed\", \"timestamp\": \"1790640000\", \"time_until_update\": \"17906\" } ], \"metadata\": { \"error\": null } }"
+   },
+   {
+    "group": "Aggregatoren",
+    "name": "Farside ETF-Flüsse (Webseite)",
+    "url": "https://farside.co.uk/btc/",
+    "status": 200,
+    "ms": 786,
+    "bytes": 271975,
+    "ok": true,
+    "sample": " <!DOCTYPE html> <html class=\"no-js\" lang=\"en-US\"> <head> <link rel=\"shortcut icon\" type=\"image/jpg\" href=\"/wp-content/themes/twentytwenty/assets/images/favicon.ico\"/> <meta charset=\"UTF-8\"> <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" > <link rel=\"profil"
+   }
+  ]
+ }
+]
