@@ -782,7 +782,7 @@ function pressureTile(base){
 function magnets(base){
   const m=mid(S.coin); if(!m) return null;
   const bw=0.005, B=new Map();
-  for(const r of base){const p=r.p; if(!p.liq||!(p.liq>0)) continue; const d=(p.liq-m)/m; if(Math.abs(d)>0.15) continue; const i=Math.floor(d/bw); const x=B.get(i)||{i,L:0,S:0,nL:0,nS:0}; if(r.side==='L'){x.L+=r.ntl; x.nL++;} else {x.S+=r.ntl; x.nS++;} B.set(i,x);}
+  for(const r of base){const p=r.p; if(!p.liq||!(p.liq>0)) continue; const d=(p.liq-m)/m; if(Math.abs(d)>0.10) continue; const i=Math.floor(d/bw); const x=B.get(i)||{i,L:0,S:0,nL:0,nS:0}; if(r.side==='L'){x.L+=r.ntl; x.nL++;} else {x.S+=r.ntl; x.nS++;} B.set(i,x);}
   const arr=[...B.values()], maxL=Math.max(0,...arr.map(x=>x.L)), maxS=Math.max(0,...arr.map(x=>x.S)), share=thr('magnetMinShareOfMax',0.25);
   const below=arr.filter(x=>x.i<0&&x.L>0&&x.L>=maxL*share).sort((a,b)=>b.i-a.i)[0];
   const above=arr.filter(x=>x.i>=0&&x.S>0&&x.S>=maxS*share).sort((a,b)=>a.i-b.i)[0];
