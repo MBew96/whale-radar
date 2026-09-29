@@ -866,7 +866,7 @@ function magnets(base){
 /* ---------- Gesamtmarkt (Börsendaten der Wetterstation, nur Info) ---------- */
 const EXN={okx:'OKX',bitget:'Bitget',gate:'Gate',htx:'HTX',deribit:'Deribit',kraken:'Kraken'};
 const EXC=['#3d5068','#34465c','#2d3d50','#415670','#374b62','#2f4054'];
-const fpct=(v,d=3)=>pct(v,d,false);
+const fpct=(v,d=3)=>pct(v!=null&&Math.abs(v)<0.5*10**-(d+2)?0:v,d,false);  // kein „−0,000 %“
 const mean=a=>a.length?a.reduce((x,y)=>x+y,0)/a.length:null;
 function renderMarket(){
   const body=$('#mktBody'); if(!body) return;
