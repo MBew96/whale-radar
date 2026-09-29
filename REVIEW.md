@@ -8,7 +8,8 @@ Bild dazu: Die Wetterstation misst rund um die Uhr, der Wochen-Review ist der Tr
    - **Bias**: Anteil Long am Notional – alle Wale, Gewinner-Wale, Verlierer-Wale.
    - **Fluss über Nacht**: Veränderung Long/Short-Notional seit 22 Uhr und seit 24 Std.
    - **Druck**: USD nahe Liquidation und im Minus je Seite (Squeeze-Risiko, wenn eine Seite überfüllt, im Minus und nahe Liq. ist).
-   - **Liquiditätsmagnete**: größte Long-Liq.-Cluster unter dem Kurs und Short-Liq.-Cluster über dem Kurs, mit Abstand in % und USD.
+   - **Liquiditätsmagnete**: nächste große Long-Liq.-Cluster unter dem Kurs und Short-Liq.-Cluster über dem Kurs (mind. 1 % des Wal-Notionals), mit Abstand in % und USD.
+   - **Intraday-Kompass**: Richtung und Score aus `tools/wal_block.py` (erste Zeile), ausdrücklich als „noch unbewertet“, solange der Review keine Bilanz hat.
 3. Nur Signale verwenden, die in `config/settings.json` auf `active: true` stehen.
 4. Der Wal-Block ist **ein Baustein** der Ampel, nie allein ausschlaggebend. Kurz halten (3–5 Zeilen) und die Datenlage nennen (z. B. „Messungen seit …, Lücken …“).
 
@@ -24,6 +25,11 @@ Für jedes Signal aus `config/settings.json` → `signals`:
 - Nur nicht überlappende Fälle zählen (mindestens 4 Std. Abstand zwischen zwei gezählten Fällen desselben Signals), sonst zählt ein Ereignis vielfach.
 - Mindestens 30 Fälle, bevor eine Trefferquote als belastbar gilt. Darunter: „zu wenig Daten“.
 - Vergleich mit dem Zufall: Trefferquote muss deutlich über 50 % liegen (Faustregel: ≥ 56 % bei ≥ 30 Fällen) und in beiden Hälften des Zeitraums in dieselbe Richtung zeigen (Test auf ungesehenen Daten).
+
+### Intraday-Kompass
+- Der Kompass (`compass`) wird in der Bilanz wie ein eigenes Signal bewertet (Richtung = Vorzeichen des Scores ab `compassMin`).
+- Gewichte (`signals.*.weight`) frühestens nach 21 Tagen und höchstens in Schritten von ±0,5 ändern, und nur, wenn ein Signal in beiden Hälften des Zeitraums klar besser bzw. schlechter als der Vergleichswert abschneidet. Ein Signal mit Gewicht 0 bleibt im Beobachtungsmodus.
+- Jede Gewichtsänderung mit Vorher/Nachher-Trefferquote des Kompasses im CHANGELOG belegen.
 
 ### Optimieren
 - Signale, die die Hürde klar reißen, bleiben aktiv; Signale, die über ≥ 3 Wochen klar unter 50 % liegen, als „Gegenindikator“ prüfen oder deaktivieren (Vorschlag an Mirco).

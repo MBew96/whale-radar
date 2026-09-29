@@ -9,15 +9,26 @@
     "candidatesByWeekPnl": 120,
     "minAccountValueForVolumeAndPnlLists": 100000,
     "minPositionUsdInLatest": 50000,
-    "mainCoins": ["BTC", "ETH", "SOL", "HYPE"],
+    "mainCoins": [
+      "BTC",
+      "ETH",
+      "SOL",
+      "HYPE"
+    ],
     "liqBucketPct": 0.25,
     "liqRangePct": 20,
     "topPositionsPerCoin": 25
   },
   "classes": {
     "_hinweis": "Gewinner = 30-Tage-PnL > 0 UND Gesamt-PnL > 0; Verlierer = beide < 0; Rest = gemischt",
-    "winner": { "pnlMonthMin": 0, "pnlAllMin": 0 },
-    "loser": { "pnlMonthMax": 0, "pnlAllMax": 0 }
+    "winner": {
+      "pnlMonthMin": 0,
+      "pnlAllMin": 0
+    },
+    "loser": {
+      "pnlMonthMax": 0,
+      "pnlAllMax": 0
+    }
   },
   "marketMaker": {
     "_hinweis": "Als Market-Maker markiert, wenn Monatsvolumen/Konto >= turnoverMin UND gleichzeitig >= minPositions offene Positionen",
@@ -29,18 +40,55 @@
     "nearLiqPct": 5
   },
   "signals": {
-    "_hinweis": "Werden im Wochen-Review bewertet. active=false blendet ein Signal aus Dashboard und Morgencheck aus.",
-    "biasAll":        { "active": true,  "label": "Bias aller Wale" },
-    "biasWinners":    { "active": true,  "label": "Bias der Gewinner-Wale" },
-    "biasLosersFade": { "active": true,  "label": "Gegen die Verlierer-Wale" },
-    "flow4h":         { "active": true,  "label": "Aufbau/Abbau der letzten 4 Std." },
-    "squeezeRisk":    { "active": true,  "label": "Squeeze-Risiko (Druck + Liq.-Nähe)" },
-    "liqMagnet":      { "active": true,  "label": "Nächster großer Liquidations-Cluster" },
-    "takerFlow":      { "active": true,  "label": "Wal-Marktorders (nur live im Dashboard)" }
+    "_hinweis": "Werden im Wochen-Review bewertet. active=false blendet ein Signal aus Dashboard, Kompass und Morgencheck aus. weight = Gewicht im Intraday-Kompass (Startwerte, werden per Review justiert). takerFlow ist nur live im Dashboard und zählt nicht zum Kompass.",
+    "biasAll": {
+      "active": true,
+      "label": "Bias aller Wale",
+      "weight": 1
+    },
+    "biasWinners": {
+      "active": true,
+      "label": "Bias der Gewinner-Wale",
+      "weight": 2
+    },
+    "biasLosersFade": {
+      "active": true,
+      "label": "Gegen die Verlierer-Wale",
+      "weight": 1
+    },
+    "flow4h": {
+      "active": true,
+      "label": "Aufbau/Abbau der letzten 4 Std.",
+      "weight": 1
+    },
+    "squeezeRisk": {
+      "active": true,
+      "label": "Squeeze-Risiko (Druck + Liq.-Nähe)",
+      "weight": 1
+    },
+    "liqMagnet": {
+      "active": true,
+      "label": "Nächster großer Liquidations-Cluster",
+      "weight": 1
+    },
+    "takerFlow": {
+      "active": true,
+      "label": "Wal-Marktorders (nur live im Dashboard)",
+      "weight": 0
+    },
+    "compass": {
+      "active": true,
+      "label": "Intraday-Kompass (gewichtete Summe)",
+      "weight": 0
+    }
   },
   "thresholds": {
     "biasStrong": 0.65,
     "flowSignificantUsd": 50000000,
-    "magnetMinShareOfMax": 0.25
+    "magnetMinShareOfMax": 0.25,
+    "compassMin": 0.34,
+    "magnetNearPct": 0.03,
+    "magnetMinShareOfTotal": 0.01,
+    "_hinweis": "biasStrong: Anteil ab dem eine Seite als deutlich gilt · flowSignificantUsd: Netto-Aufbau in 4 Std. · magnetMinShareOfMax/-OfTotal: Mindestgröße eines Liq.-Clusters relativ zum größten Cluster bzw. zum gesamten Wal-Notional · magnetNearPct: Bereich für das Magnet-Signal · compassMin: ab diesem Betrag zeigt der Kompass eine Richtung"
   }
 }

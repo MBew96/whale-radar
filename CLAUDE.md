@@ -24,6 +24,8 @@ Ein Tracker für die Positionierung der größten Trader („Wale“) auf der Kr
 - `python3 tools/wal_block.py BTC ETH` → JSON mit Bias (alle/Gewinner/Verlierer), Fluss seit 22 Uhr/24 Std./4 Std., Druck, Liquiditätsmagneten und fertigen deutschen Kurzzeilen (`zeilen`), nur aktive Signale.
 - `python3 tools/review.py --coin BTC` → Signal-Bilanz als Markdown-Tabelle (Trefferquoten 1/4/24 Std., Fallzahlen, Hälften-Vergleich, Urteil). `--json` für Maschinenformat.
 
+- Signale und Intraday-Kompass sind **einmal** in `tools/common.py` definiert (`signal_dirs`, `compass`, `compass_dir`) und im Dashboard identisch nachgebaut (`stationSignals` in `site/index.html`). Wer die Regeln ändert, ändert beide Stellen und prüft, dass Dashboard und `wal_block.py` denselben Score zeigen.
+
 ## Aufgaben, die per Zeitplan laufen
 - **Morgencheck (täglich 7 Uhr)**: Wal-Block für die Ampel – siehe `REVIEW.md`, Abschnitt „Täglicher Wal-Block“.
 - **Wochen-Review (sonntags)**: Signal-Bilanz und Optimierung – streng nach `REVIEW.md`.

@@ -7,7 +7,7 @@ Nur Signale mit active=true aus config/settings.json werden als Zeile ausgegeben
 import json, sys, time
 from datetime import datetime, timedelta
 from zoneinfo import ZoneInfo
-from common import load_settings, load_snapshots, side_share, magnets, de_usd, de_pct, de_num
+from common import load_settings, load_snapshots, side_share, magnets, de_usd, de_pct, de_num, signal_dirs, compass, compass_dir
 
 BER = ZoneInfo('Europe/Berlin')
 cfg = load_settings()
@@ -93,12 +93,21 @@ for coin in coins:
         if not said:
             zeilen.append(f"Kein auffälliges Squeeze-Risiko (nahe Liq.: Long {de_usd(st['L'][0])}, Short {de_usd(st['S'][0])})")
 
-    mg = magnets(last, coin, thr.get('magnetMinShareOfMax', 0.25))
+    mg = magnets(last, coin, thr.get('magnetMinShareOfMax', 0.25), 0.10, thr.get('magnetMinShareOfTotal', 0.01))
     r['magnete'] = mg
     if sig.get('liqMagnet', True) and mg and (mg['oben'] or mg['unten']):
         fm = lambda x: f"{de_num(x['lo'])}–{de_num(x['hi'])} ({de_pct(x['dist'])}, {de_usd(x['usd'])})" if x else 'keiner'
         zeilen.append(f"Liquiditätsmagnete: oben {fm(mg['oben'])} · unten {fm(mg['unten'])}")
 
+    s4 = nearest(now_ms - 4 * 3600e3)
+    dirs = signal_dirs(last, s4 if s4 is not last else None, cfg, coin)
+    sc = compass(dirs, cfg)
+    cd = compass_dir(sc, cfg)
+    r['kompass'] = {'score': sc, 'richtung': cd, 'signale': dirs}
+    if sig.get('compass', True) and sc is not None:
+        lab = {1: 'Long-Tendenz', -1: 'Short-Tendenz', 0: 'neutral'}[cd]
+        staerke = 'stark' if abs(sc) >= 0.67 else ('mittel' if abs(sc) >= 0.34 else 'schwach')
+        zeilen.insert(0, f"Intraday-Kompass (1–4 Std., noch unbewertet): {lab}, {staerke} (Score {de_num(sc * 100, 0)})")
     r['zeilen'] = zeilen
     out['coins'][coin] = r
 

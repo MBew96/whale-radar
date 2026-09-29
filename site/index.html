@@ -223,14 +223,37 @@ footer p{margin:4px 0;max-width:110ch}
 .lage b{font-weight:600}
 .grid2{display:grid;grid-template-columns:minmax(0,2.15fr) minmax(0,1fr);gap:14px;margin-top:14px;align-items:start}
 .heat-wrap{padding:10px 14px 4px}
-.heat-wrap canvas{display:block;width:100%;height:300px;border-radius:6px;background:var(--panel2);cursor:crosshair}
+.heat-wrap canvas{display:block;width:100%;height:380px;border-radius:6px;background:var(--panel2);cursor:crosshair}
+.grid2.solo{grid-template-columns:1fr}
 .hist-wrap{padding:10px 14px 4px;min-height:230px}
 .hist-wrap svg{display:block;max-width:100%}
 .histl-all{stroke:var(--long)} .histl-win{stroke:var(--accent)} .histl-px{stroke:var(--dim)}
+/* Intraday-Kompass */
+.row-k{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.9fr);gap:14px;margin-top:14px;align-items:start}
+.row-k .lage{margin-top:0}
+.kompass{padding:14px 16px;background:var(--panel);border:1px solid var(--line);border-radius:10px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.k-head{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.k-main{display:grid;grid-template-columns:150px minmax(0,1fr);gap:14px;align-items:center}
+.k-gauge svg{display:block;width:150px;height:92px}
+.k-arc-s{stroke:var(--short);opacity:.85} .k-arc-n{stroke:var(--line2)} .k-arc-l{stroke:var(--long);opacity:.85}
+.k-needle{stroke:var(--text)} .k-hub{fill:var(--text)}
+.k-verdict{font:600 21px/1.2 var(--f-display)}
+.k-sub{font-size:12.5px;color:var(--muted);margin-top:4px}
+.k-list{list-style:none;margin:0;padding:0;display:grid;gap:5px;font-size:12.5px}
+.k-list li{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;align-items:baseline}
+.k-c{font:600 12px var(--f-mono)}
+.k-spark svg{display:block;max-width:100%}
+.k-cap{font-size:11px;color:var(--dim);margin-top:2px}
+.k-note{font-size:11.5px;color:var(--dim);margin:0}
+.k-band{fill:var(--line)} .k-zero{stroke:var(--line2)} .k-line{stroke:var(--sonar)}
+/* Heatmap-Kopf */
+.grad{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;color:var(--muted)}
+.grad i{display:inline-block;width:70px;height:8px;border-radius:4px;background:linear-gradient(90deg,rgba(31,211,154,.12),rgba(31,211,154,.95))}
+.grad i.s{background:linear-gradient(90deg,rgba(255,91,110,.12),rgba(255,91,110,.95))}
 
 @media (max-width:1180px){
   .signal{grid-template-columns:1fr 1fr}.sig-main{grid-column:1/-1}
-  .grid,.grid2{grid-template-columns:1fr}
+  .grid,.grid2,.row-k{grid-template-columns:1fr}
   .ticker{margin-left:0;width:100%}
 }
 @media (max-width:620px){
@@ -242,6 +265,9 @@ footer p{margin:4px 0;max-width:110ch}
   .liq-call{grid-template-columns:1fr}
   .spot-g{grid-template-columns:repeat(2,minmax(0,1fr))}
   .dr{padding-inline:16px}
+  .heat-wrap canvas{height:320px}
+  .k-main{grid-template-columns:120px minmax(0,1fr)}
+  .k-gauge svg{width:120px;height:74px}
 }
 </style>
 </head>
@@ -291,10 +317,19 @@ footer p{margin:4px 0;max-width:110ch}
     <button class="spot" id="spotShort" type="button"></button>
   </section>
 
+  <div class="row-k">
+  <section class="kompass" aria-label="Intraday-Kompass">
+    <div class="k-head"><span class="eyebrow" id="kTitle">Intraday-Kompass · BTC</span><span class="pill N" title="Die Regeln sind festgelegt, ihre Trefferquote wird erst im Wochen-Review gemessen">noch unbewertet</span></div>
+    <div class="k-main"><div class="k-gauge" id="kGauge"></div><div><div class="k-verdict" id="kVerdict">–</div><div class="k-sub" id="kSub"></div></div></div>
+    <ul class="k-list" id="kList"></ul>
+    <div class="k-spark" id="kSpark"></div>
+    <p class="k-note" id="kNote"></p>
+  </section>
   <section class="lage" aria-label="Lagebild">
     <div class="lage-h"><span class="eyebrow">Lagebild · automatisch aus den Daten</span><span class="hint" id="lageStand"></span></div>
     <ul id="lage"><li><i></i><span class="muted">Sammle Daten …</span></li></ul>
   </section>
+  </div>
 
   <section class="kpis" id="kpis" aria-label="Kennzahlen"></section>
 
@@ -385,12 +420,17 @@ footer p{margin:4px 0;max-width:110ch}
     </aside>
   </main>
 
-  <section class="grid2">
+  <section class="grid2 solo">
     <section class="panel">
-      <div class="panel-head"><h2>Liquiditäts-Heatmap · 24 Std.</h2><span class="hint" id="heatHint"></span></div>
-      <div class="legend"><span><i class="sw" style="background:var(--long)"></i>Long-Liquidationen</span><span><i class="sw" style="background:var(--short)"></i>Short-Liquidationen</span><span><i class="sw" style="background:var(--accent)"></i>Kurs</span></div>
+      <div class="panel-head"><h2>Liquiditäts-Heatmap · 24 Std.</h2>
+        <div class="controls">
+          <span class="hint" id="heatHint"></span>
+          <div class="seg" id="heatR" role="group" aria-label="Preisbereich"><button type="button" data-v="3">±3 %</button><button type="button" data-v="6">±6 %</button><button type="button" data-v="12">±12 %</button></div>
+        </div>
+      </div>
+      <div class="legend"><span class="grad"><i></i>Long-Liquidationen</span><span class="grad"><i class="s"></i>Short-Liquidationen</span><span><i class="sw" style="background:var(--accent)"></i>Kurs</span><span class="dim">schwach → stark</span></div>
       <div class="heat-wrap"><canvas id="heat" aria-label="Liquiditäts-Heatmap der letzten 24 Stunden"></canvas></div>
-      <p class="help">Jede Spalte ist eine Messung der Wetterstation (alle 10 Minuten), alle Wale ohne Market-Maker. Je heller ein Feld, desto mehr Wal-Positionen würden bei diesem Preis zwangsweise geschlossen. Läuft die gelbe Kurslinie in eine helle Zone, wird dort Liquidität abgeräumt, wie ein Staubsauger, der über ein Feld voller Krümel fährt.</p>
+      <p class="help">Jede Spalte ist eine Messung der Wetterstation (etwa alle 10 Minuten), alle Wale ohne Market-Maker. Je kräftiger ein Feld, desto mehr Wal-Positionen würden bei diesem Preis zwangsweise geschlossen. Rechts unter „Jetzt“ siehst du die aktuelle Verteilung mit den drei größten Clustern in Dollar. Läuft die gelbe Kurslinie in eine kräftige Zone, wird dort Liquidität abgeräumt, wie ein Staubsauger, der über ein Feld voller Krümel fährt. Mit ±3 / ±6 / ±12 % zoomst du näher an den Kurs heran.</p>
     </section>
     <aside class="panel">
       <div class="panel-head"><h2>Verlauf · 48 Std.</h2><span class="hint" id="histHint"></span></div>
@@ -449,7 +489,7 @@ const store={
 
 const S={
   coin:store.get('coin','BTC'),
-  f:Object.assign({min:1e6,side:'all',hideMM:true,feed:'all',feedMin:5e5,feedCoin:false,cls:'all'},store.get('filters',{})),
+  f:Object.assign({min:1e6,side:'all',hideMM:true,feed:'all',feedMin:5e5,feedCoin:false,cls:'all',heatR:6},store.get('filters',{})),
   sort:{key:'ntl',dir:-1},
   ctx:{},universe:[],uniKey:'',mids:{},
   acc:new Map(),watch:new Set(store.get('watch',[])),
@@ -783,9 +823,9 @@ function magnets(base){
   const m=mid(S.coin); if(!m) return null;
   const bw=0.005, B=new Map();
   for(const r of base){const p=r.p; if(!p.liq||!(p.liq>0)) continue; const d=(p.liq-m)/m; if(Math.abs(d)>0.10) continue; const i=Math.floor(d/bw); const x=B.get(i)||{i,L:0,S:0,nL:0,nS:0}; if(r.side==='L'){x.L+=r.ntl; x.nL++;} else {x.S+=r.ntl; x.nS++;} B.set(i,x);}
-  const arr=[...B.values()], maxL=Math.max(0,...arr.map(x=>x.L)), maxS=Math.max(0,...arr.map(x=>x.S)), share=thr('magnetMinShareOfMax',0.25);
-  const below=arr.filter(x=>x.i<0&&x.L>0&&x.L>=maxL*share).sort((a,b)=>b.i-a.i)[0];
-  const above=arr.filter(x=>x.i>=0&&x.S>0&&x.S>=maxS*share).sort((a,b)=>a.i-b.i)[0];
+  const arr=[...B.values()], maxL=Math.max(0,...arr.map(x=>x.L)), maxS=Math.max(0,...arr.map(x=>x.S)), share=thr('magnetMinShareOfMax',0.25), minUsd=thr('magnetMinShareOfTotal',0.01)*base.reduce((a,r)=>a+r.ntl,0);
+  const below=arr.filter(x=>x.i<0&&x.L>0&&x.L>=Math.max(maxL*share,minUsd)).sort((a,b)=>b.i-a.i)[0];
+  const above=arr.filter(x=>x.i>=0&&x.S>0&&x.S>=Math.max(maxS*share,minUsd)).sort((a,b)=>a.i-b.i)[0];
   const f=(x,v,n)=>x?{lo:m*(1+x.i*bw),hi:m*(1+(x.i+1)*bw),d:(x.i+0.5)*bw,v,n}:null;
   return {m,below:below?f(below,below.L,below.nL):null,above:above?f(above,above.S,above.nS):null};
 }
@@ -829,6 +869,75 @@ function renderLage(base,g){
   if(sigOn('takerFlow')&&S.tf&&(S.tf.buy||S.tf.sell)){const n=S.tf.buy-S.tf.sell; items.push([Math.abs(n)>=S.f.feedMin*2?(n>0?'L':'S'):'N',`Wal-Marktorders ${S.tf.since}: Käufe ${usd(S.tf.buy)} / Verkäufe ${usd(S.tf.sell)}.`]);}
   el.innerHTML=items.map(([k,h])=>`<li><i class="${k}"></i><span>${h}</span></li>`).join('');
 }
+/* ---------- Intraday-Kompass: dieselben Regeln wie tools/common.py (signal_dirs, compass) ---------- */
+const SIGDEF={biasAll:1,biasWinners:2,biasLosersFade:1,flow4h:1,squeezeRisk:1,liqMagnet:1};
+const SIGW=k=>{const m=S.settings&&S.settings.signals&&S.settings.signals[k]; return m&&m.weight!=null?m.weight:(SIGDEF[k]!=null?SIGDEF[k]:1);};
+function heatAt(coin,t){const H=S.recent&&S.recent.heat&&S.recent.heat[coin]; if(!H) return null; for(let i=H.length-1;i>=0;i--){if(Math.abs(H[i][0]-t)<=5*60e3) return H[i]; if(H[i][0]<t-5*60e3) break;} return null;}
+function stationSignals(coin,idx){
+  const ser=seriesFor(coin); if(!ser.length) return null;
+  const i=idx==null?ser.length-1:idx, p=ser[i], strong=thr('biasStrong',0.65);
+  const share=(a,b)=>{const t=a+b; return t?a/t:null;};
+  const bias=v=>v==null?null:(v>=strong?1:v<=1-strong?-1:0);
+  const bAll=share(p[2],p[3]), bWin=share(p[4],p[5]), bLose=share(p[6],p[7]);
+  const d={biasAll:bias(bAll),biasWinners:bias(bWin)}, x={};
+  const bl=bias(bLose); d.biasLosersFade=bl==null?null:-bl;
+  const target=p[0]-4*3600e3; let p4=null;
+  for(let j=i;j>=0;j--){ if(ser[j][0]<=target){ if(target-ser[j][0]<=30*60e3) p4=ser[j]; break; } }
+  if(p4){const net=(p[2]-p4[2])-(p[3]-p4[3]), ft=thr('flowSignificantUsd',5e7); d.flow4h=net>=ft?1:net<=-ft?-1:0; x.net=net;} else d.flow4h=null;
+  const tot=p[2]+p[3]; let sq=0;
+  if(tot){ if(p[3]&&p[3]/tot>=0.6&&p[11]/p[3]>=0.5&&p[9]/p[3]>=0.1) sq=1; if(p[2]&&p[2]/tot>=0.6&&p[10]/p[2]>=0.5&&p[8]/p[2]>=0.1) sq=-1; }
+  d.squeezeRisk=tot?sq:null;
+  const h=heatAt(coin,p[0]);
+  if(h){
+    const bw=(h[3]||S.recent.bucketPct||0.5)/100, near=thr('magnetNearPct',0.03); let lo=0,up=0;
+    for(const [bi,L,Sv] of h[2]){const c=(bi+0.5)*bw; if(bi<0&&Math.abs(c)<=near) lo+=L; if(bi>=0&&c<=near) up+=Sv;}
+    d.liqMagnet=(!tot||Math.max(lo,up)<tot*thr('magnetMinShareOfTotal',0.01))?0:(up>=1.5*lo?1:lo>=1.5*up?-1:0); x.lo=lo; x.up=up;
+  } else d.liqMagnet=null;
+  let nm=0,dn=0; for(const k of Object.keys(SIGDEF)){const v=d[k]; if(v==null||!sigOn(k)) continue; const w=SIGW(k); nm+=w*v; dn+=w;}
+  const score=dn?nm/dn:null, t=thr('compassMin',0.34);
+  return {t:p[0],px:p[1],d,x,score,dir:score==null?null:(score>=t?1:score<=-t?-1:0),bAll,bWin,bLose};
+}
+function gaugeSvg(sc){
+  const cx=75, cy=78, r=62, t=thr('compassMin',0.34);
+  const pt=v=>{const a=Math.PI-(v+1)/2*Math.PI; return [cx+r*Math.cos(a), cy-r*Math.sin(a)];};
+  const arc=(a,b,cls)=>{const [x1,y1]=pt(a),[x2,y2]=pt(b); return `<path d="M${x1.toFixed(1)},${y1.toFixed(1)} A${r},${r} 0 0 1 ${x2.toFixed(1)},${y2.toFixed(1)}" class="${cls}" fill="none" stroke-width="10"/>`;};
+  let nd='';
+  if(sc!=null){const a=Math.PI-(Math.max(-1,Math.min(1,sc))+1)/2*Math.PI, x=cx+(r-6)*Math.cos(a), y=cy-(r-6)*Math.sin(a); nd=`<line x1="${cx}" y1="${cy}" x2="${x.toFixed(1)}" y2="${y.toFixed(1)}" class="k-needle" stroke-width="3" stroke-linecap="round"/><circle cx="${cx}" cy="${cy}" r="5" class="k-hub"/>`;}
+  return `<svg viewBox="0 0 150 92" role="img" aria-label="Kompass-Nadel zwischen Short und Long">${arc(-1,-t,'k-arc-s')}${arc(-t,t,'k-arc-n')}${arc(t,1,'k-arc-l')}${nd}<text x="4" y="91" class="axis">Short</text><text x="146" y="91" class="axis" text-anchor="end">Long</text></svg>`;
+}
+function sparkSvg(pts,W){
+  if(pts.length<2) return '';
+  const H=46, t=thr('compassMin',0.34), t0=pts[0][0], t1=pts[pts.length-1][0];
+  const X=v=>2+(v-t0)/((t1-t0)||1)*(W-4), Y=v=>H/2-v*(H/2-3);
+  const d=pts.map((p,i)=>(i?'L':'M')+X(p[0]).toFixed(1)+','+Y(p[1]).toFixed(1)).join('');
+  const last=pts[pts.length-1][1], col=last>=t?'var(--long)':last<=-t?'var(--short)':'var(--muted)';
+  return `<svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="Verlauf des Kompass-Scores"><rect class="k-band" x="0" y="${Y(t).toFixed(1)}" width="${W}" height="${(Y(-t)-Y(t)).toFixed(1)}" opacity=".6"/><line class="k-zero" x1="0" x2="${W}" y1="${Y(0)}" y2="${Y(0)}"/><path d="${d}" fill="none" class="k-line" stroke-width="1.8"/><circle cx="${X(pts[pts.length-1][0]).toFixed(1)}" cy="${Y(last).toFixed(1)}" r="3.5" style="fill:${col}"/></svg><div class="k-cap">Kompass-Verlauf seit ${new Date(t0).toLocaleString('de-DE',{weekday:'short',hour:'2-digit',minute:'2-digit'})} · graues Band = neutral</div>`;
+}
+function renderKompass(){
+  const c=S.coin, g=$('#kGauge'), v=$('#kVerdict'), sb=$('#kSub'), li=$('#kList'), sp=$('#kSpark'), nt=$('#kNote');
+  $('#kTitle').textContent=`Intraday-Kompass · ${c}`;
+  const k=stationSignals(c);
+  if(!sigOn('compass')){g.innerHTML=gaugeSvg(null); v.textContent='abgeschaltet'; sb.textContent='Der Kompass ist in den Einstellungen deaktiviert.'; li.innerHTML=''; sp.innerHTML=''; nt.textContent=''; return;}
+  if(!k||k.score==null){g.innerHTML=gaugeSvg(null); v.textContent=!MAIN_COINS.includes(c)?'nur für BTC, ETH, SOL, HYPE':!ONLINE?'nur auf der Website':'Sammle Messungen …'; sb.textContent=''; li.innerHTML=''; sp.innerHTML=''; nt.textContent=''; return;}
+  g.innerHTML=gaugeSvg(k.score);
+  const lab=k.dir>0?'Long-Tendenz':k.dir<0?'Short-Tendenz':'Neutral', cl=k.dir>0?'L':k.dir<0?'S':'muted';
+  const st=Math.abs(k.score)>=0.67?'stark':Math.abs(k.score)>=thr('compassMin',0.34)?'mittel':'schwach';
+  v.innerHTML=`<span class="${cl}">${lab}</span>`;
+  sb.textContent=`${st} · Score ${k.score>0?'+':k.score<0?'−':''}${num(Math.abs(k.score*100))} von ±100 · Horizont 1–4 Std.`;
+  const side=b=>b==null?'keine Daten':`${pct(b>=0.5?b:1-b,0,false)} ${b>=0.5?'long':'short'}`;
+  const rows=[
+    ['biasWinners','Gewinner-Wale',side(k.bWin)],
+    ['biasAll','Alle Wale',side(k.bAll)],
+    ['biasLosersFade','Gegen Verlierer-Wale','Verlierer '+side(k.bLose)],
+    ['flow4h','Fluss 4 Std.',k.x.net==null?'Verlauf noch zu kurz':`netto ${usd(k.x.net,{sign:true})}`],
+    ['squeezeRisk','Squeeze-Risiko',k.d.squeezeRisk>0?'Short-Squeeze möglich':k.d.squeezeRisk<0?'Long-Squeeze möglich':'unauffällig'],
+    ['liqMagnet','Magnete ±3 %',k.x.up==null?'keine Heatmap-Daten':`oben ${usd(k.x.up)} · unten ${usd(k.x.lo)}`]
+  ];
+  li.innerHTML=rows.filter(r=>sigOn(r[0])).map(([id,name,why])=>{const val=k.d[id], w=SIGW(id), c2=val==null?'dim':val>0?'L':val<0?'S':'muted', sym=val==null?'–':val>0?`+${num(w)}`:val<0?`−${num(w)}`:'0'; return `<li><span><b>${name}</b> <span class="muted">${why}</span></span><span class="k-c ${c2}" title="Beitrag zum Kompass (Gewicht ${num(w)})">${sym}</span></li>`;}).join('');
+  const ser=seriesFor(c), pts=[]; for(let i=0;i<ser.length;i++){const s2=stationSignals(c,i); if(s2&&s2.score!=null) pts.push([s2.t,s2.score]);}
+  sp.innerHTML=sparkSvg(pts,Math.max(200,sp.clientWidth||280));
+  nt.textContent=`Stand ${hm(k.t)} Uhr, neu mit jeder Messung. Gewichtete Summe der Signale aus den Messungen der Wetterstation, unabhängig von den Filtern oben. Noch nicht statistisch geprüft: Der Wochen-Review bewertet den Kompass ab etwa 14 Tagen Daten.`;
+}
 function renderHist(){
   const el=$('#hist'), ser=seriesFor(S.coin), hint=$('#histHint');
   if(ser.length<2){el.innerHTML=`<div class="empty">${!MAIN_COINS.includes(S.coin)?'Verlauf gibt es für BTC, ETH, SOL und HYPE.':!ONLINE?'Den Verlauf gibt es auf der Website, dort misst die Wetterstation alle 10 Minuten.':'Der Verlauf baut sich auf. Die erste Linie erscheint nach etwa 20 Minuten.'}</div>`; hint.textContent=''; return;}
@@ -851,44 +960,58 @@ function hexRgb(h){h=String(h).trim().replace('#',''); if(h.length===3) h=h.spli
 let HEAT=null;
 function renderHeat(){
   const cv=$('#heat'), hint=$('#heatHint'), H=S.recent&&S.recent.heat&&S.recent.heat[S.coin];
-  const W=cv.clientWidth||600, Hh=cv.clientHeight||300, dpr=window.devicePixelRatio||1;
+  const W=cv.clientWidth||600, Hh=cv.clientHeight||380, dpr=window.devicePixelRatio||1;
   if(cv.width!==Math.round(W*dpr)||cv.height!==Math.round(Hh*dpr)){cv.width=Math.round(W*dpr); cv.height=Math.round(Hh*dpr);}
   const c=cv.getContext('2d'); c.setTransform(dpr,0,0,dpr,0,0); c.clearRect(0,0,W,Hh);
   const css=getComputedStyle(document.documentElement), v=k=>css.getPropertyValue(k).trim();
-  const cL=hexRgb(v('--long')||'#1fd39a'), cS=hexRgb(v('--short')||'#ff5b6e'), cA=v('--accent')||'#f3b545', cDim=v('--dim')||'#5a697c', cLine=v('--line')||'#1a2532';
+  const cL=hexRgb(v('--long')||'#1fd39a').join(','), cS=hexRgb(v('--short')||'#ff5b6e').join(','), cA=v('--accent')||'#f3b545', cDim=v('--dim')||'#5a697c', cLine=v('--line')||'#1a2532', cText=v('--text')||'#e3eaf2', cBg=v('--panel2')||'#111a24';
+  const fMono=v('--f-mono')||'monospace';
   HEAT=null;
   if(!H||!H.length){
     c.fillStyle=cDim; c.font='13px '+(v('--f-body')||'sans-serif'); c.textAlign='center'; c.textBaseline='middle';
     c.fillText(!MAIN_COINS.includes(S.coin)?'Heatmap gibt es für BTC, ETH, SOL und HYPE.':!ONLINE?'Die Heatmap gibt es auf der Website (Wetterstation).':'Die Heatmap baut sich auf: jede Messung fügt eine Spalte hinzu.',W/2,Hh/2);
     hint.textContent=''; return;
   }
-  const bw=(S.recent.bucketPct||0.5)/100, cur=mid(S.coin)||H[H.length-1][1];
-  const pxs=H.map(h=>h[1]);
-  let lo=Math.min(...pxs,cur), hi=Math.max(...pxs,cur); const pad=Math.max((hi-lo)*0.5,cur*0.05);
-  lo=Math.max(cur*0.88,lo-pad); hi=Math.min(cur*1.12,hi+pad);
-  let max=1; for(const h of H) for(const b of h[2]) max=Math.max(max,b[1],b[2]);
-  const pl=58, pr=8, pt=8, pb=22, cw=(W-pl-pr)/H.length, Y=p=>pt+(hi-p)/(hi-lo)*(Hh-pt-pb);
-  const al=x=>Math.min(0.95,0.1+0.85*Math.sqrt(x/max));
-  const step=niceStep((hi-lo)/5);
-  c.fillStyle=cLine; for(let p=Math.ceil(lo/step)*step; p<=hi; p+=step) c.fillRect(pl,Math.round(Y(p)),W-pl-pr,1);
-  c.save(); c.beginPath(); c.rect(pl,pt,W-pl-pr,Hh-pt-pb); c.clip();
-  H.forEach(([t,p,bs,bpc],j)=>{
-    const x=pl+j*cw, w=Math.max(1,Math.ceil(cw)), bw=(bpc||S.recent.bucketPct||0.5)/100;
-    for(const [i,L,Sv] of bs){
-      const y1=Y(p*(1+(i+1)*bw)), y2=Y(p*(1+i*bw)); if(y2<pt||y1>Hh-pb) continue;
-      const hgt=Math.max(1,y2-y1);
-      if(L){c.fillStyle=`rgba(${cL[0]},${cL[1]},${cL[2]},${al(L)})`; c.fillRect(x,y1,w,hgt);}
-      if(Sv){c.fillStyle=`rgba(${cS[0]},${cS[1]},${cS[2]},${al(Sv)})`; c.fillRect(x,y1,w,hgt);}
-    }
-  });
-  c.strokeStyle=cA; c.lineWidth=1.6; c.beginPath();
-  H.forEach(([t,p],j)=>{const x=pl+j*cw+cw/2, y=Y(p); if(j) c.lineTo(x,y); else c.moveTo(x,y);});
-  c.stroke(); c.restore();
-  c.fillStyle=cDim; c.font='10.5px '+(v('--f-mono')||'monospace'); c.textAlign='right'; c.textBaseline='middle';
-  for(let p=Math.ceil(lo/step)*step; p<=hi; p+=step) c.fillText(px(p),pl-6,Y(p));
-  c.textBaseline='alphabetic';
-  for(let i=0;i<4;i++){const j=Math.round((H.length-1)*i/3); c.textAlign=i===0?'left':i===3?'right':'center'; c.fillText(hm(H[j][0]),i===0?pl:i===3?W-pr:pl+j*cw+cw/2,Hh-6);}
-  HEAT={H,pl,pr,pt,pb,cw,lo,hi,Hh,bw};
+  const cur=mid(S.coin)||H[H.length-1][1], R=(S.f.heatR||6)/100, lo=cur*(1-R), hi=cur*(1+R);
+  const pl=58, pr=6, pt=22, pb=24, prof=Math.round(Math.min(190,Math.max(96,W*0.2))), gap=14;
+  const plotW=W-pl-prof-gap-pr, plotH=Hh-pt-pb;
+  const NB=Math.max(24,Math.min(70,Math.round(plotH/6))), bh=(hi-lo)/NB, rowH=plotH/NB;
+  // Messungen in feste Preisstufen einsortieren
+  const grid=H.map(([t,p,bs,bpc])=>{const bw=(bpc||S.recent.bucketPct||0.5)/100, row=new Array(NB); for(const [i,L,Sv] of bs){const pc=p*(1+(i+0.5)*bw); if(pc<lo||pc>=hi) continue; const b=Math.floor((pc-lo)/bh); const x=row[b]||(row[b]=[0,0]); x[0]+=L; x[1]+=Sv;} return row;});
+  let max=1; for(const row of grid) for(const x of row) if(x) max=Math.max(max,x[0]+x[1]);
+  const cw=plotW/H.length, Y=p=>pt+(hi-p)/(hi-lo)*plotH, yRow=b=>pt+(NB-1-b)*rowH;
+  // Raster und Preisachse
+  const step=niceStep((hi-lo)/6);
+  c.fillStyle=cLine; for(let p=Math.ceil(lo/step)*step; p<hi; p+=step) c.fillRect(pl,Math.round(Y(p)),plotW,1);
+  c.fillStyle=cDim; c.font='10.5px '+fMono; c.textAlign='right'; c.textBaseline='middle';
+  for(let p=Math.ceil(lo/step)*step; p<hi; p+=step) c.fillText(px(p),pl-6,Y(p));
+  // Zellen: kräftiger = mehr Liquidität, sehr kleine Werte ausgeblendet (Rauschen)
+  const al=x=>Math.min(0.95,0.14+0.81*Math.sqrt(x/max));
+  grid.forEach((row,j)=>{const x=pl+j*cw, w=Math.max(1,Math.ceil(cw)); row.forEach((val,b)=>{ if(!val) return; const tot=val[0]+val[1]; if(tot<max*0.04) return; c.fillStyle=`rgba(${val[0]>=val[1]?cL:cS},${al(tot)})`; c.fillRect(x,yRow(b)+0.5,w,Math.max(1,rowH-1)); });});
+  // Kurslinie
+  c.save(); c.beginPath(); c.rect(pl,pt,plotW,plotH); c.clip();
+  c.strokeStyle=cA; c.lineWidth=1.8; c.beginPath();
+  H.forEach(([t,p],j)=>{const x=pl+j*cw+cw/2, y=Y(p); if(j) c.lineTo(x,y); else c.moveTo(x,y);}); c.stroke(); c.restore();
+  // Zeitachse
+  c.fillStyle=cDim; c.textBaseline='alphabetic';
+  const nt=Math.min(5,H.length); for(let i=0;i<nt;i++){const j=nt===1?0:Math.round((H.length-1)*i/(nt-1)); c.textAlign=i===0?'left':i===nt-1?'right':'center'; c.fillText(hm(H[j][0]),i===0?pl:i===nt-1?pl+plotW:pl+j*cw+cw/2,Hh-7);}
+  // Profil „Jetzt“ (letzte Messung) rechts
+  const x0=pl+plotW+gap, last=grid[grid.length-1]; let lmax=1; last.forEach(x=>{if(x) lmax=Math.max(lmax,x[0]+x[1]);});
+  c.fillStyle=cDim; c.textAlign='left'; c.font='600 10.5px '+fMono; c.fillText('JETZT',x0,pt-8);
+  c.fillStyle=cLine; c.fillRect(x0,pt,1,plotH);
+  const labW=62, barMax=Math.max(20,prof-labW-6);
+  last.forEach((val,b)=>{ if(!val) return; const tot=val[0]+val[1]; if(tot<lmax*0.02) return; const y=yRow(b)+0.5, h=Math.max(1,rowH-1); const wl=val[0]/lmax*barMax, ws=val[1]/lmax*barMax; if(wl){c.fillStyle=`rgba(${cL},.85)`; c.fillRect(x0+1,y,wl,h);} if(ws){c.fillStyle=`rgba(${cS},.85)`; c.fillRect(x0+1+wl,y,ws,h);} });
+  const topB=last.map((val,b)=>[b,val?val[0]+val[1]:0]).filter(x=>x[1]>0).sort((a,b2)=>b2[1]-a[1]).slice(0,3);
+  c.font='10.5px '+fMono; c.textBaseline='middle';
+  for(const [b,tot] of topB){const val=last[b], len=tot/lmax*barMax; c.fillStyle=val[0]>=val[1]?`rgb(${cL})`:`rgb(${cS})`; c.fillText(usd(tot),Math.min(x0+4+len,x0+prof-labW),yRow(b)+rowH/2);}
+  // Kurs-Etikett
+  const yc=Y(cur);
+  if(yc>=pt&&yc<=pt+plotH){
+    c.setLineDash([3,3]); c.strokeStyle=cA; c.lineWidth=1; c.beginPath(); c.moveTo(x0,yc); c.lineTo(x0+prof,yc); c.stroke(); c.setLineDash([]);
+    const tag=px(cur); c.font='600 10.5px '+fMono; const tw=c.measureText(tag).width+10;
+    c.fillStyle=cA; c.fillRect(pl+plotW-tw,yc-8,tw,16); c.fillStyle=cBg; c.textAlign='right'; c.fillText(tag,pl+plotW-5,yc+0.5);
+  }
+  HEAT={H,grid,pl,plotW,cw,pt,plotH,lo,hi,bh,NB,rowH,x0,prof};
   hint.textContent=`${H.length} Messungen seit ${hm(H[0][0])} Uhr`;
 }
 
@@ -1191,14 +1314,18 @@ function wire(){
   $('#fMin').value=String(S.f.min);
   $('#fMin').addEventListener('change',e=>{S.f.min=+e.target.value; saveFilters(); S.forceSlow=true; render();});
   segInit('#fSide',S.f.side,v=>{S.f.side=v; saveFilters(); render();});
+  segInit('#heatR',String(S.f.heatR||6),v=>{S.f.heatR=+v; saveFilters(); S.forceSlow=true; render();});
   segInit('#fCls',S.f.cls,v=>{S.f.cls=v; saveFilters(); S.feedDirty=true; S.forceSlow=true; S.tableDirty=true; render();});
   const hc=$('#heat');
   hc.addEventListener('mousemove',e=>{
     const g=HEAT; if(!g){hideTip(); return;}
-    const r=hc.getBoundingClientRect(), x=e.clientX-r.left, y=e.clientY-r.top, j=Math.floor((x-g.pl)/g.cw), col=g.H[j];
-    if(!col||y<g.pt||y>g.Hh-g.pb){hideTip(); return;}
-    const bwc=(col[3]||S.recent.bucketPct||0.5)/100, price=g.hi-(y-g.pt)/(g.Hh-g.pt-g.pb)*(g.hi-g.lo), i=Math.floor((price/col[1]-1)/bwc), b=col[2].find(q=>q[0]===i);
-    showTip(e,`<b>${hm(col[0])} Uhr</b> · Kurs ${px(col[1])}<br>${px(col[1]*(1+i*bwc))} – ${px(col[1]*(1+(i+1)*bwc))} $`+(b?(b[1]?`<br><span class="L">Long-Liq. ${usd(b[1])}</span>`:'')+(b[2]?`<br><span class="S">Short-Liq. ${usd(b[2])}</span>`:''):'<br><span class="dim">keine Wal-Liquidationen</span>'));
+    const r=hc.getBoundingClientRect(), x=e.clientX-r.left, y=e.clientY-r.top;
+    if(y<g.pt||y>g.pt+g.plotH){hideTip(); return;}
+    const b=g.NB-1-Math.floor((y-g.pt)/g.rowH); if(b<0||b>=g.NB){hideTip(); return;}
+    let j=Math.floor((x-g.pl)/g.cw), label;
+    if(x>=g.x0){j=g.H.length-1; label='Jetzt';} else if(j<0||j>=g.H.length){hideTip(); return;} else label=hm(g.H[j][0])+' Uhr';
+    const val=g.grid[j][b], p0=g.lo+b*g.bh;
+    showTip(e,`<b>${label}</b> · Kurs ${px(g.H[j][1])}<br>${px(p0)} – ${px(p0+g.bh)} $`+(val&&(val[0]||val[1])?(val[0]?`<br><span class="L">Long-Liq. ${usd(val[0])}</span>`:'')+(val[1]?`<br><span class="S">Short-Liq. ${usd(val[1])}</span>`:''):'<br><span class="dim">keine Wal-Liquidationen</span>'));
   });
   hc.addEventListener('mouseleave',hideTip);
   $('#fMM').checked=S.f.hideMM;
@@ -1255,7 +1382,7 @@ function render(){
   const now=Date.now();
   if(S.tableDirty||S.ver!==lastVer||now-lastTable>2500){renderTable(all); lastTable=now; lastVer=S.ver; S.tableDirty=false;}
   if(S.feedDirty){renderFeed(); S.feedDirty=false;}
-  if(S.forceSlow||now-lastSlow>3000){renderLiq(base); renderCoinBias(); renderLage(base,g); renderHist(); renderHeat(); lastSlow=now; S.forceSlow=false;}
+  if(S.forceSlow||now-lastSlow>3000){renderLiq(base); renderCoinBias(); renderLage(base,g); renderKompass(); renderHist(); renderHeat(); lastSlow=now; S.forceSlow=false;}
   if(S.selected) renderDrLive();
 }
 function boot(){

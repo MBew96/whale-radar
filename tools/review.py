@@ -8,7 +8,7 @@ späteren Kurs in 1, 4 und 24 Stunden verglichen. Gezählt werden nur nicht übe
 import json, sys, argparse
 from datetime import datetime
 from zoneinfo import ZoneInfo
-from common import load_settings, load_snapshots, side_share, price_at, liq_within, de_num
+from common import load_settings, load_snapshots, price_at, de_num, signal_dirs, compass, compass_dir
 
 BER = ZoneInfo('Europe/Berlin')
 ap = argparse.ArgumentParser()
@@ -39,38 +39,11 @@ def at_or_before(i, ms):
     return snaps[j] if abs(snaps[j]['t'] - t) <= 30 * 60e3 else None
 
 
-def bias_dir(k):
-    sh = side_share(k)
-    if sh is None:
-        return 0
-    return 1 if sh >= strong else (-1 if sh <= 1 - strong else 0)
-
-
 def signals(i):
-    s = snaps[i]
-    k = s['coins'][coin]
-    d = {}
-    d['biasAll'] = bias_dir(k['all'])
-    d['biasWinners'] = bias_dir(k['win'])
-    d['biasLosersFade'] = -bias_dir(k['lose'])
-    s0 = at_or_before(i, 4 * 3600e3)
-    if s0 and s0['coins'].get(coin):
-        k0 = s0['coins'][coin]['all']
-        net = (k['all']['L'][0] - k0['L'][0]) - (k['all']['S'][0] - k0['S'][0])
-        d['flow4h'] = 1 if net >= flow_thr else (-1 if net <= -flow_thr else 0)
-    else:
-        d['flow4h'] = 0
-    tot = k['all']['L'][0] + k['all']['S'][0]
-    st = k.get('stress', {'L': [0, 0, 0], 'S': [0, 0, 0]})
-    sq = 0
-    for side, dirv in (('S', 1), ('L', -1)):
-        ntl = k['all'][side][0]
-        if tot and ntl and ntl / tot >= 0.6 and st[side][1] / ntl >= 0.5 and st[side][0] / ntl >= 0.1:
-            sq = dirv
-    d['squeezeRisk'] = sq
-    lo, up = liq_within(s, coin, 0.03)
-    d['liqMagnet'] = 1 if (up > 0 and up >= 1.5 * lo) else (-1 if (lo > 0 and lo >= 1.5 * up) else 0)
-    return d
+    """Richtungen aller Signale plus Kompass – dieselbe Definition wie Dashboard und Morgencheck (tools/common.py)."""
+    d = signal_dirs(snaps[i], at_or_before(i, 4 * 3600e3), cfg, coin)
+    d['compass'] = compass_dir(compass(d, cfg), cfg)
+    return {k: (v or 0) for k, v in d.items()}
 
 
 names = [k for k, v in cfg.get('signals', {}).items() if isinstance(v, dict) and k != 'takerFlow']
