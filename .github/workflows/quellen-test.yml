@@ -1,0 +1,52 @@
+name: Quellen-Test
+# Prüft, welche Marktdaten-Quellen der GitHub-Rechner erreicht (drei Läufe, evtl. verschiedene Standorte).
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['collector/probe.mjs', '.github/workflows/quellen-test.yml']
+permissions:
+  contents: write
+concurrency:
+  group: quellen-test
+  cancel-in-progress: false
+jobs:
+  testen:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    strategy:
+      fail-fast: false
+      matrix:
+        lauf: [1, 2, 3]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Quellen abfragen
+        run: node collector/probe.mjs probe-${{ matrix.lauf }}.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: probe-${{ matrix.lauf }}
+          path: probe-${{ matrix.lauf }}.json
+  sichern:
+    needs: testen
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: probe-*
+          merge-multiple: true
+          path: probe
+      - name: Ergebnis ins Repo
+        run: |
+          STAMP=$(date -u +%Y%m%d-%H%M)
+          mkdir -p data/probe
+          node -e "const fs=require('fs');const r=fs.readdirSync('probe').sort().map(f=>JSON.parse(fs.readFileSync('probe/'+f)));fs.writeFileSync('data/probe/quellen-$STAMP.json',JSON.stringify(r,null,1))"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/probe
+          git commit -q -m "Quellen-Test $STAMP"
+          for i in 1 2 3; do git pull -q --rebase origin main && git push -q && break; sleep 5; done
