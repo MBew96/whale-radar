@@ -1,5 +1,18 @@
 # Änderungsprotokoll
 
+## 2026-10-04 – Wetterstation: Zeitplan-Aussetzer von GitHub, Auslieferung robuster
+- Anlass: GitHub-Mail „Run failed: Wetterstation“ (04.10. 05:28 UTC). Fehlgeschlagen ist nur die Auslieferung der Website (`deploy-pages`: Token-Fehler „id-token: write“, obwohl die Berechtigung gesetzt ist; also eine Störung bei GitHub). Die Messung selbst wurde gespeichert, und der nächste Lauf hat die Website wieder ausgeliefert.
+- Wichtiger Befund dabei: Seit 03.10. etwa 11:05 UTC startet GitHub den Zeitplan nur noch alle 2–6 Std. statt alle 10–15 Min.
+  - Messungen pro Tag: 29.09.: 109 · 30.09.: 99 · 01.10.: 96 · 02.10.: 99 · 03.10.: 55 · 04.10. bis 13 Uhr: 4
+  - Lücken: 143, 295, 344, 194, 127 und 338 Min.
+  - Der Workflow ist weiter aktiv. GitHub führt Zeitpläne nur „nach Möglichkeit“ aus; das Problem ist in der GitHub-Community für 2026 mehrfach beschrieben.
+- Änderungen:
+  - Zeitplan auf Minute 4, 14, 24 … verschoben (weg von der vollen Stunde, wenn die meisten Zeitpläne starten)
+  - Auslieferung wird bei einem Fehler nach 30 s einmal wiederholt
+  - Node 20 → 22, weil Node 20 nicht mehr gepflegt wird
+- Folge für die Auswertung: Die Lücken stehen im Review unter „Lücken > 30 Min.“. Fälle ohne Kurs im Abstand von ±15 Min. zum Zielzeitpunkt fallen automatisch heraus; es wird nichts aufgefüllt.
+- Offen (Entscheidung Mirco): zuverlässiger Takt durch einen Anstoß von außen alle 10 Min. (`workflow_dispatch`).
+
 ## 2026-09-29 – Infokachel „Gesamtmarkt“ im Dashboard (OK von Mirco, 22:07)
 - Neue Kachel unter den Kennzahlen, für BTC und ETH. Sie zeigt:
   - OI-Balken je Börse inkl. Hyperliquid-Anteil (BTC gerade etwa 21 % von 17,2 Mrd. $ erfasstem OI) und Veränderung in 4 Std.

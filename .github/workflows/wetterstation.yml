@@ -1,9 +1,12 @@
 name: Wetterstation
 
 # Alle 10 Minuten: Wal-Positionen abholen, Momentaufnahme speichern, Website neu ausliefern.
+# GitHub startet Zeitpläne nur „nach Möglichkeit“ und unter Last oft Stunden zu spät (seit 03.10.2026
+# beobachtet). Deshalb Minute 4, 14, 24 … statt zur vollen Stunde, wenn alle anderen auch starten.
+# Zuverlässig wird es erst mit einem Anstoß von außen (workflow_dispatch), siehe CHANGELOG 04.10.2026.
 on:
   schedule:
-    - cron: '*/10 * * * *'
+    - cron: '4-59/10 * * * *'
   workflow_dispatch:
   push:
     branches: [main]
@@ -28,13 +31,13 @@ jobs:
     timeout-minutes: 9
     environment:
       name: github-pages
-      url: ${{ steps.deploy.outputs.page_url }}
+      url: ${{ steps.deploy.outputs.page_url || steps.deploy2.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
 
       - name: Wale messen
         run: node collector/collect.mjs
@@ -54,5 +57,16 @@ jobs:
         with:
           path: _site
 
+      # Die Momentaufnahme ist zu diesem Zeitpunkt schon gesichert. Klemmt die Auslieferung der Website
+      # kurz (z. B. 04.10.2026: Token-Fehler bei GitHub), einmal nach 30 s wiederholen, statt den Lauf scheitern zu lassen.
       - id: deploy
+        uses: actions/deploy-pages@v4
+        continue-on-error: true
+
+      - name: Kurz warten vor zweitem Versuch
+        if: steps.deploy.outcome == 'failure'
+        run: sleep 30
+
+      - id: deploy2
+        if: steps.deploy.outcome == 'failure'
         uses: actions/deploy-pages@v4
