@@ -1,5 +1,20 @@
 # Änderungsprotokoll
 
+## 2026-10-04 – Wochen-Review (zweiter Lauf): nichts geändert
+- **Datenlage** (laut `review.py`): 464 Messungen über 5,6 Tage (29.09. 00:50 bis 04.10. 14:26), 7 Lücken > 30 Min. (Zeitplan-Aussetzer von GitHub seit 03.10., siehe Eintrag oben), 0 Scanfehler – BTC und ETH gleich. Börsendaten: 372 Messungen seit 29.09. 21:19, nur vereinzelte Ausfälle (Zeitüberschreitung 3×, Kraken je 1×); keine Quelle dauerhaft ausgefallen.
+- **Kernzahlen** (alle „zu wenig Daten“, max. 27 Fälle je Signal statt der nötigen 30):
+  - BTC Vergleichswert (Kurs stieg): 1h 63 % (n=27), 4h 58 % (n=26), 24h 59 % (n=22)
+  - BTC Kompass: 1h 68 % (n=22, nur Long), 4h 59 % (n=22), 24h 60 % (n=20)
+  - BTC Gewinner-Wale: 1h 63 % (n=27, nur Long), 4h 58 % (n=26) – genau gleich dem Vergleichswert
+  - BTC Liq.-Magnet: 4h 59 % (n=22, 14 Long/8 Short)
+  - ETH Vergleichswert: 1h 59 %, 4h 50 % (n=26/27) · ETH Kompass 1h 70 % (n=10), 24h 33 % (n=9) · ETH gegen Verlierer-Wale 1h 76 % (n=21)
+  - Bias aller Wale (BTC 2, ETH 0 Fälle) und Squeeze-Risiko (0 Fälle) lösen kaum aus.
+  - Beobachtungs-Signale: höchstens 20 Fälle (Binance-Spot-Taker), übrige 1–5 Fälle.
+- **Einordnung**: Fast alle Wal-Signale zeigen bisher nur Long, in einer Woche mit überwiegend steigendem Kurs. Sie liegen deshalb nicht erkennbar über dem Vergleichswert.
+- **Entscheidung**: Keine Bewertung (< 14 Tage Daten), keine Änderung an Signalen, Gewichten oder Schwellen (< 21 Tage). Nächste Bewertung frühestens ab 12.10., Änderungen frühestens ab 19.10.
+- Weiter offen (Entscheidung Mirco): zuverlässiger Messtakt per Anstoß von außen (`workflow_dispatch`), da die Zeitplan-Lücken die Fallzahlen drücken.
+- Vollständige Bilanz: `data/review/2026-10-04.md`.
+
 ## 2026-10-04 – Wetterstation: Zeitplan-Aussetzer von GitHub, Auslieferung robuster
 - Anlass: GitHub-Mail „Run failed: Wetterstation“ (04.10. 05:28 UTC). Fehlgeschlagen ist nur die Auslieferung der Website (`deploy-pages`: Token-Fehler „id-token: write“, obwohl die Berechtigung gesetzt ist; also eine Störung bei GitHub). Die Messung selbst wurde gespeichert, und der nächste Lauf hat die Website wieder ausgeliefert.
 - Wichtiger Befund dabei: Seit 03.10. etwa 11:05 UTC startet GitHub den Zeitplan nur noch alle 2–6 Std. statt alle 10–15 Min.
