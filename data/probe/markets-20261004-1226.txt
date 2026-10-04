@@ -1,0 +1,261 @@
+{
+ "ms": 6053,
+ "mkt": {
+  "_": {
+   "usdt": 0.99984,
+   "ex": {
+    "binance_futures": [
+     366816,
+     248677
+    ],
+    "hyperliquid": [
+     200490,
+     27486
+    ],
+    "coinw_futures": [
+     176955,
+     91472
+    ],
+    "bybit": [
+     174033,
+     63248
+    ],
+    "mxc_futures": [
+     170648,
+     70346
+    ],
+    "gate_futures": [
+     166970,
+     42662
+    ],
+    "weex-futures": [
+     157900,
+     89000
+    ],
+    "tapbit-futures": [
+     117147,
+     76169
+    ],
+    "bitget_futures": [
+     106065,
+     33488
+    ],
+    "okex_swap": [
+     95717,
+     98235
+    ],
+    "xt_derivatives": [
+     73564,
+     44033
+    ],
+    "coinup-futures": [
+     69039,
+     103933
+    ]
+   },
+   "fng": 65
+  },
+  "BTC": {
+   "oi": {
+    "bitget": 2828488708,
+    "okx": 2983650491,
+    "deribit": 1431299860,
+    "kraken": 180718122,
+    "htx": 2003111277,
+    "gate": 4342917625
+   },
+   "f": {
+    "okx": 0.000005932,
+    "bitget": -0.000001,
+    "deribit": 2.4e-7,
+    "htx": 0.000005793,
+    "gate": -0.000028
+   },
+   "ls": {
+    "okxTop": 0.4967,
+    "okxAcc": 0.5671,
+    "bitgetAcc": 0.5819,
+    "gateAcc": 0.5227,
+    "gateTop": 0.5297,
+    "bitgetPos": 0.492
+   },
+   "tk": {
+    "bnSpot": [
+     13296993,
+     30487909
+    ],
+    "okx": [
+     44580471,
+     51944163
+    ],
+    "gate": 0.3775
+   },
+   "liq": {
+    "okx": [
+     0,
+     0
+    ],
+    "gate": [
+     0,
+     0
+    ]
+   },
+   "px": {
+    "cb": 85282.02,
+    "bn": 85294.67
+   },
+   "opt": {
+    "pc": 0.5589,
+    "pcv": 1.212,
+    "oi": 348953
+   },
+   "cb": 0.00001169
+  },
+  "ETH": {
+   "oi": {
+    "okx": 1831632525,
+    "deribit": 415181119,
+    "bitget": 2057698543,
+    "kraken": 75287082,
+    "htx": 673788050,
+    "gate": 2160292232
+   },
+   "f": {
+    "okx": 0.00002594,
+    "deribit": -0.000005,
+    "bitget": 0.000042,
+    "htx": 0.00003062,
+    "gate": 0.000063
+   },
+   "ls": {
+    "okxTop": 0.4844,
+    "okxAcc": 0.6109,
+    "gateAcc": 0.5828,
+    "gateTop": 0.4521,
+    "bitgetAcc": 0.6964,
+    "bitgetPos": 0.4948
+   },
+   "tk": {
+    "okx": [
+     35822990,
+     45619514
+    ],
+    "gate": 1.479,
+    "bnSpot": [
+     4353266,
+     8138513
+    ]
+   },
+   "liq": {
+    "okx": [
+     0,
+     0
+    ],
+    "gate": [
+     0,
+     0
+    ]
+   },
+   "px": {
+    "cb": 2702.64,
+    "bn": 2702.995
+   },
+   "opt": {
+    "pc": 0.5666,
+    "pcv": 0.565,
+    "oi": 1323526
+   },
+   "cb": 0.00002867
+  }
+ }
+}
+
+--- Rohantworten ---
+## cb USDT-USD
+{"ask":"0.99985","bid":"0.99983","volume":"16757154.93","trade_id":148821529,"price":"0.99985","size":"65.08","time":"2026-10-04T12:26:37.631580444Z"}
+## cb ticker BTC
+{"ask":"85282.03","bid":"85282.02","volume":"1852.74721089","trade_id":1102181573,"price":"85282.02","size":"0.00000007","time":"2026-10-04T12:26:38.740785714Z","rfq_volume":"89.227834"}
+## cb ticker ETH
+{"ask":"2702.67","bid":"2702.61","volume":"18007.27341509","trade_id":846821010,"price":"2702.7","size":"0.0175491","time":"2026-10-04T12:26:35.746566112Z","rfq_volume":"668.582582"}
+## bn book ETH
+{"symbol":"ETHUSDT","bidPrice":"2702.99000000","bidQty":"94.27030000","askPrice":"2703.00000000","askQty":"28.97300000"}
+## bn book BTC
+{"symbol":"BTCUSDT","bidPrice":"85294.66000000","bidQty":"3.96437000","askPrice":"85294.67000000","askQty":"4.24618000"}
+## bn klines BTC
+[[1791113400000,"85312.00000000","85315.14000000","85304.75000000","85315.11000000","16.60181000",1791113699999,"1416359.60269250",2727,"9.39417000","801452.21879010","0"],[1791113700000,"85315.12000000","85315.12000000","85272.61000000","85272.62000000","20.68496000",1791113999999,"1764231.74277950",4035,"4.04680000","345164.19188740","0"],[1791114000000,"85272.61000000","85285.49000000","85267.86000000","85274.73000000","28.78684000",1791114299999,"2454881.76804130",3031,"11.58966000","988315.49484330","0"],[1791114300000,"85274.72000000","85280.94000000","85260.00000000","85275.19000000","20.77963000",1791114599999,"1771973.72549370",2553,"12.48729000","1064835.45435270","0"],[17911146000
+## bitget oi BTC
+{"code":"00000","msg":"success","requestTime":1791116800959,"data":{"openInterestList":[{"symbol":"BTCUSDT","size":"33161.377000000001"}],"ts":"1791116800960"}}
+## okx inst BTC
+{"code":"0","data":[{"alias":"","auctionEndTime":"","baseCcy":"","category":"1","contTdSwTime":"1611916860000","ctMult":"1","ctType":"linear","ctVal":"0.01","ctValCcy":"BTC","expTime":"","floatPxLmtPct":"0.005","freq":"","futureSettlement":false,"groupId":"4","initPxLmtPct":"0.02","instCategory":"1","instFamily":"BTC-USDT","instId":"BTC-USDT-SWAP","instIdCode":10459,"instType":"SWAP","lever":"100","listTime":"1573557408000","longPosRemainingQuota":"","lotSz":"0.01","maxIcebergSz":"100000000.0000000000000000","maxLmtAmt":"20000000","maxLmtSz":"100000000","maxMktAmt":"","maxMktSz":"35000","maxPlatOICoinLmt":"","maxPlatOILmt":"","maxPxLmtPct":"0.01","maxStopSz":"35000","maxTriggerSz":"100000000
+## okx funding BTC
+{"code":"0","data":[{"formulaType":"withRate","fundingRate":"0.0000059323823824","fundingTime":"1791129600000","impactValue":"20000.0000000000000000","instId":"BTC-USDT-SWAP","instType":"SWAP","interestRate":"0.0001000000000000","maxFundingRate":"0.00375","method":"current_period","minFundingRate":"-0.00375","nextFundingRate":"","nextFundingTime":"1791158400000","premium":"-0.0004326187503298","prevFundingTime":"1791100800000","settFundingRate":"0.0000139230909643","settState":"settled","ts":"1791116788921"}],"msg":""}
+## bitget funding BTC
+{"code":"00000","msg":"success","requestTime":1791116800968,"data":[{"symbol":"BTCUSDT","fundingRate":"-0.000001","fundingRateInterval":"8","nextUpdate":"1791129600000","minFundingRate":"-0.003","maxFundingRate":"0.003"}]}
+## okx oi
+{"code":"0","data":[{"instId":"BTC-USD-SWAP","instType":"SWAP","oi":"5562439.50000000003","oiCcy":"6522.2697628388979267","oiUsd":"556243950.000000003","ts":"1791116800957"},{"instId":"ETH-USD-SWAP","instType":"SWAP","oi":"19489096","oiCcy":"72116.6649398321516851","oiUsd":"194890960","ts":"1791116800957"},{"instId":"SOL-USD-SWAP","instType":"SWAP","oi":"2938758","oiCcy":"241813.3794124907430264","oiUsd":"29387580","ts":"1791116800957"},{"instId":"DOGE-USD-SWAP","instType":"SWAP","oi":"1989765","oiCcy":"212718088.5182809493264913","oiUsd":"19897650","ts":"1791116800957"},{"instId":"XRP-USD-SWAP","instType":"SWAP","oi":"945536","oiCcy":"6298534.5057287503330669","oiUsd":"9455360","ts":"179111
+## okx liq BTC
+{"code":"0","data":[{"details":[{"bkLoss":"0","bkPx":"85390.4","ccy":"","posSide":"short","side":"buy","sz":"1","time":1791109725616,"ts":"1791109725616"},{"bkLoss":"0","bkPx":"85388.1","ccy":"","posSide":"short","side":"buy","sz":"0.17","time":1791109722743,"ts":"1791109722743"},{"bkLoss":"0","bkPx":"85385.5","ccy":"","posSide":"short","side":"buy","sz":"69.17","time":1791109147589,"ts":"1791109147589"},{"bkLoss":"0","bkPx":"85384","ccy":"","posSide":"short","side":"buy","sz":"0.1","time":1791109147032,"ts":"1791109147032"},{"bkLoss":"0","bkPx":"85384","ccy":"","posSide":"short","side":"buy","sz":"0.09","time":1791109147023,"ts":"1791109147023"},{"bkLoss":"0","bkPx":"85384","ccy":"","posSid
+## okx taker BTC
+{"code":"0","data":[["1791116700000","2790341.287","3942453.7067"],["1791116400000","10404136.6807","5716300.9176"],["1791116100000","19152655.7392","7700445.0726"],["1791115800000","792851.3206","3719642.0704"],["1791115500000","2273429.3272","3536455.0364"],["1791115200000","2616027.8657","3993063.4578"],["1791114900000","1160354.1053","3507071.6656"],["1791114600000","2069846.0237","3336874.9483"],["1791114300000","3224997.8816","4137616.0578"],["1791114000000","2441732.594","594996.0035"],["1791113700000","2807423.6358","2639245.6884"],["1791113400000","2210367.0319","1756306.4448"],["1791113100000","1127082.2761","2376909.8117"],["1791112800000","1408578.0516","3919713.4038"],["17911125
+## okx top BTC
+{"code":"0","data":[["1791116700000","0.9867928259173419"],["1791116400000","0.9867560984786698"],["1791116100000","0.9866965340149965"],["1791115800000","0.9859104081305945"],["1791115500000","0.9859098361906862"],["1791115200000","0.9862545621521295"],["1791114900000","0.9863076274303678"],["1791114600000","0.9863536078274685"],["1791114300000","0.9860664702215238"],["1791114000000","0.985969628930136"],["1791113700000","0.9857609703802915"],["1791113400000","0.9857176769229035"],["1791113100000","0.9855765543926011"],["1791112800000","0.9855443916283415"],["1791112500000","0.9852928400505437"],["1791112200000","0.9853769985681036"],["1791111900000","0.9854201350503917"],["1791111600000","
+## coingecko
+[{"name":"Binance (Futures)","id":"binance_futures","open_interest_btc":366816.38,"trade_volume_24h_btc":"248677.13","number_of_perpetual_pairs":799,"number_of_futures_pairs":21,"image":"https://coin-images.coingecko.com/markets/images/466/small/binance_futures.jpg?1706864452","year_established":2019,"country":"Cayman Islands","description":"","url":"https://www.binance.com/"},{"name":"Hyperliquid (Futures)","id":"hyperliquid","open_interest_btc":200490.27,"trade_volume_24h_btc":"27486.05","number_of_perpetual_pairs":330,"number_of_futures_pairs":0,"image":"https://coin-images.coingecko.com/markets/images/1208/small/Hyperliquid_logo.png?1706865217","year_established":2023,"country":"Cayman I
+## deribit fut BTC
+{"jsonrpc":"2.0","result":[{"high":86037.5,"low":85172.5,"last":8.59e4,"instrument_name":"BTC-27NOV26","bid_price":85922.5,"ask_price":85925.0,"open_interest":36982160,"mark_price":85912.65,"creation_timestamp":1791116801010,"estimated_delivery_price":85278.65,"price_change":0.4649,"volume":4.74866907,"base_currency":"BTC","quote_currency":"USD","volume_usd":406340.0,"volume_notional":406340.0,"mid_price":85923.75},{"high":89722.5,"low":88945.0,"last":89630.0,"instrument_name":"BTC-24SEP27","bid_price":89642.5,"ask_price":89712.5,"open_interest":4275980,"mark_price":89675.4,"creation_timestamp":1791116801010,"estimated_delivery_price":85278.65,"price_change":0.4286,"volume":14.82681928,"base
+## deribit opt BTC
+{"jsonrpc":"2.0","result":[{"high":0.0105,"low":0.01,"last":0.0105,"instrument_name":"BTC-27NOV26-73000-P","bid_price":0.01,"ask_price":0.011,"open_interest":64.1,"mark_price":0.01042044,"interest_rate":0.0,"creation_timestamp":1791116800013,"estimated_delivery_price":85278.85,"price_change":0.0,"volume":0.8,"mark_iv":39.93,"underlying_price":85913.28,"underlying_index":"BTC-27NOV26","base_currency":"BTC","quote_currency":"BTC","volume_usd":710.46,"mid_price":0.0105},{"high":0.0145,"low":0.014,"last":0.0145,"instrument_name":"BTC-25DEC26-104000-C","bid_price":0.0145,"ask_price":0.0155,"open_interest":172.6,"mark_price":0.01504275,"interest_rate":0.0,"creation_timestamp":1791116800013,"estima
+## kraken BTC
+{"result":"success","serverTime":"2026-10-04T12:26:41.142Z","ticker":{"symbol":"PF_XBTUSD","last":85292,"lastTime":"2026-10-04T12:26:39.475325Z","tag":"perpetual","pair":"XBT:USD","markPrice":85285.23372982315,"bid":85285,"bidSize":0.1132,"ask":85286,"askSize":0.1101,"vol24h":1633.6499,"volumeQuote":138756930.7354,"openInterest":2118.984900000000,"open24h":84899,"high24h":85424,"low24h":84536,"vwap24h":84936.76076826,"lastSize":0.0056,"fundingRate":1.275518525917945098,"fundingRatePrediction":0.54482330901375,"suspended":false,"indexPrice":85279.12,"postOnly":false,"change24h":0.46}}
+## okx acc BTC
+{"code":"0","data":[["1791116700000","1.31"],["1791116400000","1.31"],["1791116100000","1.31"],["1791115800000","1.32"],["1791115500000","1.33"],["1791115200000","1.32"],["1791114900000","1.32"],["1791114600000","1.32"],["1791114300000","1.33"],["1791114000000","1.33"],["1791113700000","1.33"],["1791113400000","1.33"],["1791113100000","1.33"],["1791112800000","1.33"],["1791112500000","1.33"],["1791112200000","1.33"],["1791111900000","1.33"],["1791111600000","1.33"],["1791111300000","1.31"],["1791111000000","1.31"],["1791110700000","1.31"],["1791110400000","1.31"],["1791110100000","1.32"],["1791109800000","1.32"],["1791109500000","1.32"],["1791109200000","1.32"],["1791108900000","1.32"],["179
+## okx funding ETH
+{"code":"0","data":[{"formulaType":"withRate","fundingRate":"0.0000259443853506","fundingTime":"1791129600000","impactValue":"20000.0000000000000000","instId":"ETH-USDT-SWAP","instType":"SWAP","interestRate":"0.0001000000000000","maxFundingRate":"0.0075","method":"current_period","minFundingRate":"-0.0075","nextFundingRate":"","nextFundingTime":"1791158400000","premium":"-0.0004106776180698","prevFundingTime":"1791100800000","settFundingRate":"0.0000181499193470","settState":"settled","ts":"1791116788996"}],"msg":""}
+## deribit fut ETH
+{"jsonrpc":"2.0","result":[{"high":2759.25,"low":2737.75,"last":2753.25,"instrument_name":"ETH-26MAR27","bid_price":2754.0,"ask_price":2755.25,"open_interest":25305883,"mark_price":2754.58,"creation_timestamp":1791116800036,"estimated_delivery_price":2702.64,"price_change":0.4836,"volume":14.206375,"base_currency":"ETH","quote_currency":"USD","volume_usd":39060.0,"volume_notional":39060.0,"mid_price":2754.63},{"high":2710.5,"low":2683.5,"last":2705.75,"instrument_name":"ETH-30OCT26","bid_price":2706.75,"ask_price":2707.25,"open_interest":31800261,"mark_price":2707.11,"creation_timestamp":1791116800036,"estimated_delivery_price":2702.64,"price_change":0.6884,"volume":112.947067,"base_currency
+## okx liq ETH
+{"code":"0","data":[{"details":[{"bkLoss":"0","bkPx":"2705.16","ccy":"","posSide":"short","side":"buy","sz":"206.24","time":1791109147589,"ts":"1791109147589"},{"bkLoss":"0","bkPx":"2705.01","ccy":"","posSide":"short","side":"buy","sz":"155","time":1791109138601,"ts":"1791109138601"},{"bkLoss":"0","bkPx":"2704.49","ccy":"","posSide":"short","side":"buy","sz":"1.02","time":1791109136672,"ts":"1791109136672"},{"bkLoss":"0","bkPx":"2704.49","ccy":"","posSide":"short","side":"buy","sz":"3.91","time":1791109136664,"ts":"1791109136664"},{"bkLoss":"0","bkPx":"2701.64","ccy":"","posSide":"short","side":"buy","sz":"181.46","time":1791108401543,"ts":"1791108401543"},{"bkLoss":"0","bkPx":"2701.32","ccy
+## bitget funding ETH
+{"code":"00000","msg":"success","requestTime":1791116801150,"data":[{"symbol":"ETHUSDT","fundingRate":"0.000042","fundingRateInterval":"8","nextUpdate":"1791129600000","minFundingRate":"-0.003","maxFundingRate":"0.003"}]}
+## bitget oi ETH
+{"code":"00000","msg":"success","requestTime":1791116801160,"data":{"openInterestList":[{"symbol":"ETHUSDT","size":"761266.129999999744"}],"ts":"1791116801161"}}
+## okx inst ETH
+{"code":"0","data":[{"alias":"","auctionEndTime":"","baseCcy":"","category":"1","contTdSwTime":"1611916860000","ctMult":"1","ctType":"linear","ctVal":"0.1","ctValCcy":"ETH","expTime":"","floatPxLmtPct":"0.01","freq":"","futureSettlement":false,"groupId":"4","initPxLmtPct":"0.02","instCategory":"1","instFamily":"ETH-USDT","instId":"ETH-USDT-SWAP","instIdCode":10461,"instType":"SWAP","lever":"100","listTime":"1573557408000","longPosRemainingQuota":"","lotSz":"0.01","maxIcebergSz":"100000000.0000000000000000","maxLmtAmt":"20000000","maxLmtSz":"100000000","maxMktAmt":"","maxMktSz":"90000","maxPlatOICoinLmt":"","maxPlatOILmt":"","maxPxLmtPct":"0.02","maxStopSz":"90000","maxTriggerSz":"100000000.0
+## deribit opt ETH
+{"jsonrpc":"2.0","result":[{"high":null,"low":null,"last":0.1805,"instrument_name":"ETH-27NOV26-3100-P","bid_price":0.1675,"ask_price":0.1785,"open_interest":19.0,"mark_price":0.172221,"interest_rate":0.0,"creation_timestamp":1791116800014,"estimated_delivery_price":2702.64,"price_change":null,"volume":0.0,"mark_iv":50.68,"underlying_price":2715.55,"underlying_index":"ETH-27NOV26","base_currency":"ETH","quote_currency":"ETH","volume_usd":0.0,"mid_price":0.173},{"high":null,"low":null,"last":0.1175,"instrument_name":"ETH-24SEP27-2300-P","bid_price":0.1155,"ask_price":0.1185,"open_interest":26.0,"mark_price":0.116931,"interest_rate":0.0,"creation_timestamp":1791116800014,"estimated_delivery_pr
+## fng
+{ "name": "Fear and Greed Index", "data": [ { "value": "65", "value_classification": "Greed", "timestamp": "1791072000", "time_until_update": "41599" } ], "metadata": { "error": null } }
+## kraken ETH
+{"result":"success","serverTime":"2026-10-04T12:26:41.212Z","ticker":{"symbol":"PF_ETHUSD","last":2702.7,"lastTime":"2026-10-04T12:26:39.733384Z","tag":"perpetual","pair":"ETH:USD","markPrice":2702.724466762,"bid":2702.6,"bidSize":6.882,"ask":2702.7,"askSize":0.049,"vol24h":13647.485,"volumeQuote":36735782.9725,"openInterest":27855.996000000000,"open24h":2685.4,"high24h":2707,"low24h":2676.5,"vwap24h":2691.76210653,"lastSize":0.003,"fundingRate":0.0318572433243741,"fundingRatePrediction":0.004210012412,"suspended":false,"indexPrice":2702.5,"postOnly":false,"change24h":0.64}}
+## htx oi BTC
+{"status":"ok","data":[{"volume":23501400,"amount":23501.400000000000000000,"symbol":"BTC","value":2003111277.180000000000000000,"contract_code":"BTC-USDT","trade_amount":1630.108,"trade_volume":1630108,"trade_turnover":138391788.9232,"business_type":"swap","pair":"BTC-USDT","contract_type":"swap","trade_partition":"USDT"}],"ts":1791116801108}
+## htx funding BTC
+{"status":"ok","data":{"estimated_rate":null,"funding_rate":"0.000005792793545862","contract_code":"BTC-USDT","symbol":"BTC","fee_asset":"USDT","funding_time":"1791129600000","next_funding_time":null,"trade_partition":"USDT"},"ts":1791116801127}
+## okx taker ETH
+{"code":"0","data":[["1791116700000","3611952.3111","4841698.4147"],["1791116400000","16325101.8091","7583787.4344"],["1791116100000","4941938.2486","4048999.3383"],["1791115800000","1368311.8696","2187764.024"],["1791115500000","1573209.3052","3018257.3736"],["1791115200000","1755479.1717","1319113.3415"],["1791114900000","2760290.4945","1743736.0834"],["1791114600000","2528984.2603","1820404.4942"],["1791114300000","1863331.8288","1005677.8666"],["1791114000000","1727066.4969","1545594.2386"],["1791113700000","4709209.8126","4156052.7807"],["1791113400000","2454638.4726","2551904.31"],["1791113100000","3254463.6005","1546482.2456"],["1791112800000","488448.7383","951997.6271"],["1791112500
+## okx top ETH
+{"code":"0","data":[["1791116700000","0.9393932808593679"],["1791116400000","0.9397579790445566"],["1791116100000","0.9400398648936677"],["1791115800000","0.9386175125586018"],["1791115500000","0.9377790557158581"],["1791115200000","0.9380294324994712"],["1791114900000","0.9379796003001351"],["1791114600000","0.9376984979161214"],["1791114300000","0.9375915979535268"],["1791114000000","0.9375720541471902"],["1791113700000","0.9374915288141157"],["1791113400000","0.9371344720147012"],["1791113100000","0.936857968746039"],["1791112800000","0.9368971072821236"],["1791112500000","0.937300414231071"],["1791112200000","0.9372997787137533"],["1791111900000","0.9374844019031442"],["1791111600000","0
+## bitget acc BTC
+{"code":"00000","msg":"success","requestTime":1791116801241,"data":[{"longAccountRatio":"0.5853","shortAccountRatio":"0.4147","longShortAccountRatio":"1.4113","ts":"1791107700000"},{"longAccountRatio":"0.5858","shortAccountRatio":"0.4142","longShortAccountRatio":"1.4142","ts":"1791108000000"},{"longAccountRatio":"0.5849","shortAccountRatio":"0.4151","longShortAccountRatio":"1.409","ts":"1791108300000"},{"longAccountRatio":"0.5851","shortAccountRatio":"0.4149","longShortAccountRatio":"1.4102","ts":"1791108600000"},{"longAccountRatio":"0.585","shortAccountRatio":"0.415","longShortAccountRatio":"1.4096","ts":"1791108900000"},{"longAccountRatio":"0.5837","shortAccountRatio":"0.4163","longShortAc
+## gate contract BTC
+{"funding_rate_indicative":"-0.000028","mark_price_round":"0.01","funding_offset":0,"in_delisting":false,"risk_limit_base":"500000","interest_rate":"0.0003","index_price":"85291.8","order_price_round":"0.1","order_size_min":1,"enable_decimal":false,"ref_rebate_rate":"0.2","name":"BTC_USDT","ref_discount_rate":"0","order_price_deviate":"0.03","maintenance_rate":"0.003","mark_type":"index","funding_interval":28800,"type":"direct","risk_limit_step":"1499500000","enable_bonus":true,"enable_credit":true,"leverage_min":"1","funding_rate":"-0.000028","last_price":"85247.2","mark_price":"85249.36","order_size_max":12000000,"funding_next_apply":1791129600,"short_users":15484,"config_change_time":1788
+## gate stats BTC
+[{"time":1791116400,"lsr_taker":0.3775135928195391,"lsr_account":1.0950164824510373,"long_liq_size":0,"short_liq_size":0,"open_interest":509677080,"short_liq_usd":0,"mark_price":85209.2,"top_lsr_size":1.1261136442472373,"top_long_size":27802354,"top_short_size":24688764,"short_liq_amount":0,"long_liq_amount":0,"short_liq_usd_new":0,"long_liq_usd_new":0,"open_interest_usd":4342917624.5136,"top_lsr_account":0.6438356164383562,"top_long_account":47,"top_short_account":73,"long_liq_usd":0,"long_taker_size":69988,"short_taker_size":185392,"long_users":16941,"short_users":15471,"last_funding_rate":"-0.000029"}]
+## okx acc ETH
+{"code":"0","data":[["1791116700000","1.57"],["1791116400000","1.57"],["1791116100000","1.57"],["1791115800000","1.57"],["1791115500000","1.58"],["1791115200000","1.58"],["1791114900000","1.58"],["1791114600000","1.58"],["1791114300000","1.58"],["1791114000000","1.58"],["1791113700000","1.58"],["1791113400000","1.58"],["1791113100000","1.58"],["1791112800000","1.58"],["1791112500000","1.58"],["1791112200000","1.58"],["1791111900000","1.58"],["1791111600000","1.58"],["1791111300000","1.59"],["1791111000000","1.59"],["1791110700000","1.59"],["1791110400000","1.59"],["1791110100000","1.59"],["1791109800000","1.59"],["1791109500000","1.59"],["1791109200000","1.59"],["1791108900000","1.6"],["1791
+## htx oi ETH
+{"status":"ok","data":[{"volume":24943288,"amount":249432.880000000000000000,"symbol":"ETH","value":673788050.086400000000000000,"contract_code":"ETH-USDT","trade_amount":75887.44,"trade_volume":7588744,"trade_turnover":204267456.3984,"business_type":"swap","pair":"ETH-USDT","contract_type":"swap","trade_partition":"USDT"}],"ts":1791116801277}
+## htx funding ETH
+{"status":"ok","data":{"estimated_rate":null,"funding_rate":"0.000030616499321198","contract_code":"ETH-USDT","symbol":"ETH","fee_asset":"USDT","funding_time":"1791129600000","next_funding_time":null,"trade_partition":"USDT"},"ts":1791116801307}
+## gate stats ETH
+[{"time":1791116400,"lsr_taker":1.4785315325412838,"lsr_account":1.3967137784585393,"long_liq_size":0,"short_liq_size":0,"open_interest":80028904,"short_liq_usd":0,"mark_price":2699.39,"top_lsr_size":0.8250849263507168,"top_long_size":7105770,"top_short_size":8612168,"short_liq_amount":0,"long_liq_amount":0,"short_liq_usd_new":0,"long_liq_usd_new":0,"open_interest_usd":2160292231.6856,"top_lsr_account":0.4659090909090909,"top_long_account":41,"top_short_account":88,"long_liq_usd":0,"long_taker_size":63319,"short_taker_size":42825,"long_users":20061,"short_users":14363,"last_funding_rate":"0.000062"}]
+## gate contract ETH
+{"funding_rate_indicative":"0.000063","mark_price_round":"0.01","funding_offset":0,"in_delisting":false,"risk_limit_base":"300000","interest_rate":"0.0003","index_price":"2703.1","order_price_round":"0.01","order_size_min":0,"enable_decimal":true,"ref_rebate_rate":"0.2","name":"ETH_USDT","ref_discount_rate":"0","order_price_deviate":"0.03","maintenance_rate":"0.003","mark_type":"index","funding_interval":28800,"type":"direct","risk_limit_step":"1499700000","enable_bonus":true,"enable_credit":true,"leverage_min":"1","funding_rate":"0.000063","last_price":"2701.91","mark_price":"2701.91","order_size_max":10000000,"funding_next_apply":1791129600,"short_users":14369,"config_change_time":17882340
+## bn klines ETH
+[[1791113400000,"2703.91000000","2704.38000000","2702.10000000","2702.10000000","188.20680000",1791113699999,"508838.66208100",3535,"89.74170000","242629.67906100","0"],[1791113700000,"2702.11000000","2702.11000000","2700.91000000","2700.92000000","104.97460000",1791113999999,"283621.83890800",1506,"26.93070000","72757.10679700","0"],[1791114000000,"2700.92000000","2700.92000000","2700.61000000","2700.61000000","146.29520000",1791114299999,"395125.99015200",1191,"51.36570000","138732.93611400","0"],[1791114300000,"2700.61000000","2700.70000000","2700.61000000","2700.70000000","116.55590000",1791114599999,"314779.66541800",624,"49.05110000","132470.91285000","0"],[1791114600000,"2700.69000000
+## bitget pos BTC
+{"code":"00000","msg":"success","requestTime":1791116802518,"data":[{"longPositionRatio":"0.4919","shortPositionRatio":"0.5081","longShortPositionRatio":"0.9681","ts":"1791107700000"},{"longPositionRatio":"0.4919","shortPositionRatio":"0.5081","longShortPositionRatio":"0.9681","ts":"1791108000000"},{"longPositionRatio":"0.492","shortPositionRatio":"0.508","longShortPositionRatio":"0.9685","ts":"1791108300000"},{"longPositionRatio":"0.492","shortPositionRatio":"0.508","longShortPositionRatio":"0.9685","ts":"1791108600000"},{"longPositionRatio":"0.492","shortPositionRatio":"0.508","longShortPositionRatio":"0.9685","ts":"1791108900000"},{"longPositionRatio":"0.4916","shortPositionRatio":"0.5084
+## bitget acc ETH
+{"code":"00000","msg":"success","requestTime":1791116803784,"data":[{"longAccountRatio":"0.7003","shortAccountRatio":"0.2997","longShortAccountRatio":"2.3366","ts":"1791107700000"},{"longAccountRatio":"0.6999","shortAccountRatio":"0.3001","longShortAccountRatio":"2.3322","ts":"1791108000000"},{"longAccountRatio":"0.6996","shortAccountRatio":"0.3004","longShortAccountRatio":"2.3288","ts":"1791108300000"},{"longAccountRatio":"0.7001","shortAccountRatio":"0.2999","longShortAccountRatio":"2.3344","ts":"1791108600000"},{"longAccountRatio":"0.6994","shortAccountRatio":"0.3006","longShortAccountRatio":"2.3266","ts":"1791108900000"},{"longAccountRatio":"0.6973","shortAccountRatio":"0.3027","longShor
+## bitget pos ETH
+{"code":"00000","msg":"success","requestTime":1791116805066,"data":[{"longPositionRatio":"0.4947","shortPositionRatio":"0.5053","longShortPositionRatio":"0.979","ts":"1791107700000"},{"longPositionRatio":"0.4947","shortPositionRatio":"0.5053","longShortPositionRatio":"0.979","ts":"1791108000000"},{"longPositionRatio":"0.4947","shortPositionRatio":"0.5053","longShortPositionRatio":"0.979","ts":"1791108300000"},{"longPositionRatio":"0.4947","shortPositionRatio":"0.5053","longShortPositionRatio":"0.979","ts":"1791108600000"},{"longPositionRatio":"0.4947","shortPositionRatio":"0.5053","longShortPositionRatio":"0.979","ts":"1791108900000"},{"longPositionRatio":"0.4946","shortPositionRatio":"0.505
