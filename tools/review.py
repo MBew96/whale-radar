@@ -1,9 +1,10 @@
 """Wochen-Review: Signal-Bilanz aus der gesamten Historie.
 
-Aufruf:  python3 tools/review.py [--coin BTC] [--json]
+Aufruf:  python3 tools/review.py [--coin BTC] [--json] [--kurz]
 Für jedes Signal wird zu jedem Messzeitpunkt die Richtung bestimmt (long/short/neutral) und mit dem
 späteren Kurs in 1, 4 und 24 Stunden verglichen. Gezählt werden nur nicht überlappende Fälle
-(mindestens 4 Std. Abstand je Signal). Regeln zur Bewertung: REVIEW.md.
+(Abstand je Signal = Horizont: 1h-Test 1 Std., 4h-Test 4 Std., 24h-Test 24 Std.; seit 05.10.2026).
+--kurz: eine Zeile Zwischenstand für den Morgencheck (nur lesen, keine Bewertung). Regeln: REVIEW.md.
 """
 import json, sys, argparse
 from datetime import datetime
@@ -14,6 +15,7 @@ BER = ZoneInfo('Europe/Berlin')
 ap = argparse.ArgumentParser()
 ap.add_argument('--coin', default='BTC')
 ap.add_argument('--json', action='store_true')
+ap.add_argument('--kurz', action='store_true')
 args = ap.parse_args()
 coin = args.coin
 
@@ -22,7 +24,7 @@ thr = cfg.get('thresholds', {})
 strong = thr.get('biasStrong', 0.65)
 flow_thr = thr.get('flowSignificantUsd', 5e7)
 HORIZONS = {'1h': 3600e3, '4h': 4 * 3600e3, '24h': 24 * 3600e3}
-SPACING = 4 * 3600e3
+SPACING = dict(HORIZONS)  # Abstand zweier gezählter Fälle = Horizont (keine Überlappung je Horizont)
 MIN_CASES = 30
 
 snaps = [s for s in load_snapshots(0) if s.get('coins', {}).get(coin) and s.get('px', {}).get(coin)]
@@ -52,32 +54,35 @@ def signals(i):
 OBS = cfg.get('beobachtung', {}).get('signals', {})
 names = [k for k, v in cfg.get('signals', {}).items() if isinstance(v, dict) and k != 'takerFlow'] + list(OBS)
 cases = {n: [] for n in names}
-last_counted = {n: -1e18 for n in names}
+last_counted = {(n, h): -1e18 for n in names for h in HORIZONS}
 for i, s in enumerate(snaps):
     d = signals(i)
     p0 = s['px'][coin]
     for n in names:
         v = d.get(n, 0)
-        if not v or s['t'] - last_counted[n] < SPACING:
+        if not v:
             continue
         res = {}
         for h, ms in HORIZONS.items():
+            if s['t'] - last_counted[(n, h)] < SPACING[h]:
+                continue
             p1 = price_at(snaps, s['t'] + ms, coin)
             if p1:
                 res[h] = (p1 / p0 - 1) * v
+                last_counted[(n, h)] = s['t']
         if res:
             cases[n].append({'t': s['t'], 'dir': v, 'res': res})
-            last_counted[n] = s['t']
 
-# Vergleichswert: Wie oft stieg der Kurs überhaupt (nicht überlappend, alle 4 Std.)?
+# Vergleichswert: Wie oft stieg der Kurs überhaupt (nicht überlappend, Abstand = Horizont)?
 base = {h: [0, 0] for h in HORIZONS}
-lt = -1e18
+lt = {h: -1e18 for h in HORIZONS}
 for s in snaps:
-    if s['t'] - lt < SPACING:
-        continue
-    lt = s['t']
     for h, ms in HORIZONS.items():
+        if s['t'] - lt[h] < SPACING[h]:
+            continue
         p1 = price_at(snaps, s['t'] + ms, coin)
+        if p1:
+            lt[h] = s['t']
         if p1:
             base[h][0] += 1
             base[h][1] += 1 if p1 > s['px'][coin] else 0
@@ -132,11 +137,33 @@ if args.json:
     sys.exit(0)
 
 pc = lambda v: '–' if v is None else de_num(v * 100) + ' %'
+
+if args.kurz:
+    # Zwischenstand für den Morgencheck: nur lesen, nichts bewerten oder ändern.
+    vk = report['vergleich_kurs_stieg']
+    def part(n, h):
+        st = report['signale'][n][h]
+        if not st.get('n'):
+            return f'{h} – (n=0)'
+        return f"{h} {pc(st['quote'])} (n={st['n']}, {st['long']}L/{st['short']}S; Markt {pc(vk[h][0])})"
+    zeile = f"{coin} Zwischenstand Tag {de_num(span_days, 0)}/14 (unbewertet): Kompass " + ' · '.join(part('compass', h) for h in ('1h', '4h'))
+    # Signale mit >= 30 Fällen, sortiert nach Abstand zum Markt-Vergleichswert; nur die zwei besten zeigen
+    reif = []
+    for n in names:
+        for h in ('1h', '4h'):
+            st = report['signale'][n][h]
+            if st.get('n', 0) >= MIN_CASES and vk[h][0] is not None:
+                lab = cfg['signals'][n].get('label', n) if n in cfg['signals'] else OBS[n].get('label', n)
+                reif.append((st['quote'] - vk[h][0], f"{lab} {h} {pc(st['quote'])} vs. Markt {pc(vk[h][0])} (n={st['n']})"))
+    reif.sort(key=lambda x: -x[0])
+    print(zeile + (f" · {len(reif)}× ≥ 30 Fälle, vorn: " + '; '.join(x[1] for x in reif[:2]) if reif else ' · noch kein Signal mit ≥ 30 Fällen'))
+    sys.exit(0)
+
 print(f"## Signal-Bilanz {coin} · {report['von']} bis {report['bis']}")
 print(f"Messungen: {report['messungen']} über {de_num(span_days, 1)} Tage · Lücken > 30 Min.: {gaps} · Scanfehler gesamt: {errs}")
 bd = report['boersendaten']
 print(f"Börsendaten (Beobachtung): {bd['messungen']} Messungen" + (f" seit {bd['seit']}" if bd['seit'] else '') + (' · häufigste Ausfälle: ' + ', '.join(f'{k} ({v}×)' for k, v in bd['haeufigste_ausfaelle']) if bd['haeufigste_ausfaelle'] else ''))
-print('Vergleich (Kurs stieg, alle 4 Std. gezählt): ' + ' · '.join(f"{h}: {pc(v[0])} (n={v[1]})" for h, v in report['vergleich_kurs_stieg'].items()))
+print('Vergleich (Kurs stieg, Abstand = Horizont): ' + ' · '.join(f"{h}: {pc(v[0])} (n={v[1]})" for h, v in report['vergleich_kurs_stieg'].items()))
 print()
 print('| Signal | Horizont | Fälle (L/S) | Trefferquote | Ø Bewegung in Signalrichtung | 1. / 2. Hälfte | Urteil |')
 print('|---|---|---|---|---|---|---|')

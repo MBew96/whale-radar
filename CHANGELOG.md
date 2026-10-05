@@ -1,5 +1,11 @@
 # Änderungsprotokoll
 
+## 2026-10-05 – Review-Methode: Fallabstand je Horizont, tägliche Mini-Bilanz (mit Mircos OK)
+- **Fallabstand = Horizont** (`tools/review.py`, REVIEW.md): Bisher zählte jedes Signal höchstens alle 4 Std. einen Fall, auch für den 1-Std.-Test. Jetzt 1h-Test 1 Std., 4h-Test 4 Std., 24h-Test 24 Std. Abstand; der Markt-Vergleichswert wird gleich gezählt. Begründung: Für den Intraday-Horizont kamen unnötig wenige Fälle zusammen; beim 24h-Test überlappten die Fälle bisher (zählte ein Ereignis mehrfach).
+- Wirkung (BTC, 6,5 Tage, 05.10.): Kompass 1h vorher 22 Fälle/68 % (Stand 04.10.), jetzt 84 Fälle/48 % bei Markt-Vergleichswert 49 %. Gewinner-Wale 1h 108 Fälle/49 % (Markt 49 %), 4h 30 Fälle/57 % (Markt 57 %). 24h-Fälle sinken auf 5–6 (vorher überlappend ~20). Der frühere Vorsprung bei 1h war Zufall kleiner Zahlen.
+- **Tägliche Mini-Bilanz**: `review.py --kurz` liefert eine Zeile Zwischenstand je Coin; der Morgencheck übernimmt sie (REVIEW.md, Täglicher Wal-Block). Nur lesen – bewertet und geändert wird weiterhin nur im Wochen-Review (Bewertung ab 12.10., Änderungen ab 19.10.).
+- An Signalen, Gewichten und Schwellen nichts geändert.
+
 ## 2026-10-04 – Wochen-Review (zweiter Lauf): nichts geändert
 - **Datenlage** (laut `review.py`): 464 Messungen über 5,6 Tage (29.09. 00:50 bis 04.10. 14:26), 7 Lücken > 30 Min. (Zeitplan-Aussetzer von GitHub seit 03.10., siehe Eintrag oben), 0 Scanfehler – BTC und ETH gleich. Börsendaten: 372 Messungen seit 29.09. 21:19, nur vereinzelte Ausfälle (Zeitüberschreitung 3×, Kraken je 1×); keine Quelle dauerhaft ausgefallen.
 - **Kernzahlen** (alle „zu wenig Daten“, max. 27 Fälle je Signal statt der nötigen 30):
