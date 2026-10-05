@@ -3,7 +3,9 @@ name: Wetterstation
 # Alle 10 Minuten: Wal-Positionen abholen, Momentaufnahme speichern, Website neu ausliefern.
 # GitHub startet Zeitpläne nur „nach Möglichkeit“ und unter Last oft Stunden zu spät (seit 03.10.2026
 # beobachtet). Deshalb Minute 4, 14, 24 … statt zur vollen Stunde, wenn alle anderen auch starten.
-# Zuverlässig wird es erst mit einem Anstoß von außen (workflow_dispatch), siehe CHANGELOG 04.10.2026.
+# Seit 05.10.2026 (OK Mirco) stößt zusätzlich cron-job.org alle 10 Min. per workflow_dispatch an.
+# Der Zeitplan bleibt als Reserve. Damit sich beide nicht doppeln, wird übersprungen, wenn die letzte
+# Messung jünger als 8 Min. ist (Schritt „Doppelte Messung vermeiden“).
 on:
   schedule:
     - cron: '4-59/10 * * * *'
@@ -35,14 +37,29 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Doppelte Messung vermeiden
+        id: guard
+        if: github.event_name != 'push'
+        run: |
+          git pull -q origin main || true
+          last=$(ls -1 data/history/*/*.json 2>/dev/null | sort | tail -1)
+          if [ -z "$last" ]; then echo "skip=false" >> "$GITHUB_OUTPUT"; exit 0; fi
+          d=$(basename "$(dirname "$last")"); hm=$(basename "$last" .json)
+          age=$(( $(date -u +%s) - $(date -u -d "$d ${hm:0:2}:${hm:2:2}" +%s) ))
+          echo "Letzte Messung: $d $hm UTC, vor $((age/60)) Min."
+          if [ "$age" -lt 480 ]; then echo "skip=true" >> "$GITHUB_OUTPUT"; echo "Übersprungen (jünger als 8 Min.)"; else echo "skip=false" >> "$GITHUB_OUTPUT"; fi
+
       - uses: actions/setup-node@v4
+        if: steps.guard.outputs.skip != 'true'
         with:
           node-version: 22
 
       - name: Wale messen
+        if: steps.guard.outputs.skip != 'true'
         run: node collector/collect.mjs
 
       - name: Momentaufnahme ins Repo
+        if: steps.guard.outputs.skip != 'true'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
@@ -52,21 +69,24 @@ jobs:
           for i in 1 2 3; do git pull -q --rebase origin main && git push -q && break; sleep 5; done
 
       - uses: actions/configure-pages@v5
+        if: steps.guard.outputs.skip != 'true'
 
       - uses: actions/upload-pages-artifact@v3
+        if: steps.guard.outputs.skip != 'true'
         with:
           path: _site
 
       # Die Momentaufnahme ist zu diesem Zeitpunkt schon gesichert. Klemmt die Auslieferung der Website
       # kurz (z. B. 04.10.2026: Token-Fehler bei GitHub), einmal nach 30 s wiederholen, statt den Lauf scheitern zu lassen.
       - id: deploy
+        if: steps.guard.outputs.skip != 'true'
         uses: actions/deploy-pages@v4
         continue-on-error: true
 
       - name: Kurz warten vor zweitem Versuch
-        if: steps.deploy.outcome == 'failure'
+        if: steps.guard.outputs.skip != 'true' && steps.deploy.outcome == 'failure'
         run: sleep 30
 
       - id: deploy2
-        if: steps.deploy.outcome == 'failure'
+        if: steps.guard.outputs.skip != 'true' && steps.deploy.outcome == 'failure'
         uses: actions/deploy-pages@v4

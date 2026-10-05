@@ -1,5 +1,12 @@
 # Änderungsprotokoll
 
+## 2026-10-05 – Messtakt: Anstoß von außen alle 10 Min. (OK von Mirco)
+- Anlass: GitHub-Zeitplan lief seit 03.10. nur alle 2–6 Std. (Review 04.10.: 7 Lücken > 30 Min.). Seit 04.10. ca. 21 Uhr wieder etwa alle 15–25 Min., aber ohne Gewähr.
+- Neu: cron-job.org ruft alle 10 Min. `workflow_dispatch` der Wetterstation auf (Einrichtung durch Mirco, eigener Token nur mit Actions-Schreibrecht für dieses Repo). Der GitHub-Zeitplan bleibt als Reserve.
+- Neu im Workflow: Schritt „Doppelte Messung vermeiden“. Ist die letzte Messung jünger als 8 Min., endet der Lauf ohne Messung (gilt nicht für Code-Pushes).
+- Kosten: Das Repo ist öffentlich, deshalb sind GitHub-Actions-Minuten kostenlos (ein Lauf ca. 1,5 Min.). Claude-Kontingent wird nicht verbraucht.
+- Erwartung: Vor allem der 1h-Test gewinnt (Abstand = Horizont seit 05.10., bis zu 24 Fälle/Tag), weil jede Lücke einen Fall kostet. 4h und 24h ändern sich kaum, dort zählt nur die Zeit.
+
 ## 2026-10-05 – Review-Urteil misst gegen den Markt statt gegen 50 % (mit Mircos OK)
 - Bisher galt ein Signal als „bewährt“ ab 56 % Trefferquote und beiden Hälften > 50 %. Problem: In einer steigenden Woche erreicht jedes Long-Signal das automatisch. Beleg: BTC Gewinner-Wale 4h stand auf „bewährt“ mit 57 % (n=30) – bei einem Markt-Vergleichswert von ebenfalls 57 %.
 - Neu (`tools/review.py`, REVIEW.md): Je Signal und Horizont wird ein **Markt-Vergleich** berechnet (Long-Anteil × Anteil steigender Kurse + Short-Anteil × Anteil fallender Kurse). „Bewährt“ erst ab 6 Prozentpunkten darüber, über 50 % und in beiden Hälften über dem Markt-Vergleich; „Gegenindikator?“ spiegelbildlich. Neue Spalte „Markt-Vergleich“ in der Tabelle, die Mini-Bilanz (`--kurz`) nutzt denselben Wert.
