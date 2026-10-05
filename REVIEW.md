@@ -25,7 +25,7 @@ Für jedes Signal aus `config/settings.json` → `signals`:
 - Trefferquote = Anteil der Fälle, in denen sich der Preis in Signalrichtung bewegt hat; dazu die durchschnittliche Bewegung in %.
 - Nur nicht überlappende Fälle zählen, sonst zählt ein Ereignis vielfach. Abstand zwischen zwei gezählten Fällen desselben Signals = Horizont (1h-Test: 1 Std., 4h-Test: 4 Std., 24h-Test: 24 Std.; seit 05.10.2026, vorher pauschal 4 Std.). Der Markt-Vergleichswert wird genauso gezählt.
 - Mindestens 30 Fälle, bevor eine Trefferquote als belastbar gilt. Darunter: „zu wenig Daten“.
-- Vergleich mit dem Zufall: Trefferquote muss deutlich über 50 % liegen (Faustregel: ≥ 56 % bei ≥ 30 Fällen) und in beiden Hälften des Zeitraums in dieselbe Richtung zeigen (Test auf ungesehenen Daten).
+- Vergleich mit dem Markt (seit 05.10.2026, mit Mircos OK): Maßstab ist nicht 50 %, sondern der **Markt-Vergleich** = die Trefferquote, die ein Signal mit derselben Long/Short-Mischung ohne jedes Wissen erreicht hätte (Long-Fälle treffen so oft, wie der Kurs stieg; Short-Fälle so oft, wie er fiel). „Bewährt“ = Trefferquote mindestens 6 Prozentpunkte über dem Markt-Vergleich, über 50 % und in beiden Hälften des Zeitraums über dem Markt-Vergleich (Test auf ungesehenen Daten). „Gegenindikator?“ spiegelbildlich (6 Punkte darunter, beide Hälften darunter).
 
 ### Intraday-Kompass
 - Der Kompass (`compass`) wird in der Bilanz wie ein eigenes Signal bewertet (Richtung = Vorzeichen des Scores ab `compassMin`).

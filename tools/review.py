@@ -26,6 +26,7 @@ flow_thr = thr.get('flowSignificantUsd', 5e7)
 HORIZONS = {'1h': 3600e3, '4h': 4 * 3600e3, '24h': 24 * 3600e3}
 SPACING = dict(HORIZONS)  # Abstand zweier gezählter Fälle = Horizont (keine Überlappung je Horizont)
 MIN_CASES = 30
+EDGE = 0.06  # 'bewährt' erst ab 6 Prozentpunkten über dem Markt-Vergleichswert (seit 05.10.2026)
 
 snaps = [s for s in load_snapshots(0) if s.get('coins', {}).get(coin) and s.get('px', {}).get(coin)]
 if len(snaps) < 2:
@@ -102,15 +103,32 @@ def stats(lst, h):
             'haelfte1': rate(a), 'haelfte2': rate(b)}
 
 
-def verdict(st):
+def market_ref(st, h):
+    """Erwartete Trefferquote ohne Wissen: Long-Fälle treffen so oft, wie der Kurs stieg, Short-Fälle so oft, wie er fiel."""
+    b = base[h]
+    if not st or not st.get('n') or not b[0]:
+        return None
+    up = b[1] / b[0]
+    return (st['long'] * up + st['short'] * (1 - up)) / st['n']
+
+
+def verdict(st, h):
     if not st or st['n'] < MIN_CASES:
         return 'zu wenig Daten'
+    ref = market_ref(st, h)
+    if ref is None:
+        return 'unklar'
     h1, h2 = st['haelfte1'], st['haelfte2']
-    if st['quote'] >= 0.56 and h1 and h2 and h1 > 0.5 and h2 > 0.5:
+    if st['quote'] >= ref + EDGE and st['quote'] > 0.5 and h1 and h2 and h1 > ref and h2 > ref:
         return 'bewährt'
-    if st['quote'] <= 0.44 and h1 is not None and h2 is not None and h1 < 0.5 and h2 < 0.5:
+    if st['quote'] <= ref - EDGE and h1 is not None and h2 is not None and h1 < ref and h2 < ref:
         return 'Gegenindikator?'
     return 'unklar'
+
+
+def entry(n, h):
+    st = stats(cases[n], h)
+    return dict(st or {}, markt=market_ref(st, h), urteil=verdict(st, h))
 
 
 span_days = (snaps[-1]['t'] - snaps[0]['t']) / 864e5
@@ -129,7 +147,7 @@ report = {
     'boersendaten': {'messungen': len(with_mkt), 'seit': datetime.fromtimestamp(with_mkt[0]['t'] / 1000, BER).strftime('%d.%m.%Y %H:%M') if with_mkt else None,
                      'haeufigste_ausfaelle': sorted(err_count.items(), key=lambda kv: -kv[1])[:5]},
     'vergleich_kurs_stieg': {h: (b[1] / b[0] if b[0] else None, b[0]) for h, b in base.items()},
-    'signale': {n: {h: dict(stats(cases[n], h) or {}, urteil=verdict(stats(cases[n], h))) for h in HORIZONS} for n in names}
+    'signale': {n: {h: entry(n, h) for h in HORIZONS} for n in names}
 }
 
 if args.json:
@@ -145,16 +163,16 @@ if args.kurz:
         st = report['signale'][n][h]
         if not st.get('n'):
             return f'{h} – (n=0)'
-        return f"{h} {pc(st['quote'])} (n={st['n']}, {st['long']}L/{st['short']}S; Markt {pc(vk[h][0])})"
+        return f"{h} {pc(st['quote'])} (n={st['n']}, {st['long']}L/{st['short']}S; Markt {pc(st['markt'])})"
     zeile = f"{coin} Zwischenstand Tag {de_num(span_days, 0)}/14 (unbewertet): Kompass " + ' · '.join(part('compass', h) for h in ('1h', '4h'))
     # Signale mit >= 30 Fällen, sortiert nach Abstand zum Markt-Vergleichswert; nur die zwei besten zeigen
     reif = []
     for n in names:
         for h in ('1h', '4h'):
             st = report['signale'][n][h]
-            if st.get('n', 0) >= MIN_CASES and vk[h][0] is not None:
+            if st.get('n', 0) >= MIN_CASES and st.get('markt') is not None:
                 lab = cfg['signals'][n].get('label', n) if n in cfg['signals'] else OBS[n].get('label', n)
-                reif.append((st['quote'] - vk[h][0], f"{lab} {h} {pc(st['quote'])} vs. Markt {pc(vk[h][0])} (n={st['n']})"))
+                reif.append((st['quote'] - st['markt'], f"{lab} {h} {pc(st['quote'])} vs. Markt {pc(st['markt'])} (n={st['n']}, {st['urteil']})"))
     reif.sort(key=lambda x: -x[0])
     print(zeile + (f" · {len(reif)}× ≥ 30 Fälle, vorn: " + '; '.join(x[1] for x in reif[:2]) if reif else ' · noch kein Signal mit ≥ 30 Fällen'))
     sys.exit(0)
@@ -165,8 +183,8 @@ bd = report['boersendaten']
 print(f"Börsendaten (Beobachtung): {bd['messungen']} Messungen" + (f" seit {bd['seit']}" if bd['seit'] else '') + (' · häufigste Ausfälle: ' + ', '.join(f'{k} ({v}×)' for k, v in bd['haeufigste_ausfaelle']) if bd['haeufigste_ausfaelle'] else ''))
 print('Vergleich (Kurs stieg, Abstand = Horizont): ' + ' · '.join(f"{h}: {pc(v[0])} (n={v[1]})" for h, v in report['vergleich_kurs_stieg'].items()))
 print()
-print('| Signal | Horizont | Fälle (L/S) | Trefferquote | Ø Bewegung in Signalrichtung | 1. / 2. Hälfte | Urteil |')
-print('|---|---|---|---|---|---|---|')
+print('| Signal | Horizont | Fälle (L/S) | Trefferquote | Markt-Vergleich | Ø Bewegung in Signalrichtung | 1. / 2. Hälfte | Urteil |')
+print('|---|---|---|---|---|---|---|---|')
 for n in names:
     if n in OBS:
         lab = OBS[n].get('label', n) + ' (Beobachtung)'
@@ -175,8 +193,8 @@ for n in names:
     for h in HORIZONS:
         st = report['signale'][n][h]
         if not st.get('n'):
-            print(f'| {lab} | {h} | 0 | – | – | – | zu wenig Daten |')
+            print(f'| {lab} | {h} | 0 | – | – | – | – | zu wenig Daten |')
             continue
-        print(f"| {lab} | {h} | {st['n']} ({st['long']}/{st['short']}) | {pc(st['quote'])} | {de_num(st['avg_move'] * 100, 2)} % | {pc(st['haelfte1'])} / {pc(st['haelfte2'])} | {st['urteil']} |")
+        print(f"| {lab} | {h} | {st['n']} ({st['long']}/{st['short']}) | {pc(st['quote'])} | {pc(st['markt'])} | {de_num(st['avg_move'] * 100, 2)} % | {pc(st['haelfte1'])} / {pc(st['haelfte2'])} | {st['urteil']} |")
 print()
-print(f'Hinweis: belastbar erst ab {MIN_CASES} Fällen; „bewährt“ = Trefferquote ≥ 56 % und beide Hälften > 50 %. Trefferquote immer mit dem Vergleichswert oben abgleichen (steigt der Markt ohnehin, sehen Long-Signale automatisch besser aus).')
+print(f'Hinweis: belastbar erst ab {MIN_CASES} Fällen. Markt-Vergleich = Trefferquote, die ein Signal mit derselben Long/Short-Mischung ohne jedes Wissen erreicht hätte. „bewährt“ = Trefferquote mindestens {de_num(EDGE * 100)} Prozentpunkte über dem Markt-Vergleich, über 50 % und in beiden Hälften über dem Markt-Vergleich; „Gegenindikator?“ spiegelbildlich.')

@@ -1,5 +1,11 @@
 # Änderungsprotokoll
 
+## 2026-10-05 – Review-Urteil misst gegen den Markt statt gegen 50 % (mit Mircos OK)
+- Bisher galt ein Signal als „bewährt“ ab 56 % Trefferquote und beiden Hälften > 50 %. Problem: In einer steigenden Woche erreicht jedes Long-Signal das automatisch. Beleg: BTC Gewinner-Wale 4h stand auf „bewährt“ mit 57 % (n=30) – bei einem Markt-Vergleichswert von ebenfalls 57 %.
+- Neu (`tools/review.py`, REVIEW.md): Je Signal und Horizont wird ein **Markt-Vergleich** berechnet (Long-Anteil × Anteil steigender Kurse + Short-Anteil × Anteil fallender Kurse). „Bewährt“ erst ab 6 Prozentpunkten darüber, über 50 % und in beiden Hälften über dem Markt-Vergleich; „Gegenindikator?“ spiegelbildlich. Neue Spalte „Markt-Vergleich“ in der Tabelle, die Mini-Bilanz (`--kurz`) nutzt denselben Wert.
+- Wirkung heute (unbewertet, < 14 Tage): BTC kein Signal mehr „bewährt“ (Gewinner-Wale 4h jetzt „unklar“). ETH: Binance-Spot-Käufe 1h 57 % vs. Markt 50 % (n=67) und Liq.-Cluster 1h 52 % vs. Markt 45 % (n=85) erfüllen die neue Hürde – Beobachtung, keine Bewertung vor dem 12.10.
+- An Signalen, Gewichten und Schwellen nichts geändert.
+
 ## 2026-10-05 – Review-Methode: Fallabstand je Horizont, tägliche Mini-Bilanz (mit Mircos OK)
 - **Fallabstand = Horizont** (`tools/review.py`, REVIEW.md): Bisher zählte jedes Signal höchstens alle 4 Std. einen Fall, auch für den 1-Std.-Test. Jetzt 1h-Test 1 Std., 4h-Test 4 Std., 24h-Test 24 Std. Abstand; der Markt-Vergleichswert wird gleich gezählt. Begründung: Für den Intraday-Horizont kamen unnötig wenige Fälle zusammen; beim 24h-Test überlappten die Fälle bisher (zählte ein Ereignis mehrfach).
 - Wirkung (BTC, 6,5 Tage, 05.10.): Kompass 1h vorher 22 Fälle/68 % (Stand 04.10.), jetzt 84 Fälle/48 % bei Markt-Vergleichswert 49 %. Gewinner-Wale 1h 108 Fälle/49 % (Markt 49 %), 4h 30 Fälle/57 % (Markt 57 %). 24h-Fälle sinken auf 5–6 (vorher überlappend ~20). Der frühere Vorsprung bei 1h war Zufall kleiner Zahlen.
