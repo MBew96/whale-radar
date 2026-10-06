@@ -6,7 +6,7 @@ name: Wetterstation
 # Stau Läufe in der Warteschlange gegenseitig abbrechen (05.10. abends ~10 „cancelled“-Mails, 2,7 h ohne
 # Messung). Wächter ist jetzt die tägliche Wal-Bilanz: sie meldet Lücken > 30 Min. in den letzten 24 h.
 # Fällt cron-job.org dauerhaft aus, Zeitplan wieder einsetzen: schedule: - cron: '4-59/10 * * * *'
-# Push-Läufe und manuelle Anstöße überspringen weiterhin, wenn die letzte Messung jünger als 8 Min. ist.
+# Anstöße von cron-job.org überspringen, wenn die letzte Messung jünger als 8 Min. ist; Pushes messen immer.
 on:
   workflow_dispatch:
   push:
