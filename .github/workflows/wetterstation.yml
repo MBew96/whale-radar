@@ -1,14 +1,13 @@
 name: Wetterstation
 
 # Alle 10 Minuten: Wal-Positionen abholen, Momentaufnahme speichern, Website neu ausliefern.
-# GitHub startet Zeitpläne nur „nach Möglichkeit“ und unter Last oft Stunden zu spät (seit 03.10.2026
-# beobachtet). Deshalb Minute 4, 14, 24 … statt zur vollen Stunde, wenn alle anderen auch starten.
-# Seit 05.10.2026 (OK Mirco) stößt zusätzlich cron-job.org alle 10 Min. per workflow_dispatch an.
-# Der Zeitplan bleibt als Reserve. Damit sich beide nicht doppeln, wird übersprungen, wenn die letzte
-# Messung jünger als 8 Min. ist (Schritt „Doppelte Messung vermeiden“).
+# Seit 05.10.2026 (OK Mirco) stößt cron-job.org alle 10 Min. per workflow_dispatch an.
+# Seit 06.10.2026 (OK Mirco) KEIN GitHub-Zeitplan mehr: Zeitplan + cron-job.org gleichzeitig ließen bei
+# Stau Läufe in der Warteschlange gegenseitig abbrechen (05.10. abends ~10 „cancelled“-Mails, 2,7 h ohne
+# Messung). Wächter ist jetzt die tägliche Wal-Bilanz: sie meldet Lücken > 30 Min. in den letzten 24 h.
+# Fällt cron-job.org dauerhaft aus, Zeitplan wieder einsetzen: schedule: - cron: '4-59/10 * * * *'
+# Push-Läufe und manuelle Anstöße überspringen weiterhin, wenn die letzte Messung jünger als 8 Min. ist.
 on:
-  schedule:
-    - cron: '4-59/10 * * * *'
   workflow_dispatch:
   push:
     branches: [main]
