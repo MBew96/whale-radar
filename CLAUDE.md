@@ -6,6 +6,7 @@ Projekt von Mirco (GitHub: MBew96). Sprache: **Deutsch**. Mirco versteht Dinge a
 Ein Tracker für die Positionierung der größten Trader („Wale“) auf der Krypto-Börse Hyperliquid, im Stil von Crypto Rover. Alle Daten sind öffentlich (Hyperliquid-API).
 
 - **Wetterstation** (`collector/collect.mjs`, GitHub Action `.github/workflows/wetterstation.yml`): läuft alle 10 Minuten, scannt ~550 Wallets (größte nach Kapital, Wochenvolumen, Wochen-PnL + `config/watchlist.json`), speichert eine Momentaufnahme nach `data/history/JJJJ-MM-TT/HHMM.json` (UTC) und veröffentlicht die Website.
+  - Takt: Seit 05.10.2026 stößt cron-job.org (Konto von Mirco, Job „Whale Radar Anstoß“) alle 10 Min. per `workflow_dispatch` an. Der GitHub-Zeitplan bleibt als Reserve. Läufe enden ohne Messung, wenn die letzte jünger als 8 Min. ist. Der GitHub-Token (fine-grained, nur Actions für dieses Repo) läuft etwa am 05.10.2027 ab: Mirco rechtzeitig erinnern (bei GitHub „Regenerate token“, dann bei cron-job.org im Header `Authorization` ersetzen). Fallen die Messungen auf den alten unregelmäßigen Takt zurück, ist das der wahrscheinlichste Grund.
 - **Dashboard** (`site/index.html`): wird per GitHub Pages ausgeliefert: https://mbew96.github.io/whale-radar/ – lädt `data/latest.json` (letzte Messung) und `data/recent.json` (48 Std. Verlauf) und aktualisiert danach live im Browser.
 - **Stellschrauben** (`config/settings.json`): Kandidatenlisten, Klassen (Gewinner/Verlierer), Market-Maker-Erkennung, Druck-Schwelle, aktive Signale, Schwellenwerte.
 
