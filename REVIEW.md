@@ -40,6 +40,7 @@ Für jedes Signal aus `config/settings.json` → `signals`:
   - `cexOiTrend`: OI aller Börsen inkl. Hyperliquid +1,5 % in 4 Std. → in Kursrichtung derselben 4 Std. (neues Geld drückt).
   - `cexTopTraders`: große Positionen an OKX/Bitget/Gate ≥ 53 % long → long, ≤ 47 % → short.
   - `bnSpotTaker`: Taker-Käufe Binance Spot ≥ 55 % der letzten Std. → long, ≤ 45 % → short.
+- Relative Wal-Signale (seit 07.10.2026, `beobachtung.relativ`, Hypothese vorab festgelegt): Long-Anteil ≥ 5 Punkte über dem eigenen 72-Std.-Median → long, ≤ 5 darunter → short (`relWinners`, `relAll`; `relLosersFade` gespiegelt). `relCompass` = Kompass B aus diesen drei plus Fluss 4 Std. und Magnet, gleiche Gewichte. Für die Bewertung zählen vor allem die Fälle ab 08.10.2026 (ungesehene Daten); die Rückrechnung davor diente nur der Prüfung, dass die Signale drehen. Frühestens ab 19.10.2026 Vorschlag an Mirco, ob Kompass B den Live-Kompass ersetzt oder ein Signal als Gegenindikator geführt wird.
 - Datenlage der Börsendaten mitberichten (Zeile „Börsendaten“: Anzahl Messungen, häufigste Ausfälle). Fällt eine Quelle dauerhaft aus (> 50 % der Messungen), im Bericht nennen und mit dem Workflow „Quellen-Test“ neu prüfen.
 - Frühestens nach 3 Wochen (ab 20.10.2026): Vorschlag an Mirco, welches Beobachtungs-Signal ins Dashboard bzw. mit welchem Startgewicht in den Kompass kommt. Ohne sein OK nichts davon als Signal in Kompass, Lagebild oder Morgencheck übernehmen. (Die Infokachel „Gesamtmarkt“ zeigt die Rohwerte seit 29.09.2026 ohne Wertung.)
 

@@ -9,7 +9,7 @@ späteren Kurs in 1, 4 und 24 Stunden verglichen. Gezählt werden nur nicht übe
 import json, sys, argparse
 from datetime import datetime
 from zoneinfo import ZoneInfo
-from common import load_settings, load_snapshots, price_at, de_num, signal_dirs, compass, compass_dir, market_dirs
+from common import load_settings, load_snapshots, price_at, de_num, signal_dirs, compass, compass_dir, market_dirs, relative_dirs
 
 BER = ZoneInfo('Europe/Berlin')
 ap = argparse.ArgumentParser()
@@ -49,6 +49,7 @@ def signals(i):
     d = signal_dirs(snaps[i], s4, cfg, coin)
     d['compass'] = compass_dir(compass(d, cfg), cfg)
     d.update(market_dirs(snaps[i], s4, cfg, coin))
+    d.update(relative_dirs(snaps, i, cfg, coin, d))
     return {k: (v or 0) for k, v in d.items()}
 
 

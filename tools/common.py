@@ -210,6 +210,55 @@ def market_dirs(s, s4, cfg, coin):
     return d
 
 
+# ---------- Relative Wal-Signale (Beobachtung seit 07.10.2026, settings: beobachtung.relativ) ----------
+# Bild: Nicht „Steht die Nadel auf Long?“, sondern „Hat sie sich gegenüber ihrer üblichen Lage bewegt?“.
+# Die Pegel-Signale (biasWinners, biasLosersFade) standen seit Start dauerhaft auf Long und sagten nichts.
+def relative_dirs(snaps, i, cfg, coin, d_base=None):
+    """Richtung der relativen Signale zum Zeitpunkt snaps[i]; None = noch zu wenig Vorlauf."""
+    r = cfg.get('beobachtung', {}).get('relativ', {})
+    win_ms = r.get('fensterStd', 72) * 3600e3
+    min_ms = r.get('minStd', 24) * 3600e3
+    gap = r.get('abstand', 0.05)
+    out = {'relWinners': None, 'relLosersFade': None, 'relAll': None, 'relCompass': None}
+    s = snaps[i]
+    t = s['t']
+    if not s.get('coins', {}).get(coin) or t - snaps[0]['t'] < min_ms:
+        return out
+    hist = {'win': [], 'lose': [], 'all': []}
+    j = i - 1
+    while j >= 0 and snaps[j]['t'] >= t - win_ms:
+        k = snaps[j].get('coins', {}).get(coin)
+        if k:
+            for g in hist:
+                sh = side_share(k[g]) if k.get(g) else None
+                if sh is not None:
+                    hist[g].append(sh)
+        j -= 1
+
+    def rel(g):
+        now = side_share(s['coins'][coin][g]) if s['coins'][coin].get(g) else None
+        xs = sorted(hist[g])
+        if now is None or len(xs) < 20:
+            return None
+        med = xs[len(xs) // 2]
+        return 1 if now - med >= gap else (-1 if now - med <= -gap else 0)
+
+    out['relWinners'] = rel('win')
+    rl = rel('lose')
+    out['relLosersFade'] = None if rl is None else -rl
+    out['relAll'] = rel('all')
+    # Kompass B: gleiche Gewichte, nur Signale, die tatsächlich drehen können
+    parts = [out['relWinners'], out['relLosersFade'], out['relAll']]
+    if d_base:
+        parts += [d_base.get('flow4h'), d_base.get('liqMagnet')]
+    parts = [p for p in parts if p is not None]
+    if parts:
+        sc = sum(parts) / len(parts)
+        m = r.get('kompassMin', 0.34)
+        out['relCompass'] = 1 if sc >= m else (-1 if sc <= -m else 0)
+    return out
+
+
 def de_num(v, d=0):
     s = f'{v:,.{d}f}'
     return s.replace(',', 'X').replace('.', ',').replace('X', '.')

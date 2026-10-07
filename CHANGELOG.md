@@ -1,5 +1,12 @@
 # Änderungsprotokoll
 
+## 2026-10-07 – Relative Wal-Signale und „Kompass B“ im Beobachtungsmodus (Wunsch von Mirco)
+- Anlass: Der Kompass zeigte seit Start nur Long (BTC 98 Long/0 Short im 1h-Test, ETH 37/0), weil „Gewinner-Wale“ (Gewicht 2) und „Gegen die Verlierer-Wale“ dauerhaft auf Long stehen (BTC 143/0 bzw. 142/0). Trefferquote = Markt (BTC 1h 47 % vs. 47 %). Bild: eine festgeklemmte Kompassnadel.
+- Neu (`tools/common.py` → `relative_dirs`, `settings.json` → `beobachtung.relativ`): Long-Anteil verglichen mit dem eigenen Median der letzten 72 Std.; ≥ 5 Punkte darüber → long, ≤ 5 darunter → short (Verlierer gespiegelt). Signale `relWinners`, `relLosersFade`, `relAll` und `relCompass` (Kompass B: drei relative Signale + Fluss 4 Std. + Magnet, gleiche Gewichte, Richtung ab 0,34). Vorlauf mindestens 24 Std.
+- Schwellen vorab festgelegt und **nicht** nach dem Ergebnis justiert. Live-Kompass, Gewichte und Dashboard unverändert.
+- Rückrechnung 29.09.–07.10. (BTC 1h, Markt 50–51 %): Gewinner relativ 42 % (n=48), Verlierer-Fade relativ 40 % (n=60), alle Wale relativ 41 % (n=39), Kompass B 49 % (n=61). ETH 1h: Verlierer-Fade relativ 42 % (n=57), Kompass B 42 % (n=43, fast nur Short). Die Nadel dreht jetzt (Long und Short gemischt), einen Vorsprung zeigt aber keine Variante; die 1h-Werte liegen eher **unter** dem Markt.
+- Zusatz-Hypothese, ebenfalls vorab festgelegt: Wale reagieren auf den Kurs statt ihn anzuführen (Rücklauf nach ihrer Umschichtung). Nicht umgedreht, sondern ab 08.10. auf neuen Daten geprüft: Bleiben die relativen Signale im 1h-Test ≥ 6 Punkte unter dem Markt, Vorschlag „als Gegenindikator“ im Review ab 19.10.
+
 ## 2026-10-05 – Messtakt: Anstoß von außen alle 10 Min. (OK von Mirco)
 - Anlass: GitHub-Zeitplan lief seit 03.10. nur alle 2–6 Std. (Review 04.10.: 7 Lücken > 30 Min.). Seit 04.10. ca. 21 Uhr wieder etwa alle 15–25 Min., aber ohne Gewähr.
 - Neu: cron-job.org ruft alle 10 Min. `workflow_dispatch` der Wetterstation auf (Einrichtung durch Mirco, eigener Token nur mit Actions-Schreibrecht für dieses Repo). Der GitHub-Zeitplan bleibt als Reserve.

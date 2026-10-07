@@ -122,7 +122,26 @@
       },
       "bnSpotTaker": {
         "label": "Binance-Spot-Käufe gegen -Verkäufe (1 Std.)"
+      },
+      "relWinners": {
+        "label": "Gewinner-Wale longiger/shortiger als üblich (72 Std.)"
+      },
+      "relLosersFade": {
+        "label": "Gegen Verlierer-Wale, wenn longiger/shortiger als üblich (72 Std.)"
+      },
+      "relAll": {
+        "label": "Alle Wale longiger/shortiger als üblich (72 Std.)"
+      },
+      "relCompass": {
+        "label": "Kompass B: relative Wal-Signale + Fluss + Magnet"
       }
+    },
+    "relativ": {
+      "_hinweis": "Seit 07.10.2026 (Wunsch von Mirco): Wal-Signale als Veränderung statt Pegel. Anteil Long am Notional verglichen mit dem eigenen Median der vorangehenden fensterStd Stunden; Abstand >= abstand -> Richtung. Gilt erst, wenn mindestens minStd Stunden Vorlauf vorhanden sind. Schwellen vorab festgelegt, nicht nach Ergebnis nachjustieren (REVIEW.md).",
+      "fensterStd": 72,
+      "minStd": 24,
+      "abstand": 0.05,
+      "kompassMin": 0.34
     }
   }
 }
