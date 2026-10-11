@@ -1,5 +1,21 @@
 # Änderungsprotokoll
 
+## 2026-10-11 – Wochen-Review (dritter Lauf): nichts geändert
+- **Datenlage** (laut `review.py`): 1385 Messungen über 12,8 Tage (29.09. 00:50 bis 11.10. 19:50), 13 Lücken > 30 Min. (überwiegend aus der Zeitplan-Störung 03./04.10.), 0 Scanfehler – BTC und ETH gleich. Börsendaten: 1293 Messungen seit 29.09. 21:19, nur vereinzelte Ausfälle (Zeitüberschreitung 13×, Kraken je 2×, CoinGecko 2×); keine Quelle dauerhaft ausgefallen.
+- **Markt-Vergleich (Kurs stieg)**: BTC 1h 50 % (n=244), 4h 57 % (n=67), 24h 58 % (n=12) · ETH 1h 54 %, 4h 57 %, 24h 50 %.
+- **Kernzahlen** (unbewertet, < 14 Tage):
+  - BTC Kompass: 1h 45 % vs. Markt 50 % (n=111, 105 Long/6 Short), 4h 50 % vs. 56 % (n=36) – kein Vorsprung, eher darunter.
+  - BTC Gewinner-Wale: 1h 45 % vs. 50 % (n=157), 4h 49 % vs. 56 % (n=45) · Gegen Verlierer-Wale 1h 51 % vs. 50 % (n=187).
+  - BTC Fluss 4 Std.: 4h 44 % vs. 50 % (n=41, beide Hälften darunter) → Urteil „Gegenindikator?“.
+  - BTC Liq.-Magnet: 4h 55 % vs. 51 % (n=58), 1h 50 % vs. 50 % (n=185).
+  - ETH Gegen Verlierer-Wale: 1h 45 % vs. 52 % (n=169) → „Gegenindikator?“ · ETH Kompass 1h 45 % vs. 50 % (n=66).
+  - Beobachtung: Gegen Verlierer-Wale relativ (72 Std.) 4h BTC 56 % vs. 47 % (n=39), ETH 57 % vs. 49 % (n=44), jeweils beide Hälften darüber → Urteil „bewährt“. Kompass B BTC 4h 60 % vs. 48 % (n=43), aber 1. Hälfte nur 48 % → „unklar“. ETH Funding-Fade 1h 42 % vs. 54 % (n=40) → „Gegenindikator?“.
+  - Bias aller Wale und Squeeze-Risiko lösen weiter fast nie aus (BTC max. 3 Fälle, ETH 0).
+- **Einordnung**: Der Live-Kompass liegt in keinem Horizont über dem Markt; die Nadel steht weiter fast nur auf Long. Erster Lichtblick: der relative Verlierer-Fade im 4h-Test bei beiden Coins. Achtung: Diese Zahl enthält auch die Rückrechnung vor dem 08.10. (dort 1h 40 %); `review.py` trennt die ungesehenen Fälle ab 08.10. nicht aus. Die Urteile „bewährt“/„Gegenindikator?“ sind vorläufig und werden erst ab 14 Tagen bewertet.
+- **Entscheidung**: Keine Bewertung (12,8 < 14 Tage), keine Änderung an Signalen, Gewichten oder Schwellen (< 21 Tage). Nächste Bewertung beim nächsten Review (18.10.), Änderungen frühestens ab 19.10., Vorschläge zu Börsendaten ab 20.10.
+- Vorschlag an Mirco (nicht umgesetzt): `review.py` um eine Auswertung nur der Fälle ab 08.10. für die relativen Signale ergänzen, damit der Review 18.10./19.10. die vorab festgelegte Hypothese auf ungesehenen Daten prüfen kann.
+- Vollständige Bilanz: `data/review/2026-10-11.md`.
+
 ## 2026-10-07 – Relative Wal-Signale und „Kompass B“ im Beobachtungsmodus (Wunsch von Mirco)
 - Anlass: Der Kompass zeigte seit Start nur Long (BTC 98 Long/0 Short im 1h-Test, ETH 37/0), weil „Gewinner-Wale“ (Gewicht 2) und „Gegen die Verlierer-Wale“ dauerhaft auf Long stehen (BTC 143/0 bzw. 142/0). Trefferquote = Markt (BTC 1h 47 % vs. 47 %). Bild: eine festgeklemmte Kompassnadel.
 - Neu (`tools/common.py` → `relative_dirs`, `settings.json` → `beobachtung.relativ`): Long-Anteil verglichen mit dem eigenen Median der letzten 72 Std.; ≥ 5 Punkte darüber → long, ≤ 5 darunter → short (Verlierer gespiegelt). Signale `relWinners`, `relLosersFade`, `relAll` und `relCompass` (Kompass B: drei relative Signale + Fluss 4 Std. + Magnet, gleiche Gewichte, Richtung ab 0,34). Vorlauf mindestens 24 Std.
