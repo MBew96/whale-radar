@@ -76,18 +76,24 @@ for i, s in enumerate(snaps):
             cases[n].append({'t': s['t'], 'dir': v, 'res': res})
 
 # Vergleichswert: Wie oft stieg der Kurs überhaupt (nicht überlappend, Abstand = Horizont)?
-base = {h: [0, 0] for h in HORIZONS}
-lt = {h: -1e18 for h in HORIZONS}
-for s in snaps:
-    for h, ms in HORIZONS.items():
-        if s['t'] - lt[h] < SPACING[h]:
+def count_base(t_from=-1e18):
+    b = {h: [0, 0] for h in HORIZONS}
+    lt = {h: -1e18 for h in HORIZONS}
+    for s in snaps:
+        if s['t'] < t_from:
             continue
-        p1 = price_at(snaps, s['t'] + ms, coin)
-        if p1:
-            lt[h] = s['t']
-        if p1:
-            base[h][0] += 1
-            base[h][1] += 1 if p1 > s['px'][coin] else 0
+        for h, ms in HORIZONS.items():
+            if s['t'] - lt[h] < SPACING[h]:
+                continue
+            p1 = price_at(snaps, s['t'] + ms, coin)
+            if p1:
+                lt[h] = s['t']
+                b[h][0] += 1
+                b[h][1] += 1 if p1 > s['px'][coin] else 0
+    return b
+
+
+base = count_base()
 
 
 def stats(lst, h):
@@ -104,19 +110,19 @@ def stats(lst, h):
             'haelfte1': rate(a), 'haelfte2': rate(b)}
 
 
-def market_ref(st, h):
+def market_ref(st, h, bs=None):
     """Erwartete Trefferquote ohne Wissen: Long-Fälle treffen so oft, wie der Kurs stieg, Short-Fälle so oft, wie er fiel."""
-    b = base[h]
+    b = (bs or base)[h]
     if not st or not st.get('n') or not b[0]:
         return None
     up = b[1] / b[0]
     return (st['long'] * up + st['short'] * (1 - up)) / st['n']
 
 
-def verdict(st, h):
+def verdict(st, h, bs=None):
     if not st or st['n'] < MIN_CASES:
         return 'zu wenig Daten'
-    ref = market_ref(st, h)
+    ref = market_ref(st, h, bs)
     if ref is None:
         return 'unklar'
     h1, h2 = st['haelfte1'], st['haelfte2']
@@ -127,9 +133,19 @@ def verdict(st, h):
     return 'unklar'
 
 
-def entry(n, h):
-    st = stats(cases[n], h)
-    return dict(st or {}, markt=market_ref(st, h), urteil=verdict(st, h))
+def entry(n, h, t_from=None, bs=None):
+    lst = cases[n] if t_from is None else [c for c in cases[n] if c['t'] >= t_from]
+    st = stats(lst, h)
+    return dict(st or {}, markt=market_ref(st, h, bs), urteil=verdict(st, h, bs))
+
+
+# Relative Wal-Signale: getrennte Auswertung nur der ungesehenen Fälle (seit 13.10.2026, OK von Mirco).
+# Die Hypothese wurde am 07.10.2026 festgelegt; Fälle davor waren Rückrechnung und zählen hier nicht.
+REL = cfg.get('beobachtung', {}).get('relativ', {})
+REL_FROM_DAY = REL.get('ungesehenAb')
+REL_FROM = datetime.strptime(REL_FROM_DAY, '%Y-%m-%d').replace(tzinfo=BER).timestamp() * 1000 if REL_FROM_DAY else None
+REL_NAMES = [n for n in names if n.startswith('rel')]
+base_rel = count_base(REL_FROM) if REL_FROM else None
 
 
 span_days = (snaps[-1]['t'] - snaps[0]['t']) / 864e5
@@ -148,7 +164,11 @@ report = {
     'boersendaten': {'messungen': len(with_mkt), 'seit': datetime.fromtimestamp(with_mkt[0]['t'] / 1000, BER).strftime('%d.%m.%Y %H:%M') if with_mkt else None,
                      'haeufigste_ausfaelle': sorted(err_count.items(), key=lambda kv: -kv[1])[:5]},
     'vergleich_kurs_stieg': {h: (b[1] / b[0] if b[0] else None, b[0]) for h, b in base.items()},
-    'signale': {n: {h: entry(n, h) for h in HORIZONS} for n in names}
+    'signale': {n: {h: entry(n, h) for h in HORIZONS} for n in names},
+    'relativ_ungesehen': None if not REL_FROM else {
+        'ab': datetime.fromtimestamp(REL_FROM / 1000, BER).strftime('%d.%m.%Y'),
+        'vergleich_kurs_stieg': {h: (b[1] / b[0] if b[0] else None, b[0]) for h, b in base_rel.items()},
+        'signale': {n: {h: entry(n, h, REL_FROM, base_rel) for h in HORIZONS} for n in REL_NAMES}}
 }
 
 if args.json:
@@ -197,5 +217,22 @@ for n in names:
             print(f'| {lab} | {h} | 0 | – | – | – | – | zu wenig Daten |')
             continue
         print(f"| {lab} | {h} | {st['n']} ({st['long']}/{st['short']}) | {pc(st['quote'])} | {pc(st['markt'])} | {de_num(st['avg_move'] * 100, 2)} % | {pc(st['haelfte1'])} / {pc(st['haelfte2'])} | {st['urteil']} |")
+ru = report['relativ_ungesehen']
+if ru:
+    print()
+    print(f"### Relative Wal-Signale – nur ungesehene Fälle ab {ru['ab']}")
+    print('Die Hypothese wurde am 07.10.2026 vorab festgelegt; nur diese Fälle zählen für die Bewertung (REVIEW.md). Markt-Vergleich aus demselben Zeitraum.')
+    print('Vergleich (Kurs stieg, ab ' + ru['ab'] + '): ' + ' · '.join(f"{h}: {pc(v[0])} (n={v[1]})" for h, v in ru['vergleich_kurs_stieg'].items()))
+    print()
+    print('| Signal | Horizont | Fälle (L/S) | Trefferquote | Markt-Vergleich | Ø Bewegung in Signalrichtung | 1. / 2. Hälfte | Urteil |')
+    print('|---|---|---|---|---|---|---|---|')
+    for n in REL_NAMES:
+        lab = OBS[n].get('label', n)
+        for h in HORIZONS:
+            st = ru['signale'][n][h]
+            if not st.get('n'):
+                print(f'| {lab} | {h} | 0 | – | – | – | – | zu wenig Daten |')
+                continue
+            print(f"| {lab} | {h} | {st['n']} ({st['long']}/{st['short']}) | {pc(st['quote'])} | {pc(st['markt'])} | {de_num(st['avg_move'] * 100, 2)} % | {pc(st['haelfte1'])} / {pc(st['haelfte2'])} | {st['urteil']} |")
 print()
 print(f'Hinweis: belastbar erst ab {MIN_CASES} Fällen. Markt-Vergleich = Trefferquote, die ein Signal mit derselben Long/Short-Mischung ohne jedes Wissen erreicht hätte. „bewährt“ = Trefferquote mindestens {de_num(EDGE * 100)} Prozentpunkte über dem Markt-Vergleich, über 50 % und in beiden Hälften über dem Markt-Vergleich; „Gegenindikator?“ spiegelbildlich.')

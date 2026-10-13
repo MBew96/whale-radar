@@ -1,5 +1,15 @@
 # Änderungsprotokoll
 
+## 2026-10-13 – Review: relative Wal-Signale zusätzlich nur auf ungesehenen Daten (OK von Mirco)
+- `tools/review.py` hat jetzt einen eigenen Abschnitt „Relative Wal-Signale – nur ungesehene Fälle ab 08.10.2026“. Der Markt-Vergleich wird dort aus demselben Zeitraum berechnet. Der Starttag steht in `settings.json` → `beobachtung.relativ.ungesehenAb`. Die Haupttabelle bleibt unverändert, und `--json` liefert den Abschnitt als `relativ_ungesehen`.
+- Anlass: Am 11.10. stand „Gegen Verlierer-Wale relativ“ im 4h-Test auf „bewährt“ (BTC 56 % zu 47 %, n=39). In dieser Zahl steckte aber auch die Rückrechnung.
+- Erster Stand ab 08.10. (13.10., unbewertet):
+  - Verlierer-Fade relativ 4h: BTC 52 % zu 49 % (n=21), ETH 57 % zu 49 % (n=21). Der Vorsprung schrumpft bei BTC deutlich.
+  - Kompass B: BTC 1h 43 % zu 51 % (n=69), 4h 65 % zu 52 % (n=20).
+  - Gewinner relativ: BTC 1h 44 % zu 50 % (n=87).
+  - „Alle Wale relativ“ hat seit 08.10. keinen Fall ausgelöst.
+- An Signalen, Gewichten und Schwellen nichts geändert.
+
 ## 2026-10-11 – Wochen-Review (dritter Lauf): nichts geändert
 - **Datenlage** (laut `review.py`): 1385 Messungen über 12,8 Tage (29.09. 00:50 bis 11.10. 19:50), 13 Lücken > 30 Min. (überwiegend aus der Zeitplan-Störung 03./04.10.), 0 Scanfehler – BTC und ETH gleich. Börsendaten: 1293 Messungen seit 29.09. 21:19, nur vereinzelte Ausfälle (Zeitüberschreitung 13×, Kraken je 2×, CoinGecko 2×); keine Quelle dauerhaft ausgefallen.
 - **Markt-Vergleich (Kurs stieg)**: BTC 1h 50 % (n=244), 4h 57 % (n=67), 24h 58 % (n=12) · ETH 1h 54 %, 4h 57 %, 24h 50 %.
