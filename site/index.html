@@ -979,7 +979,7 @@ function stationSignals(coin,idx){
     for(const [bi,L,Sv] of h[2]){const c=(bi+0.5)*bw; if(bi<0&&Math.abs(c)<=near) lo+=L; if(bi>=0&&c<=near) up+=Sv;}
     d.liqMagnet=(!tot||Math.max(lo,up)<tot*thr('magnetMinShareOfTotal',0.01))?0:(up>=1.5*lo?1:lo>=1.5*up?-1:0); x.lo=lo; x.up=up;
   } else d.liqMagnet=null;
-  let nm=0,dn=0; for(const k of Object.keys(SIGDEF)){const v=d[k]; if(v==null||!sigOn(k)) continue; const w=SIGW(k); nm+=w*v; dn+=w;}
+  let nm=0,dn=0; for(const k of Object.keys(SIGDEF)){const v=d[k]; if(v==null||!sigOn(k)) continue; const w=SIGW(k); nm+=w*v; dn+=Math.abs(w);}
   const score=dn?nm/dn:null, t=thr('compassMin',0.34);
   return {t:p[0],px:p[1],d,x,score,dir:score==null?null:(score>=t?1:score<=-t?-1:0),bAll,bWin,bLose};
 }
@@ -1019,7 +1019,7 @@ function renderKompass(){
     ['squeezeRisk','Squeeze-Risiko',k.d.squeezeRisk>0?'Short-Squeeze möglich':k.d.squeezeRisk<0?'Long-Squeeze möglich':'unauffällig'],
     ['liqMagnet','Magnete ±3 %',k.x.up==null?'keine Heatmap-Daten':`oben ${usd(k.x.up)} · unten ${usd(k.x.lo)}`]
   ];
-  li.innerHTML=rows.filter(r=>sigOn(r[0])).map(([id,name,why])=>{const val=k.d[id], w=SIGW(id), c2=val==null?'dim':val>0?'L':val<0?'S':'muted', sym=val==null?'–':val>0?`+${num(w)}`:val<0?`−${num(w)}`:'0'; return `<li><span><b>${name}</b> <span class="muted">${why}</span></span><span class="k-c ${c2}" title="Beitrag zum Kompass (Gewicht ${num(w)})">${sym}</span></li>`;}).join('');
+  li.innerHTML=rows.filter(r=>sigOn(r[0])).map(([id,name,why])=>{const val=k.d[id], w=SIGW(id), cb=val==null?null:w*val, c2=cb==null?'dim':cb>0?'L':cb<0?'S':'muted', sym=cb==null?'–':cb>0?`+${num(cb)}`:cb<0?`−${num(-cb)}`:'0'; return `<li><span><b>${name}</b> <span class="muted">${why}</span></span><span class="k-c ${c2}" title="Beitrag zum Kompass (Gewicht ${num(w)})">${sym}</span></li>`;}).join('');
   const ser=seriesFor(c), pts=[]; for(let i=0;i<ser.length;i++){const s2=stationSignals(c,i); if(s2&&s2.score!=null) pts.push([s2.t,s2.score]);}
   sp.innerHTML=sparkSvg(pts,Math.max(200,sp.clientWidth||280));
   nt.textContent=`Stand ${hm(k.t)} Uhr, neu mit jeder Messung. Gewichtete Summe der Signale aus den Messungen der Wetterstation, unabhängig von den Filtern oben. Noch nicht statistisch geprüft: Der Wochen-Review bewertet den Kompass ab etwa 14 Tagen Daten.`;

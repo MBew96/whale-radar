@@ -1,5 +1,17 @@
 # Änderungsprotokoll
 
+## 2026-10-13 – Optimierung zum 20.10. vorab festgelegt (OK von Mirco)
+- Anlass: Bisher ist der Kompass nicht besser als der Markt (BTC 1h 43 % zu 49 %, n=127). Mirco wünscht deshalb eine Optimierung, sobald 21 Tage Daten vorliegen.
+- Freigegeben sind zwei Schritte mit vorab festen Bedingungen (REVIEW.md, Abschnitt „Vorab freigegebene Optimierung“): (1) Gewinner-Wale und Verlierer-Fade auf Gewicht 0, wenn sie bei BTC 1h und 4h nicht mindestens 3 Punkte über dem Markt liegen. (2) Signale mit Urteil „Gegenindikator?“ (BTC, 1h/4h, ≥ 30 Fälle) gespiegelt führen. Kompass B als Live-Kompass hat Mirco nicht freigegeben, er bleibt in der Beobachtung.
+- Technik, ohne Wirkung auf heutige Zahlen (geprüft: `review.py --json` byteweise gleich):
+  - Negative Gewichte spiegeln ein Signal. `compass` in `tools/common.py` und `stationSignals` im Dashboard rechnen dafür mit |Gewicht| im Nenner, die Signalliste zeigt den Beitrag mit dem richtigen Vorzeichen.
+  - Neu ist `review.py --settings <Datei>` für Vorher/Nachher-Rechnungen.
+- Probelauf mit Stand 13.10. (nur Test, nicht umgesetzt; im Rückblick gewählt, daher geschönt): Gewinner 0, Verlierer-Fade 0, Fluss 4 Std. −1.
+  - BTC-Kompass 1h: 60 % zu 50 % (n=42, 19 Long/23 Short). Vorher: 43 % zu 49 % (n=127).
+  - BTC-Kompass 4h: 45 % zu 50 % (n=22).
+  - ETH-Kompass 1h: 36 % zu 46 % (n=33). Er zeigt dann nur noch Short, weil der ETH-Magnet fast immer auf Short steht (220 von 221 Fällen).
+- An Signalen, Gewichten und Schwellen heute nichts geändert.
+
 ## 2026-10-13 – Review: relative Wal-Signale zusätzlich nur auf ungesehenen Daten (OK von Mirco)
 - `tools/review.py` hat jetzt einen eigenen Abschnitt „Relative Wal-Signale – nur ungesehene Fälle ab 08.10.2026“. Der Markt-Vergleich wird dort aus demselben Zeitraum berechnet. Der Starttag steht in `settings.json` → `beobachtung.relativ.ungesehenAb`. Die Haupttabelle bleibt unverändert, und `--json` liefert den Abschnitt als `relativ_ungesehen`.
 - Anlass: Am 11.10. stand „Gegen Verlierer-Wale relativ“ im 4h-Test auf „bewährt“ (BTC 56 % zu 47 %, n=39). In dieser Zahl steckte aber auch die Rückrechnung.

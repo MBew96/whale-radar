@@ -1,6 +1,6 @@
 """Wochen-Review: Signal-Bilanz aus der gesamten Historie.
 
-Aufruf:  python3 tools/review.py [--coin BTC] [--json] [--kurz]
+Aufruf:  python3 tools/review.py [--coin BTC] [--json] [--kurz] [--settings andere.json]
 Für jedes Signal wird zu jedem Messzeitpunkt die Richtung bestimmt (long/short/neutral) und mit dem
 späteren Kurs in 1, 4 und 24 Stunden verglichen. Gezählt werden nur nicht überlappende Fälle
 (Abstand je Signal = Horizont: 1h-Test 1 Std., 4h-Test 4 Std., 24h-Test 24 Std.; seit 05.10.2026).
@@ -16,10 +16,11 @@ ap = argparse.ArgumentParser()
 ap.add_argument('--coin', default='BTC')
 ap.add_argument('--json', action='store_true')
 ap.add_argument('--kurz', action='store_true')
+ap.add_argument('--settings', default=None, help='andere settings.json (Was-wäre-wenn, z. B. Vorher/Nachher bei Gewichtsänderungen)')
 args = ap.parse_args()
 coin = args.coin
 
-cfg = load_settings()
+cfg = load_settings(args.settings)
 thr = cfg.get('thresholds', {})
 strong = thr.get('biasStrong', 0.65)
 flow_thr = thr.get('flowSignificantUsd', 5e7)

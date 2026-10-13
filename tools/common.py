@@ -5,8 +5,9 @@ from datetime import datetime, timezone
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
-def load_settings():
-    with open(os.path.join(ROOT, 'config', 'settings.json'), encoding='utf-8') as f:
+def load_settings(path=None):
+    """settings.json laden; path = andere Datei (nur für Was-wäre-wenn-Rechnungen im Review)."""
+    with open(path or os.path.join(ROOT, 'config', 'settings.json'), encoding='utf-8') as f:
         return json.load(f)
 
 
@@ -135,7 +136,8 @@ def signal_dirs(s, s4, cfg, coin):
 
 
 def compass(d, cfg):
-    """Gewichtete Summe der aktiven Signale, Ergebnis zwischen -1 (short) und +1 (long); None ohne Daten."""
+    """Gewichtete Summe der aktiven Signale, Ergebnis zwischen -1 (short) und +1 (long); None ohne Daten.
+    Gewicht < 0 spiegelt ein Signal (Gegenindikator), Gewicht 0 = nur Beobachtung."""
     sig = cfg.get('signals', {})
     num = den = 0.0
     for k, v in d.items():
@@ -144,7 +146,7 @@ def compass(d, cfg):
             continue
         w = m.get('weight', 1)
         num += w * v
-        den += w
+        den += abs(w)  # negatives Gewicht = Signal gespiegelt (Gegenindikator), zählt trotzdem voll im Nenner
     return (num / den) if den else None
 
 

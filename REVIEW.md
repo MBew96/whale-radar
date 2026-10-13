@@ -32,6 +32,14 @@ Für jedes Signal aus `config/settings.json` → `signals`:
 - Gewichte (`signals.*.weight`) frühestens nach 21 Tagen und höchstens in Schritten von ±0,5 ändern, und nur, wenn ein Signal in beiden Hälften des Zeitraums klar besser bzw. schlechter als der Vergleichswert abschneidet. Ein Signal mit Gewicht 0 bleibt im Beobachtungsmodus.
 - Jede Gewichtsänderung mit Vorher/Nachher-Trefferquote des Kompasses im CHANGELOG belegen.
 
+### Vorab freigegebene Optimierung zum 20.10.2026 (OK von Mirco, 13.10.2026)
+Diese Regeln wurden am 13.10.2026 festgelegt. Sie gehen ausnahmsweise über die Schritte von ±0,5 hinaus. Später werden sie nicht umgedeutet. Stichtag ist frühestens der 20.10.2026, ab dann liegen 21 Tage Daten vor. Maßgeblich ist die Ausgabe von `review.py`, BTC entscheidet (Mircos Hauptmarkt), ETH dient zur Kontrolle.
+1. **Klemmende Nadel lösen:** `biasWinners` und `biasLosersFade` bekommen jeweils Gewicht 0 (Beobachtung, `active` bleibt true), wenn ihre BTC-Trefferquote im 1h-Test **und** im 4h-Test (je ≥ 30 Fälle) weniger als 3 Punkte über dem Markt-Vergleich liegt. Steht dasselbe Signal bei ETH im 1h- oder 4h-Test auf „bewährt“, bleibt es unverändert.
+2. **Gegenindikatoren drehen:** Ein Kompass-Signal aus `signals` (nicht `compass`, nicht `takerFlow`, keine Beobachtungs-Signale) bekommt ein negatives Gewicht (−|Gewicht|), wenn es bei BTC im 1h- oder 4h-Test mit ≥ 30 Fällen auf „Gegenindikator?“ steht. Ausnahme: Es steht bei ETH im selben Horizont auf „bewährt“. Ein negatives Gewicht spiegelt das Signal, `tools/common.py` und das Dashboard rechnen dafür mit |Gewicht| im Nenner. Ein 24h-Befund zählt nicht, weil der Kompass für 1–4 Std. gedacht ist.
+3. **Belegen:** Vor dem Umsetzen den Kompass mit den neuen Gewichten rechnen: `python3 review.py --coin BTC --settings <Kopie mit neuen Gewichten>`, ebenso für ETH. Die Vorher/Nachher-Trefferquote des Kompasses (1h/4h, BTC und ETH) kommt ins CHANGELOG. Diese Nachher-Zahlen sind „im Rückblick gewählt“ und damit geschönt. Ob die Änderung trägt, zeigen erst die Fälle ab dem Stichtag.
+4. **Rückweg:** Liegt der geänderte Kompass zwei Wochen nach dem Stichtag auf den neuen Fällen im 1h-Test **unter** dem Markt-Vergleich, wird das an Mirco gemeldet, mit dem Vorschlag, die Gewichte zurückzusetzen.
+5. Alles andere bleibt Vorschlag an Mirco, z. B. Kompass B als Live-Kompass oder Beobachtungs-Signale in den Kompass.
+
 ### Börsendaten (Beobachtungsmodus seit 29.09.2026)
 - `review.py` bewertet zusätzlich die Signale aus `settings.json` → `beobachtung.signals` (in der Tabelle mit „(Beobachtung)“ markiert). Gleiche Regeln: nicht überlappend, ≥ 30 Fälle, ≥ 56 % und beide Hälften > 50 %.
 - Vorab festgelegte Hypothesen (nicht nachträglich umdeuten):
