@@ -17,6 +17,8 @@ Bild dazu: Die Wetterstation misst rund um die Uhr, der Wochen-Review ist der Tr
 ## Wochen-Review (sonntags)
 ### Datenlage prüfen
 - Anzahl Messungen, Lücken (> 30 Min. ohne Messung), Fehlerquote (`n.err`), Anzahl Wallets mit Positionen.
+- **Bekannte Datenlücken** (nicht nachholbar, nichts auffüllen; im Bericht an Mirco ausdrücklich nennen):
+  - 12.10.2026 17:10 UTC bis 16.10.2026 09:36 UTC (rund 3,7 Tage). Ursache: Ein Lauf hing an der Website-Freigabe (github-pages) und blockierte die Warteschlange. Folge: Der 14-Tage-Zeitraum vor dem Review am 18.10. enthält nur etwa 10 Tage Daten. Fallzahlen sind kleiner, und die zweite Hälfte im Hälften-Vergleich ist dünner besetzt. Für die vorab freigegebene Optimierung zum 20.10. die tatsächlichen Datentage nennen, nicht die Kalendertage.
 
 ### Signal-Bilanz (erst ab 14 Tagen Daten, Änderungen erst ab 21 Tagen)
 Für jedes Signal aus `config/settings.json` → `signals`:

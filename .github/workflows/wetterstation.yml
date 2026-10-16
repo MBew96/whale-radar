@@ -1,13 +1,21 @@
 name: Wetterstation
 
 # Alle 10 Minuten: Wal-Positionen abholen, Momentaufnahme speichern, Website neu ausliefern.
-# Seit 05.10.2026 (OK Mirco) stößt cron-job.org alle 10 Min. per workflow_dispatch an.
-# Seit 06.10.2026 (OK Mirco) KEIN GitHub-Zeitplan mehr: Zeitplan + cron-job.org gleichzeitig ließen bei
-# Stau Läufe in der Warteschlange gegenseitig abbrechen (05.10. abends ~10 „cancelled“-Mails, 2,7 h ohne
-# Messung). Wächter ist jetzt die tägliche Wal-Bilanz: sie meldet Lücken > 30 Min. in den letzten 24 h.
-# Fällt cron-job.org dauerhaft aus, Zeitplan wieder einsetzen: schedule: - cron: '4-59/10 * * * *'
-# Anstöße von cron-job.org überspringen, wenn die letzte Messung jünger als 8 Min. ist; Pushes messen immer.
+# Anstöße:
+# - cron-job.org alle 10 Min. per workflow_dispatch (seit 05.10.2026, OK Mirco) – Haupttakt.
+# - GitHub-Zeitplan Minute 4, 14, 24 … als Sicherheitsnetz (06.10. entfernt, 16.10.2026 auf Mircos Wunsch
+#   wieder eingesetzt). GitHub startet Zeitpläne nur „nach Möglichkeit“, oft Stunden zu spät.
+# - Anstöße von Zeitplan und cron-job.org überspringen, wenn die letzte Messung jünger als 8 Min. ist
+#   (Schritt „Doppelte Messung vermeiden“); Pushes messen immer.
+# Aufbau in zwei Jobs (seit 16.10.2026): „messen“ und „ausliefern“. Anlass: Vom 12.10. 17:20 UTC bis
+# 16.10. 09:35 UTC hing ein Lauf im Zustand „waiting“ an der Umgebung github-pages (ohne Prüfer, ohne
+# Wartezeit – Störung bei GitHub). Weil die Umgebung am ganzen Job hing, wartete auch die Messung, und
+# alle folgenden Anstöße wurden in der Warteschlange abgebrochen: rund 3,7 Tage ohne Messung.
+# Jetzt hängt die Umgebung nur noch an „ausliefern“, und ein neuerer Auslieferungs-Job verdrängt einen
+# hängenden. Die Messung läuft davon unabhängig weiter.
 on:
+  schedule:
+    - cron: '4-59/10 * * * *'
   workflow_dispatch:
   push:
     branches: [main]
@@ -22,17 +30,16 @@ permissions:
   pages: write
   id-token: write
 
-concurrency:
-  group: wetterstation
-  cancel-in-progress: false
-
 jobs:
   messen:
     runs-on: ubuntu-latest
     timeout-minutes: 9
-    environment:
-      name: github-pages
-      url: ${{ steps.deploy.outputs.page_url || steps.deploy2.outputs.page_url }}
+    # Messungen nie parallel (gleiche Gruppe wie bisher), aber unabhängig von der Website-Auslieferung
+    concurrency:
+      group: wetterstation
+      cancel-in-progress: false
+    outputs:
+      skip: ${{ steps.guard.outputs.skip }}
     steps:
       - uses: actions/checkout@v4
 
@@ -75,17 +82,29 @@ jobs:
         with:
           path: _site
 
+  ausliefern:
+    needs: messen
+    if: needs.messen.outputs.skip != 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    # Ein neuerer Auslieferungs-Job bricht einen älteren ab – auch einen, der an der Umgebung hängt
+    concurrency:
+      group: pages
+      cancel-in-progress: true
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url || steps.deploy2.outputs.page_url }}
+    steps:
       # Die Momentaufnahme ist zu diesem Zeitpunkt schon gesichert. Klemmt die Auslieferung der Website
       # kurz (z. B. 04.10.2026: Token-Fehler bei GitHub), einmal nach 30 s wiederholen, statt den Lauf scheitern zu lassen.
       - id: deploy
-        if: steps.guard.outputs.skip != 'true'
         uses: actions/deploy-pages@v4
         continue-on-error: true
 
       - name: Kurz warten vor zweitem Versuch
-        if: steps.guard.outputs.skip != 'true' && steps.deploy.outcome == 'failure'
+        if: steps.deploy.outcome == 'failure'
         run: sleep 30
 
       - id: deploy2
-        if: steps.guard.outputs.skip != 'true' && steps.deploy.outcome == 'failure'
+        if: steps.deploy.outcome == 'failure'
         uses: actions/deploy-pages@v4

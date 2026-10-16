@@ -1,5 +1,19 @@
 # Änderungsprotokoll
 
+## 2026-10-16 – Wetterstation repariert: Lauf hing an der Website-Freigabe, 3,7 Tage ohne Messung
+- Befund (Fehlerbericht Mirco, `tools/luecken.py`): Die letzte Messung war vom 12.10. um 17:10 UTC, danach kam keine mehr.
+- Ursache: Der Lauf vom 12.10. um 17:20 UTC (cron-job.org) hing im Zustand „waiting“ an der Umgebung github-pages.
+  - Laut GitHub waren weder Prüfer noch Wartezeit eingetragen, es war also eine Störung bei GitHub.
+  - Weil die Umgebung am ganzen Job hing, wartete auch die Messung. Mit `cancel-in-progress: false` durfte nur ein Lauf in der Warteschlange stehen; jeder neue Anstoß verdrängte den vorigen.
+  - Ergebnis: rund 520 Anstöße wurden abgebrochen („cancelled“).
+- cron-job.org und der Token waren in Ordnung: Die Anstöße kamen pünktlich alle 10 Min. an.
+- Behoben:
+  - Den hängenden Lauf am 16.10. um 09:35 UTC abgebrochen. Der nächste Lauf hat sofort gemessen und ausgeliefert.
+  - Den Workflow in zwei Jobs geteilt: „messen“ (Gruppe `wetterstation`) und „ausliefern“ (Umgebung github-pages, Gruppe `pages` mit `cancel-in-progress: true`). Eine hängende Freigabe blockiert jetzt nur die Website, und der nächste Auslieferungs-Job verdrängt sie. Die Messung läuft weiter.
+  - Den GitHub-Zeitplan `4-59/10 * * * *` als Sicherheitsnetz wieder eingesetzt. Doppelte Messungen verhindert weiter der 8-Min.-Schutz.
+- Die Lücke vom 12.10. 17:10 bis 16.10. 09:36 UTC lässt sich nicht nachholen. Sie ist in REVIEW.md unter „Bekannte Datenlücken“ vermerkt: Der 14-Tage-Zeitraum vor dem Review am 18.10. enthält nur etwa 10 Tage Daten.
+- Signale, Gewichte und Schwellen sind unverändert.
+
 ## 2026-10-13 – Optimierung zum 20.10. vorab festgelegt (OK von Mirco)
 - Anlass: Bisher ist der Kompass nicht besser als der Markt (BTC 1h 43 % zu 49 %, n=127). Mirco wünscht deshalb eine Optimierung, sobald 21 Tage Daten vorliegen.
 - Freigegeben sind zwei Schritte mit vorab festen Bedingungen (REVIEW.md, Abschnitt „Vorab freigegebene Optimierung“): (1) Gewinner-Wale und Verlierer-Fade auf Gewicht 0, wenn sie bei BTC 1h und 4h nicht mindestens 3 Punkte über dem Markt liegen. (2) Signale mit Urteil „Gegenindikator?“ (BTC, 1h/4h, ≥ 30 Fälle) gespiegelt führen. Kompass B als Live-Kompass hat Mirco nicht freigegeben, er bleibt in der Beobachtung.
