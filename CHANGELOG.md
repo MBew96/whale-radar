@@ -12,6 +12,7 @@
   - Den Workflow in zwei Jobs geteilt: „messen“ (Gruppe `wetterstation`) und „ausliefern“ (Umgebung github-pages, Gruppe `pages` mit `cancel-in-progress: true`). Eine hängende Freigabe blockiert jetzt nur die Website, und der nächste Auslieferungs-Job verdrängt sie. Die Messung läuft weiter.
   - Den GitHub-Zeitplan `4-59/10 * * * *` als Sicherheitsnetz wieder eingesetzt. Doppelte Messungen verhindert weiter der 8-Min.-Schutz.
 - Die Lücke vom 12.10. 17:10 bis 16.10. 09:36 UTC lässt sich nicht nachholen. Sie ist in REVIEW.md unter „Bekannte Datenlücken“ vermerkt: Der 14-Tage-Zeitraum vor dem Review am 18.10. enthält nur etwa 10 Tage Daten.
+- `tools/luecken.py` hatte einen blinden Fleck. Er hat nur Messungen bis 2 Std. vor dem Fenster beachtet. Eine Lücke am Fensteranfang blieb deshalb unsichtbar: Am 16.10. meldete er „OK“, obwohl in 24 Std. nur 3 Messungen vorlagen. Jetzt zählt die letzte Messung vor dem Fenster immer als Ausgangspunkt, und mehrtägige Lücken zeigen auch das Enddatum. Bis 17.10. etwa 11:36 MESZ meldet der Wächter darum zu Recht „LÜCKE“.
 - Signale, Gewichte und Schwellen sind unverändert.
 
 ## 2026-10-13 – Optimierung zum 20.10. vorab festgelegt (OK von Mirco)

@@ -32,10 +32,16 @@ def main():
     history = Path(__file__).resolve().parent.parent / "data" / "history"
     jetzt = datetime.now(timezone.utc)
     start = jetzt - timedelta(hours=a.stunden)
-    ts = sorted(t for t in zeiten(history) if t >= start - timedelta(hours=2))
+    alle = sorted(zeiten(history))
+    ts = [t for t in alle if t >= start]
     if not ts:
         print(f"Wetterstation LÜCKE: keine Messung in den letzten {a.stunden} h")
         return 1
+    # Die letzte Messung VOR dem Fenster gehört als Ausgangspunkt dazu, egal wie alt sie ist.
+    # Sonst bleibt eine Lücke am Fensteranfang unsichtbar (16.10.2026: „OK“ bei nur 3 Messungen in 24 h).
+    vorher = [t for t in alle if t < start]
+    if vorher:
+        ts = [vorher[-1]] + ts
 
     grenze = timedelta(minutes=a.max_min)
     luecken = []
@@ -60,7 +66,8 @@ def main():
         if b is None:
             teile.append(f"seit {hm(v)} offen")
         else:
-            teile.append(f"{hm(v)}–{b.astimezone(BERLIN).strftime('%H:%M')} ({int((b - v).total_seconds() // 60)} Min.)")
+            ende = b.astimezone(BERLIN).strftime('%H:%M' if b.astimezone(BERLIN).date() == v.astimezone(BERLIN).date() else '%d.%m. %H:%M')
+            teile.append(f"{hm(v)}–{ende} ({int((b - v).total_seconds() // 60)} Min.)")
     print(f"Wetterstation LÜCKE: letzte Messung vor {alter_min} Min.; Lücken > {a.max_min} Min. "
           f"(MESZ): " + "; ".join(teile) + f" ({n} Messungen in {a.stunden} h)")
     return 1
