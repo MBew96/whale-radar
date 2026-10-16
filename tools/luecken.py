@@ -46,7 +46,7 @@ def main():
     grenze = timedelta(minutes=a.max_min)
     luecken = []
     for vor, nach in zip(ts, ts[1:]):
-        if nach >= start and nach - vor > grenze:
+        if nach >= start and nach - max(vor, start) > grenze:  # nur der Teil im Fenster zählt
             luecken.append((max(vor, start), nach))
     alter = jetzt - ts[-1]
     if alter > grenze:
