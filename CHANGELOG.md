@@ -1,5 +1,27 @@
 # Änderungsprotokoll
 
+## 2026-10-18 – Wochen-Review (vierter Lauf, erste Bewertung): nichts geändert
+- **Datenlage** (laut `review.py`): 1863 Messungen, Zeitraum 29.09. 00:50 bis 18.10. 19:50 UTC (19,8 Kalendertage), 14 Lücken > 30 Min., 0 Scanfehler – BTC und ETH gleich. Darin die bekannte Lücke 12.10. 17:10 bis 16.10. 09:36 UTC (rund 3,7 Tage, nicht nachholbar), es sind also gut 16 Datentage. Börsendaten: 1771 Messungen seit 29.09. 21:19, nur vereinzelte Ausfälle (Zeitüberschreitung 17×, Kraken je 2×, CoinGecko 2×); keine Quelle dauerhaft ausgefallen.
+- **Markt-Vergleich (Kurs stieg)**: BTC 1h 49 % (n=315), 4h 55 % (n=85), 24h 60 % (n=15) · ETH 1h 52 %, 4h 55 %, 24h 47 %.
+- **Bewertung** (≥ 14 Tage, erstmals erlaubt):
+  - Kein Live-Signal ist „bewährt“, weder bei BTC noch bei ETH.
+  - BTC Kompass: 1h 45 % vs. 49 % (n=141, 121 Long/20 Short), 4h 48 % vs. 54 % (n=46) – unter dem Markt, Urteil „unklar“. ETH Kompass 1h 47 % vs. 49 % (n=96), 4h 47 % vs. 50 % (n=32).
+  - BTC Gewinner-Wale: 1h 47 % vs. 49 % (n=187), 4h 48 % vs. 54 % (n=54). BTC Gegen Verlierer-Wale: 1h 48 % vs. 49 % (n=244), 4h 49 % vs. 55 % (n=72, Hälften 53 %/44 %) → „Gegenindikator?“.
+  - BTC Liq.-Magnet: 4h 56 % vs. 50 % (n=77), aber 1. Hälfte nur 50 % → „unklar“; 1h 50 % vs. 50 % (n=253).
+  - BTC Fluss 4 Std.: 1h 45 % vs. 50 % (n=123), 4h 45 % vs. 51 % (n=51) – „unklar“ (am 11.10. noch „Gegenindikator?“).
+  - Bias aller Wale und Squeeze-Risiko lösen weiter kaum aus (BTC max. 7 Fälle, ETH 0).
+  - Beobachtung, Kompass B (relativ): BTC 4h 59 % vs. 49 % (n=58) „bewährt“; nur ungesehene Fälle ab 08.10.: 4h 63 % vs. 48 % (n=30, Hälften 73 %/53 %) „bewährt“, 1h 45 % vs. 49 % (n=103) „unklar“. ETH dagegen 4h 40 % vs. 45 % (n=42), ungesehen 43 % vs. 44 % (n=21) – keine Bestätigung.
+  - Beobachtung, Gewinner-Wale relativ ungesehen BTC 4h 55 % vs. 49 % (n=31) „bewährt“; ETH 4h 50 % vs. 48 % (n=32) „unklar“. Die Gegenindikator-Hypothese vom 07.10. (relative Signale im 1h-Test ≥ 6 Punkte unter dem Markt) ist nicht bestätigt: BTC liegt 1–4 Punkte darunter; ETH Verlierer-Fade relativ 1h 43 % vs. 49 % (n=100) liegt an der Grenze, Urteil laut `review.py` aber „unklar“. Weiter beobachten.
+  - Beobachtung, Börsendaten: kein Signal „bewährt“. ETH Funding-Fade 1h 46 % vs. 52 % (n=50) → „Gegenindikator?“. Übrige meist < 30 Fälle oder auf Marktniveau.
+- **Entscheidung**: Keine Änderung an Signalen, Gewichten oder Schwellen (19,8 < 21 Tage; auch keine Schwelle zeigt eine Verbesserung in beiden Hälften).
+- **Ausblick auf die vorab freigegebene Optimierung (Stichtag ab 20.10., umgesetzt im nächsten Review)**, nach heutigem Stand, nicht umgesetzt:
+  - Regel 1 würde greifen: Gewinner-Wale (BTC 1h −2, 4h −6 Punkte zum Markt) und Verlierer-Fade (1h −1, 4h −6) liegen nicht 3 Punkte über dem Markt; ETH bei beiden „unklar“, also keine Ausnahme.
+  - Regel 2 würde ebenfalls Verlierer-Fade treffen (BTC 4h „Gegenindikator?“, n=72). Widerspruch: Regel 1 setzt Gewicht 0, Regel 2 −1. Klärung durch Mirco nötig (siehe Vorschlag).
+- **Vorschläge an Mirco (nicht umgesetzt)**:
+  1. Regelkonflikt Verlierer-Fade bis zum nächsten Review klären: 0 (Beobachtung) oder −1 (gespiegelt)?
+  2. Kompass B: bei BTC im 4h-Test auf ungesehenen Daten „bewährt“ (n=30, knapp an der Mindestzahl), bei ETH nicht, im 1h-Test nirgends. Vorschlag frühestens ab 19.10. laut REVIEW.md – Empfehlung aus den Daten: noch nicht als Live-Kompass, eine weitere Woche Fälle sammeln.
+- Vollständige Bilanz: `data/review/2026-10-18.md`.
+
 ## 2026-10-16 – Wetterstation repariert: Lauf hing an der Website-Freigabe, 3,7 Tage ohne Messung
 - Befund (Fehlerbericht Mirco, `tools/luecken.py`): Die letzte Messung war vom 12.10. um 17:10 UTC, danach kam keine mehr.
 - Ursache: Der Lauf vom 12.10. um 17:20 UTC (cron-job.org) hing im Zustand „waiting“ an der Umgebung github-pages.
