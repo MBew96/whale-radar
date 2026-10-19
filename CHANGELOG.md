@@ -1,5 +1,10 @@
 # Änderungsprotokoll
 
+## 2026-10-19 – Regelkonflikt der Optimierung zum 20.10. geklärt (Entscheidung Mirco)
+- Konflikt aus dem Review vom 18.10.: „Gegen die Verlierer-Wale“ erfüllt Regel 1 (Gewicht 0) und Regel 2 (Gewicht −1, BTC 4h „Gegenindikator?“, n=72) zugleich.
+- Entscheidung Mirco: **0**. Regel 1 hat Vorrang, in REVIEW.md vermerkt. Begründung: Der Gegenindikator-Befund steht nur im 4h-Test, im 1h-Test liegt das Signal auf Marktniveau (48 % zu 49 %, n=244).
+- Signale, Gewichte und Schwellen heute unverändert. Die Optimierung wird ab dem Stichtag 20.10. mit den dann aktuellen `review.py`-Zahlen geprüft und umgesetzt (inkl. Vorher/Nachher-Beleg).
+
 ## 2026-10-18 – Wochen-Review (vierter Lauf, erste Bewertung): nichts geändert
 - **Datenlage** (laut `review.py`): 1863 Messungen, Zeitraum 29.09. 00:50 bis 18.10. 19:50 UTC (19,8 Kalendertage), 14 Lücken > 30 Min., 0 Scanfehler – BTC und ETH gleich. Darin die bekannte Lücke 12.10. 17:10 bis 16.10. 09:36 UTC (rund 3,7 Tage, nicht nachholbar), es sind also gut 16 Datentage. Börsendaten: 1771 Messungen seit 29.09. 21:19, nur vereinzelte Ausfälle (Zeitüberschreitung 17×, Kraken je 2×, CoinGecko 2×); keine Quelle dauerhaft ausgefallen.
 - **Markt-Vergleich (Kurs stieg)**: BTC 1h 49 % (n=315), 4h 55 % (n=85), 24h 60 % (n=15) · ETH 1h 52 %, 4h 55 %, 24h 47 %.
