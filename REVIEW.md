@@ -41,6 +41,7 @@ Diese Regeln wurden am 13.10.2026 festgelegt. Sie gehen ausnahmsweise über die 
    - **Vorrang (Entscheidung Mirco, 19.10.2026):** Erfüllt ein Signal Regel 1 und Regel 2 zugleich, gilt Regel 1 (Gewicht 0, Beobachtung). Anlass: `biasLosersFade` stand am 18.10. nach Regel 1 auf 0 und nach Regel 2 auf −1.
 3. **Belegen:** Vor dem Umsetzen den Kompass mit den neuen Gewichten rechnen: `python3 review.py --coin BTC --settings <Kopie mit neuen Gewichten>`, ebenso für ETH. Die Vorher/Nachher-Trefferquote des Kompasses (1h/4h, BTC und ETH) kommt ins CHANGELOG. Diese Nachher-Zahlen sind „im Rückblick gewählt“ und damit geschönt. Ob die Änderung trägt, zeigen erst die Fälle ab dem Stichtag.
 4. **Rückweg:** Liegt der geänderte Kompass zwei Wochen nach dem Stichtag auf den neuen Fällen im 1h-Test **unter** dem Markt-Vergleich, wird das an Mirco gemeldet, mit dem Vorschlag, die Gewichte zurückzusetzen.
+   - **Nachtest am 03.11.2026 (Wunsch Mirco, 20.10.2026):** Zusammen mit dem Rückweg-Test auch Kompass B nur auf den Fällen ab 21.10.2026 bewerten (BTC und ETH, 1h und 4h, gegen den Markt-Vergleich desselben Zeitraums). Bei weniger als 30 Fällen „zu wenig Daten“ nennen. Ergebnis als Vorschlag an Mirco (Kompass B bleibt Anzeige, ersetzt den Live-Kompass oder fliegt aus dem Dashboard); nichts davon ohne sein OK umsetzen.
 5. Alles andere bleibt Vorschlag an Mirco, z. B. Kompass B als Live-Kompass oder Beobachtungs-Signale in den Kompass.
 
 ### Börsendaten (Beobachtungsmodus seit 29.09.2026)

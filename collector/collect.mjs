@@ -6,6 +6,7 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { collectMarkets } from './markets.mjs';
+import { kompassB } from './kompassb.mjs';
 
 const API = process.env.HL_API || 'https://api.hyperliquid.xyz/info';
 const LB_URL = process.env.HL_LB || 'https://stats-data.hyperliquid.xyz/Mainnet/leaderboard';
@@ -203,15 +204,17 @@ const latest = {
 await fs.writeFile(path.join(SITE, 'data/latest.json'), JSON.stringify(latest));
 
 // recent.json: Verlauf der letzten 48 Std. (Serien) + 24 Std. Liquidations-Heatmap
+// 6 Tage laden: Kompass B braucht für jeden Punkt der 48 Std. noch 72 Std. Vorlauf (Median) plus 4 Std. (Fluss)
 const days = [];
-for (let i = 2; i >= 0; i--) days.push(new Date(NOW - i * 864e5).toISOString().slice(0, 10));
-const snaps = [];
+for (let i = 5; i >= 0; i--) days.push(new Date(NOW - i * 864e5).toISOString().slice(0, 10));
+const snapsLong = [];
 for (const dd of days) {
   const dir = path.join(ROOT, 'data/history', dd);
   let files = []; try { files = (await fs.readdir(dir)).filter(f => f.endsWith('.json')).sort(); } catch (e) { continue; }
-  for (const f of files) { try { const s = JSON.parse(await fs.readFile(path.join(dir, f), 'utf8')); if (NOW - s.t <= 48 * 3600e3) snaps.push(s); } catch (e) {} }
+  for (const f of files) { try { const s = JSON.parse(await fs.readFile(path.join(dir, f), 'utf8')); if (NOW - s.t <= 6 * 864e5) snapsLong.push(s); } catch (e) {} }
 }
-snaps.sort((a, b) => a.t - b.t);
+snapsLong.sort((a, b) => a.t - b.t);
+const snaps = snapsLong.filter(s => NOW - s.t <= 48 * 3600e3);
 const series = {}, heat = {};
 for (const coin of C.mainCoins) {
   series[coin] = snaps.filter(s => s.coins && s.coins[coin]).map(s => {
@@ -235,8 +238,14 @@ for (const coin of (C.marketCoins || [])) {
     return [s.t, r0(ex.reduce((a, k) => a + oi[k], 0)), ex.sort().join(','), r0(hl), fw == null ? null : sig(fw, 4), m.cb == null ? null : sig(m.cb, 4), acc == null ? null : sig(acc, 4), top == null ? null : sig(top, 4), bn == null ? null : sig(bn, 4)];
   });
 }
+// Kompass B (Beobachtung, seit 20.10.2026 mit Mircos OK im Dashboard; Coins aus beobachtung.relativ.dashboardCoins)
+const kB = {};
+for (const coin of ((cfg.beobachtung || {}).relativ || {}).dashboardCoins || []) {
+  try { kB[coin] = kompassB(snapsLong, cfg, coin, NOW - 48 * 3600e3); } catch (e) { log('Kompass B', coin, 'fehlgeschlagen:', e.message); }
+}
 const recent = { v: 1, t: NOW, cols: ['t', 'px', 'allL', 'allS', 'winL', 'winS', 'loseL', 'loseS', 'nearL', 'nearS', 'underL', 'underS'], bucketPct: C.liqBucketPct, series, heat,
-  mktCols: ['t', 'oiBoersen', 'boersen', 'oiHyperliquid', 'fundingGewichtet', 'coinbasePremium', 'kontenLong', 'grosseLong', 'binanceSpotKauf'], mkt: mkt48 };
+  mktCols: ['t', 'oiBoersen', 'boersen', 'oiHyperliquid', 'fundingGewichtet', 'coinbasePremium', 'kontenLong', 'grosseLong', 'binanceSpotKauf'], mkt: mkt48,
+  kompassBCols: ['t', 'score', 'richtung', 'relWinners', 'relLosersFade', 'relAll', 'flow4h', 'liqMagnet'], kompassB: kB };
 await fs.writeFile(path.join(SITE, 'data/recent.json'), JSON.stringify(recent));
 log('Website gebaut:', snaps.length, 'Momentaufnahmen im Verlauf');
 

@@ -1,5 +1,15 @@
 # Änderungsprotokoll
 
+## 2026-10-20 – Kompass B als Beobachtungszeile im Dashboard (OK von Mirco)
+- Anlass: Vorschlag aus dem Kontrolllauf (Eintrag unten). Kompass B ist bei BTC im 4h-Test auf ungesehenen Daten ab 08.10. „bewährt“ (59 % vs. 47 %, n=39, Hälften 68 %/50 %), im 1h-Test nicht (44 % vs. 49 %, n=133), bei ETH nicht (gesamt 4h 41 % vs. 47 %, n=49, „Gegenindikator?“). Mirco hat am 20.10. zugestimmt, ihn als eigene Zeile anzuzeigen.
+- Umsetzung:
+  - Neu `collector/kompassb.mjs`: rechnet Kompass B mit denselben Regeln wie `relative_dirs` in `tools/common.py` (72-Std.-Median, Abstand 5 Punkte, Fluss 4 Std. und Magnet, gleich gewichtet, Schwelle 0,34). Der Collector lädt dafür 6 statt 3 Tage Verlauf und schreibt die letzten 48 Std. nach `recent.json` → `kompassB`.
+  - `settings.json` → `beobachtung.relativ.dashboardCoins = ["BTC"]` legt fest, für welche Coins die Zeile erscheint. ETH bleibt draußen, weil Kompass B dort nicht trägt.
+  - Dashboard: Block „Kompass B · relativ · Beobachtung“ unter dem Intraday-Kompass mit Richtung, Score, den fünf Bausteinen und dem 48-Std.-Verlauf, gekennzeichnet als „nur Anzeige · 4h · unbestätigt“.
+- Nicht geändert: Live-Kompass, Gewichte, Schwellen, Lagebild, Morgencheck. `review.py --json` ist vorher und nachher byteweise gleich, `wal_block.py BTC ETH` läuft ohne Fehler.
+- Geprüft: Für die letzten 48 Std. (289 Messungen je Coin) liefern `kompassb.mjs` und `relative_dirs` für BTC und ETH in jedem Punkt dieselben Richtungen. Darstellung im Browser geprüft (Desktop und Handy-Breite; bei ETH ist die Zeile verborgen).
+- Nachtest am 03.11.2026 zusammen mit dem Rückweg-Test (REVIEW.md, Regel 4): Kompass B nur auf den Fällen ab 21.10. bewerten.
+
 ## 2026-10-20 – Kontrolllauf am Abend: Optimierung bestätigt, nichts weiter geändert; Vorschlag zu den Beobachtungs-Signalen
 - Anlass: Der geplante Optimierungslauf startete ein zweites Mal. Die Optimierung (Eintrag unten) war schon umgesetzt, darum wurden die Regeln nur mit frischen Zahlen nachgeprüft. Keine zweite Optimierung am selben Tag.
 - Datenlage (`review.py`): 2146 Messungen, 29.09. 00:50 bis 20.10. 18:50 UTC (21,8 Kalendertage, abzüglich der Lücke 12.–16.10. gut 18 Datentage), 14 Lücken > 30 Min., 0 Scanfehler.

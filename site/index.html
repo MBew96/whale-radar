@@ -246,6 +246,12 @@ footer p{margin:4px 0;max-width:110ch}
 .k-cap{font-size:11px;color:var(--dim);margin-top:2px}
 .k-note{font-size:11.5px;color:var(--dim);margin:0}
 .k-band{fill:var(--line)} .k-zero{stroke:var(--line2)} .k-line{stroke:var(--sonar)}
+/* Kompass B (Beobachtung, seit 20.10.2026) */
+.kb{border-top:1px dashed var(--line2);padding-top:10px;display:grid;gap:6px}
+.kb-top{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 12px}
+.kb-v{font:600 15px/1.3 var(--f-display)}
+.kb-parts{display:flex;flex-wrap:wrap;gap:3px 12px;font-size:12px;color:var(--muted)}
+.kb-parts b{font:600 12px var(--f-mono)}
 /* Heatmap-Kopf */
 .grad{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;color:var(--muted)}
 .grad i{display:inline-block;width:70px;height:8px;border-radius:4px;background:linear-gradient(90deg,rgba(31,211,154,.12),rgba(31,211,154,.95))}
@@ -350,6 +356,13 @@ footer p{margin:4px 0;max-width:110ch}
     <ul class="k-list" id="kList"></ul>
     <div class="k-spark" id="kSpark"></div>
     <p class="k-note" id="kNote"></p>
+    <div class="kb" id="kB" hidden>
+      <div class="k-head"><span class="eyebrow">Kompass B · relativ · Beobachtung</span><span class="pill N" title="Nur zur Ansicht. Fließt nicht in den Kompass oben, nicht ins Lagebild und nicht in den Morgencheck. Nachtest im Review ab 03.11.2026.">nur Anzeige · 4h · unbestätigt</span></div>
+      <div class="kb-top"><span class="kb-v" id="kbVerdict">–</span><span class="k-sub" id="kbSub"></span></div>
+      <div class="kb-parts" id="kbParts"></div>
+      <div class="k-spark" id="kbSpark"></div>
+      <p class="k-note" id="kbNote"></p>
+    </div>
   </section>
   <section class="lage" aria-label="Lagebild">
     <div class="lage-h"><span class="eyebrow">Lagebild · automatisch aus den Daten</span><span class="hint" id="lageStand"></span></div>
@@ -991,13 +1004,13 @@ function gaugeSvg(sc){
   if(sc!=null){const a=Math.PI-(Math.max(-1,Math.min(1,sc))+1)/2*Math.PI, x=cx+(r-6)*Math.cos(a), y=cy-(r-6)*Math.sin(a); nd=`<line x1="${cx}" y1="${cy}" x2="${x.toFixed(1)}" y2="${y.toFixed(1)}" class="k-needle" stroke-width="3" stroke-linecap="round"/><circle cx="${cx}" cy="${cy}" r="5" class="k-hub"/>`;}
   return `<svg viewBox="0 0 150 92" role="img" aria-label="Kompass-Nadel zwischen Short und Long">${arc(-1,-t,'k-arc-s')}${arc(-t,t,'k-arc-n')}${arc(t,1,'k-arc-l')}${nd}<text x="4" y="91" class="axis">Short</text><text x="146" y="91" class="axis" text-anchor="end">Long</text></svg>`;
 }
-function sparkSvg(pts,W){
+function sparkSvg(pts,W,cap='Kompass-Verlauf'){
   if(pts.length<2) return '';
   const H=46, t=thr('compassMin',0.34), t0=pts[0][0], t1=pts[pts.length-1][0];
   const X=v=>2+(v-t0)/((t1-t0)||1)*(W-4), Y=v=>H/2-v*(H/2-3);
   const d=pts.map((p,i)=>(i?'L':'M')+X(p[0]).toFixed(1)+','+Y(p[1]).toFixed(1)).join('');
   const last=pts[pts.length-1][1], col=last>=t?'var(--long)':last<=-t?'var(--short)':'var(--muted)';
-  return `<svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="Verlauf des Kompass-Scores"><rect class="k-band" x="0" y="${Y(t).toFixed(1)}" width="${W}" height="${(Y(-t)-Y(t)).toFixed(1)}" opacity=".6"/><line class="k-zero" x1="0" x2="${W}" y1="${Y(0)}" y2="${Y(0)}"/><path d="${d}" fill="none" class="k-line" stroke-width="1.8"/><circle cx="${X(pts[pts.length-1][0]).toFixed(1)}" cy="${Y(last).toFixed(1)}" r="3.5" style="fill:${col}"/></svg><div class="k-cap">Kompass-Verlauf seit ${new Date(t0).toLocaleString('de-DE',{weekday:'short',hour:'2-digit',minute:'2-digit'})} · graues Band = neutral</div>`;
+  return `<svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="Verlauf des Kompass-Scores"><rect class="k-band" x="0" y="${Y(t).toFixed(1)}" width="${W}" height="${(Y(-t)-Y(t)).toFixed(1)}" opacity=".6"/><line class="k-zero" x1="0" x2="${W}" y1="${Y(0)}" y2="${Y(0)}"/><path d="${d}" fill="none" class="k-line" stroke-width="1.8"/><circle cx="${X(pts[pts.length-1][0]).toFixed(1)}" cy="${Y(last).toFixed(1)}" r="3.5" style="fill:${col}"/></svg><div class="k-cap">${cap} seit ${new Date(t0).toLocaleString('de-DE',{weekday:'short',hour:'2-digit',minute:'2-digit'})} · graues Band = neutral</div>`;
 }
 function renderKompass(){
   const c=S.coin, g=$('#kGauge'), v=$('#kVerdict'), sb=$('#kSub'), li=$('#kList'), sp=$('#kSpark'), nt=$('#kNote');
@@ -1023,6 +1036,24 @@ function renderKompass(){
   const ser=seriesFor(c), pts=[]; for(let i=0;i<ser.length;i++){const s2=stationSignals(c,i); if(s2&&s2.score!=null) pts.push([s2.t,s2.score]);}
   sp.innerHTML=sparkSvg(pts,Math.max(200,sp.clientWidth||280));
   nt.textContent=`Stand ${hm(k.t)} Uhr, neu mit jeder Messung. Gewichtete Summe der Signale aus den Messungen der Wetterstation, unabhängig von den Filtern oben. Noch nicht statistisch geprüft: Der Wochen-Review bewertet den Kompass ab etwa 14 Tagen Daten.`;
+}
+/* Kompass B: im Collector berechnet (collector/kompassb.mjs = tools/common.py relative_dirs), hier nur angezeigt */
+function renderKompassB(){
+  const box=$('#kB'), R=S.recent, ser=R&&R.kompassB&&R.kompassB[S.coin];
+  if(!ser||!ser.length){box.hidden=true; return;}
+  box.hidden=false;
+  let last=null; for(let i=ser.length-1;i>=0;i--){if(ser[i][1]!=null){last=ser[i]; break;}}
+  const v=$('#kbVerdict'), sb=$('#kbSub'), pa=$('#kbParts'), sp=$('#kbSpark'), nt=$('#kbNote');
+  if(!last){v.textContent='Sammle Vorlauf …'; sb.textContent=''; pa.innerHTML=''; sp.innerHTML=''; nt.textContent=''; return;}
+  const [t,sc,dir,rW,rLF,rA,fl,mg]=last, cl=dir>0?'L':dir<0?'S':'muted';
+  v.innerHTML=`<span class="${cl}">${dir>0?'Long-Tendenz':dir<0?'Short-Tendenz':'Neutral'}</span>`;
+  sb.textContent=`Score ${sc>0?'+':sc<0?'−':''}${num(Math.abs(sc*100))} von ±100 · Horizont 4 Std. · Stand ${hm(t)} Uhr`;
+  const sym=x=>x==null?['–','dim']:x>0?['▲ long','L']:x<0?['▼ short','S']:['· neutral','muted'];
+  pa.innerHTML=[['Gewinner vs. üblich',rW],['Gegen Verlierer vs. üblich',rLF],['Alle Wale vs. üblich',rA],['Fluss 4 Std.',fl],['Magnete ±3 %',mg]]
+    .map(([n,x])=>{const [a,c]=sym(x); return `<span>${n} <b class="${c}">${a}</b></span>`;}).join('');
+  const pts=ser.filter(p=>p[1]!=null).map(p=>[p[0],p[1]]);
+  sp.innerHTML=sparkSvg(pts,Math.max(200,sp.clientWidth||280),'Verlauf Kompass B');
+  nt.textContent='Bild: Fieber messen statt Temperatur. Kompass B fragt nicht „Sind die Wale long?“, sondern „Sind sie gerade longiger oder shortiger als in ihren letzten 72 Std.?“, dazu Fluss und Magnete, alle gleich gewichtet. Im Review bei BTC im 4h-Test auf neuen Daten bewährt, im 1h-Test nicht, bei ETH nicht. Nur Beobachtung: zählt nicht zum Kompass oben. Nachtest ab 03.11.2026.';
 }
 function renderHist(){
   const el=$('#hist'), ser=seriesFor(S.coin), hint=$('#histHint');
@@ -1468,7 +1499,7 @@ function render(){
   const now=Date.now();
   if(S.tableDirty||S.ver!==lastVer||now-lastTable>2500){renderTable(all); lastTable=now; lastVer=S.ver; S.tableDirty=false;}
   if(S.feedDirty){renderFeed(); S.feedDirty=false;}
-  if(S.forceSlow||now-lastSlow>3000){renderLiq(base); renderCoinBias(); renderLage(base,g); renderKompass(); renderMarket(); renderHist(); renderHeat(); lastSlow=now; S.forceSlow=false;}
+  if(S.forceSlow||now-lastSlow>3000){renderLiq(base); renderCoinBias(); renderLage(base,g); renderKompass(); renderKompassB(); renderMarket(); renderHist(); renderHeat(); lastSlow=now; S.forceSlow=false;}
   if(S.selected) renderDrLive();
 }
 function boot(){

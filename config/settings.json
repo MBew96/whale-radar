@@ -137,12 +137,15 @@
       }
     },
     "relativ": {
-      "_hinweis": "Seit 07.10.2026 (Wunsch von Mirco): Wal-Signale als Veränderung statt Pegel. Anteil Long am Notional verglichen mit dem eigenen Median der vorangehenden fensterStd Stunden; Abstand >= abstand -> Richtung. Gilt erst, wenn mindestens minStd Stunden Vorlauf vorhanden sind. Schwellen vorab festgelegt, nicht nach Ergebnis nachjustieren (REVIEW.md). ungesehenAb: review.py wertet die Fälle ab diesem Tag zusätzlich getrennt aus (nur diese zählen für die Bewertung).",
+      "_hinweis": "Seit 07.10.2026 (Wunsch von Mirco): Wal-Signale als Veränderung statt Pegel. Anteil Long am Notional verglichen mit dem eigenen Median der vorangehenden fensterStd Stunden; Abstand >= abstand -> Richtung. Gilt erst, wenn mindestens minStd Stunden Vorlauf vorhanden sind. Schwellen vorab festgelegt, nicht nach Ergebnis nachjustieren (REVIEW.md). ungesehenAb: review.py wertet die Fälle ab diesem Tag zusätzlich getrennt aus (nur diese zählen für die Bewertung). dashboardCoins: Für diese Coins zeigt das Dashboard Kompass B als eigene Beobachtungszeile (seit 20.10.2026, OK von Mirco; nur Anzeige, nicht im Live-Kompass).",
       "fensterStd": 72,
       "minStd": 24,
       "abstand": 0.05,
       "kompassMin": 0.34,
-      "ungesehenAb": "2026-10-08"
+      "ungesehenAb": "2026-10-08",
+      "dashboardCoins": [
+        "BTC"
+      ]
     }
   }
 }
