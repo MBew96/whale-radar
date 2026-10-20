@@ -1,5 +1,16 @@
 # Änderungsprotokoll
 
+## 2026-10-20 – Kontrolllauf am Abend: Optimierung bestätigt, nichts weiter geändert; Vorschlag zu den Beobachtungs-Signalen
+- Anlass: Der geplante Optimierungslauf startete ein zweites Mal. Die Optimierung (Eintrag unten) war schon umgesetzt, darum wurden die Regeln nur mit frischen Zahlen nachgeprüft. Keine zweite Optimierung am selben Tag.
+- Datenlage (`review.py`): 2146 Messungen, 29.09. 00:50 bis 20.10. 18:50 UTC (21,8 Kalendertage, abzüglich der Lücke 12.–16.10. gut 18 Datentage), 14 Lücken > 30 Min., 0 Scanfehler.
+- Regel 1, weiter erfüllt (Gewichte stehen schon auf 0): `biasWinners` BTC 1h 47 % vs. 50 % (n=230), 4h 48 % vs. 52 % (n=65); `biasLosersFade` BTC 1h 48 % vs. 50 % (n=284), 4h 47 % vs. 53 % (n=83). ETH bei beiden „unklar“.
+- Regel 2: Einziger BTC-Befund „Gegenindikator?“ (1h/4h, ≥ 30 Fälle) bleibt `biasLosersFade` 4h → Vorrang Regel 1, Gewicht 0. Fluss 4 Std. (1h 45 % vs. 50 %, n=139; 4h 52 % vs. 51 %, n=58) und Liq.-Magnet (1h 49 % vs. 50 %, n=290; 4h 51 % vs. 50 %, n=88) stehen auf „unklar“; Bias aller Wale und Squeeze-Risiko < 30 Fälle.
+- Kompass mit den neuen Gewichten (seit dem Vormittag 5 Fälle mehr im 1h-Test, weiterhin vor allem Rückblick): BTC 1h 44 % vs. 50 % (n=59), 4h 58 % vs. 50 % (n=31, „bewährt“); ETH 1h 44 % vs. 48 % (n=64), 4h 45 % vs. 48 % (n=31).
+- `wal_block.py BTC ETH` läuft ohne Fehler. Bilanz: `data/review/2026-10-20.md`.
+- **Vorschlag an Mirco (laut REVIEW.md ab 20.10. fällig, nicht umgesetzt):**
+  1. Kein Beobachtungs-Signal bekommt jetzt einen Platz im Kompass. Keines der Börsensignale ist „bewährt“; BTC Funding-Fade 4h 67 % vs. 55 % hat nur 18 Fälle, ETH Funding-Fade 1h steht auf „Gegenindikator?“ (46 % vs. 53 %, n=50). Die relativen Wal-Signale sind auf ungesehenen Daten (ab 08.10.) alle „unklar“.
+  2. Kompass B: BTC ungesehen 4h 59 % vs. 47 % (n=39, Hälften 68 %/50 %) „bewährt“, aber 1h 44 % vs. 49 % (n=133); ETH gesamt 4h „Gegenindikator?“ (41 % vs. 47 %, n=49). Darum nicht als Live-Kompass. Möglich wäre eine eigene, klar als „Beobachtung, nur BTC 4h“ markierte Zeile im Dashboard – nur mit Mircos OK.
+
 ## 2026-10-20 – Optimierung zum Stichtag: Gewinner-Wale und Verlierer-Fade auf Gewicht 0
 - Grundlage: vorab freigegebene Regeln (REVIEW.md, OK Mirco 13.10.; Vorrang Regel 1, Entscheidung Mirco 19.10.). Datenlage laut `review.py`: 2091 Messungen, 29.09. 00:50 bis 20.10. 09:50 UTC (21,4 Kalendertage), 14 Lücken > 30 Min., 0 Scanfehler. Wegen der Lücke 12.10.–16.10. (rund 3,7 Tage) sind es tatsächlich gut 17 Datentage.
 - **Regel 1** (BTC 1h und 4h nicht ≥ 3 Punkte über dem Markt, je ≥ 30 Fälle; ETH nicht „bewährt“):
