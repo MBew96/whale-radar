@@ -53,12 +53,12 @@
     "biasWinners": {
       "active": true,
       "label": "Bias der Gewinner-Wale",
-      "weight": 2
+      "weight": 0
     },
     "biasLosersFade": {
       "active": true,
       "label": "Gegen die Verlierer-Wale",
-      "weight": 1
+      "weight": 0
     },
     "flow4h": {
       "active": true,

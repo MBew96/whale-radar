@@ -1,5 +1,22 @@
 # Änderungsprotokoll
 
+## 2026-10-20 – Optimierung zum Stichtag: Gewinner-Wale und Verlierer-Fade auf Gewicht 0
+- Grundlage: vorab freigegebene Regeln (REVIEW.md, OK Mirco 13.10.; Vorrang Regel 1, Entscheidung Mirco 19.10.). Datenlage laut `review.py`: 2091 Messungen, 29.09. 00:50 bis 20.10. 09:50 UTC (21,4 Kalendertage), 14 Lücken > 30 Min., 0 Scanfehler. Wegen der Lücke 12.10.–16.10. (rund 3,7 Tage) sind es tatsächlich gut 17 Datentage.
+- **Regel 1** (BTC 1h und 4h nicht ≥ 3 Punkte über dem Markt, je ≥ 30 Fälle; ETH nicht „bewährt“):
+  - `biasWinners`: BTC 1h 47 % vs. 50 % (n=222), 4h 48 % vs. 52 % (n=63); ETH 1h/4h „unklar“ → Gewicht 2 → **0**.
+  - `biasLosersFade`: BTC 1h 47 % vs. 50 % (n=276), 4h 47 % vs. 53 % (n=81); ETH 1h/4h „unklar“ → Gewicht 1 → **0**.
+- **Regel 2**: Einziger BTC-Befund „Gegenindikator?“ (1h/4h, ≥ 30 Fälle) ist `biasLosersFade` 4h → nach Vorrang Regel 1 bleibt es bei 0. Kein weiteres Signal betroffen.
+- Beide Signale bleiben `active: true` (Beobachtung, weiter in der Bilanz). Übrige Gewichte unverändert: Bias aller Wale 1, Fluss 4 Std. 1, Squeeze-Risiko 1, Liq.-Magnet 1.
+- **Beleg Kompass vorher → nachher** (`review.py --settings`, nachher im Rückblick gewählt und damit geschönt):
+  - BTC 1h: 47 % vs. 50 % (n=163, 121 L/42 S) → **44 % vs. 50 % (n=57, 29 L/28 S), „Gegenindikator?“**
+  - BTC 4h: 47 % vs. 52 % (n=53) → **58 % vs. 50 % (n=31), Hälften 60 %/56 %, „bewährt“**
+  - ETH 1h: 47 % vs. 49 % (n=107) → 45 % vs. 48 % (n=62, 10 L/52 S)
+  - ETH 4h: 46 % vs. 50 % (n=37) → 45 % vs. 47 % (n=29)
+- Einordnung: Die Nadel klemmt nicht mehr (BTC jetzt Long und Short ausgeglichen) und zeigt seltener eine Richtung. Im 4h-Test liegt der neue Kompass bei BTC über dem Markt, im 1h-Test darunter, bei ETH in beiden knapp darunter. Ob das trägt, zeigen erst die Fälle ab heute.
+- Geprüft: Dashboard (`stationSignals`, liest `data/settings.json`, Gewicht 0 wird übernommen) und `wal_block.py` rechnen mit denselben Signalen denselben Score (Stand 10:01 UTC: BTC −0,25, ETH +0,50).
+- **Rückweg** (REVIEW.md, Regel 4): Liegt der geänderte Kompass am 03.11. auf den neuen Fällen im 1h-Test unter dem Markt-Vergleich, Meldung an Mirco mit Vorschlag zum Zurücksetzen.
+- Vollständige Vorher/Nachher-Bilanz: `data/review/2026-10-20-optimierung.md`.
+
 ## 2026-10-19 – Regelkonflikt der Optimierung zum 20.10. geklärt (Entscheidung Mirco)
 - Konflikt aus dem Review vom 18.10.: „Gegen die Verlierer-Wale“ erfüllt Regel 1 (Gewicht 0) und Regel 2 (Gewicht −1, BTC 4h „Gegenindikator?“, n=72) zugleich.
 - Entscheidung Mirco: **0**. Regel 1 hat Vorrang, in REVIEW.md vermerkt. Begründung: Der Gegenindikator-Befund steht nur im 4h-Test, im 1h-Test liegt das Signal auf Marktniveau (48 % zu 49 %, n=244).
