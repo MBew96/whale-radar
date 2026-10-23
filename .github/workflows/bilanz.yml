@@ -1,0 +1,60 @@
+name: Bilanz
+
+# Rechnet die Signal-Bilanz und den Lücken-Wächter auf GitHub und legt die Ausgabe als Text ins Repo
+# (bilanz/). Anlass (23.10.2026): Die geplanten Claude-Aufgaben dürfen frisch geklonten Code nicht mehr
+# ausführen, sie lesen deshalb nur noch diese Dateien. Rechnet nichts Neues, ändert keine Schwellen
+# oder Gewichte – es sind exakt die Ausgaben von review.py und luecken.py.
+# Zeitplan: stündlich zu Minute 23 (GitHub startet Zeitpläne nur „nach Möglichkeit“, deshalb nicht
+# nur einmal am Tag). Von Hand: Actions → Bilanz → Run workflow.
+on:
+  schedule:
+    - cron: '23 * * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: bilanz
+  cancel-in-progress: false
+
+jobs:
+  rechnen:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Neueste Messungen holen
+        run: git pull -q origin main || true
+      - name: review.py und luecken.py ausführen
+        run: |
+          mkdir -p bilanz
+          cd tools
+          stand="Stand: $(TZ=Europe/Berlin date '+%d.%m.%Y %H:%M') Uhr deutscher Zeit ($(date -u '+%Y-%m-%dT%H:%MZ'))"
+          {
+            echo "$stand"
+            echo
+            echo "## BTC (review.py --coin BTC --kurz)"
+            python3 review.py --coin BTC --kurz 2>&1 || echo "FEHLER: review.py BTC Exit $?"
+            echo
+            echo "## ETH (review.py --coin ETH --kurz)"
+            python3 review.py --coin ETH --kurz 2>&1 || echo "FEHLER: review.py ETH Exit $?"
+            echo
+            echo "## Wetterstation (luecken.py)"
+            python3 luecken.py 2>&1 || true
+          } > ../bilanz/kurz.md
+          for c in BTC ETH; do
+            { echo "$stand"; echo; python3 review.py --coin $c 2>&1 || echo "FEHLER: review.py $c Exit $?"; } > ../bilanz/review_$c.md
+          done
+          cat ../bilanz/kurz.md
+      - name: Speichern
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add bilanz
+          if git diff --cached --quiet; then echo "Nichts Neues"; exit 0; fi
+          git commit -q -m "Bilanz $(date -u +%Y-%m-%dT%H:%MZ)"
+          for i in 1 2 3; do git pull -q --rebase origin main && git push -q && break; sleep 5; done

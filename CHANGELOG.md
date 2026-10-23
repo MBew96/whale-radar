@@ -1,5 +1,10 @@
 # Änderungsprotokoll
 
+## 2026-10-23 – Workflow „Bilanz“ eingeführt
+- Die geplanten Aufgaben dürfen keinen geklonten Code mehr ausführen, deshalb rechnet jetzt GitHub `review.py` und `luecken.py` stündlich zu Minute 23 (`.github/workflows/bilanz.yml`).
+- Die Aufgaben „Mini-Bilanz (täglich)“ und „Wochen-Review (sonntags)“ lesen nur noch `bilanz/kurz.md` bzw. `bilanz/review_*.md`.
+- Es wird nichts neu gerechnet und keine Schwelle und kein Gewicht geändert.
+
 ## 2026-10-20 – Kompass B als Beobachtungszeile im Dashboard (OK von Mirco)
 - Anlass: Vorschlag aus dem Kontrolllauf (Eintrag unten). Kompass B ist bei BTC im 4h-Test auf ungesehenen Daten ab 08.10. „bewährt“ (59 % vs. 47 %, n=39, Hälften 68 %/50 %), im 1h-Test nicht (44 % vs. 49 %, n=133), bei ETH nicht (gesamt 4h 41 % vs. 47 %, n=49, „Gegenindikator?“). Mirco hat am 20.10. zugestimmt, ihn als eigene Zeile anzuzeigen.
 - Umsetzung:
