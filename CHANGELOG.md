@@ -1,5 +1,28 @@
 # Änderungsprotokoll
 
+## 2026-10-25 – Wochen-Review (fünfter Lauf): nichts geändert
+- **Quelle**: `bilanz/review_BTC.md` und `bilanz/review_ETH.md`, Stand 25.10. 16:34 UTC (2,3 Std. vor dem Review, also aktuell). Nichts selbst nachgerechnet.
+- **Datenlage**: 2863 Messungen, 29.09. 00:50 bis 25.10. 17:30 (26,7 Kalendertage; ohne die Lücke 12.10.–16.10. rund 23 Datentage), 14 Lücken > 30 Min. (keine neue seit dem 18.10.), 0 Scanfehler. Wetterstation laut `luecken.py` ok (144 Messungen in 24 Std.). Börsendaten: 2771 Messungen, nur vereinzelte Ausfälle (Zeitüberschreitung 22×, CoinGecko 3×, Kraken je 2×), keine Quelle dauerhaft ausgefallen.
+- **Markt-Vergleich (Kurs stieg)**: BTC 1h 49 % (n=467), 4h 51 % (n=126), 24h 50 % (n=22) · ETH 1h 52 %, 4h 52 %, 24h 41 %.
+- **Kernzahlen BTC** (Live-Signale, gesamter Zeitraum):
+  - Kompass (Gewichte seit 20.10., für die Zeit davor im Rückblick gerechnet): 1h 43 % vs. 50 % (n=89, 30 L/59 S, Hälften 36 %/49 %) → „Gegenindikator?“; 4h 52 % vs. 50 % (n=42, Hälften 62 %/43 %) → „unklar“.
+  - Gewinner-Wale (Gewicht 0): 1h 48 % vs. 50 % (n=330), 4h 50 % vs. 50 % (n=92). Gegen Verlierer-Wale (Gewicht 0): 1h 49 % vs. 50 % (n=389), 4h 52 % vs. 50 % (n=111).
+  - Fluss 4 Std.: 1h 45 % vs. 50 % (n=198, Hälften 44 %/45 %), 4h 55 % vs. 50 % (n=82, Hälften 44 %/66 %) → „unklar“. Liq.-Magnet: 1h 49 % vs. 50 % (n=394), 4h 50 % vs. 50 % (n=117) → „unklar“.
+  - Bias aller Wale und Squeeze-Risiko: höchstens 7 Fälle.
+- **Kernzahlen ETH**: Kompass 1h 44 % vs. 49 % (n=64), 4h 45 % vs. 49 % (n=31) → „unklar“. Kein Live-Signal „bewährt“ oder „Gegenindikator?“.
+- **Beobachtung**:
+  - Kompass B BTC, nur ungesehene Fälle ab 08.10.: 4h 61 % vs. 50 % (n=59, Hälften 62 %/60 %) → „bewährt“ (am 20.10. 59 %, n=39). 1h 46 % vs. 49 % (n=193) „unklar“. ETH ungesehen 4h 47 % vs. 50 % (n=36) „unklar“.
+  - Gewinner-Wale relativ BTC ungesehen 4h 59 % vs. 50 % (n=61, Hälften 53 %/65 %) → „bewährt“; ETH 4h 48 % vs. 50 % (n=46) „unklar“.
+  - Neu: Alle Wale relativ ETH ungesehen 1h 68 % vs. 52 % (n=38, 34 L/4 S, Hälften 63 %/74 %) → „bewährt“; BTC nur 5 Fälle.
+  - ETH Verlierer-Fade relativ ungesehen 1h 43 % vs. 49 % (n=134) → „Gegenindikator?“. ETH „Neues Geld an den Börsen“ 1h 43 % vs. 51 % (n=47) → „Gegenindikator?“.
+  - Übrige Börsensignale: keines „bewährt“ (meist Marktniveau oder < 30 Fälle).
+- **Entscheidung**: Nichts geändert. Die vorab freigegebene Optimierung war einmalig zum 20.10. Für Gewichtsschritte von ±0,5 schneidet kein Kompass-Signal in beiden Hälften klar besser oder schlechter als der Markt ab (alle „unklar“; Fluss 4 Std. liegt im 1h-Test 5 Punkte darunter, im 4h-Test aber darüber). Auch keine Schwelle zeigt eine Verbesserung in beiden Hälften.
+- **Hinweis zum Rückweg (REVIEW.md, Regel 4, am 03.11.)**: Der Kompass steht im 1h-Test bei BTC über den ganzen Zeitraum auf „Gegenindikator?“. Maßgeblich ist aber nur der Teil ab 20.10., und den weist die Bilanz noch nicht getrennt aus. Am 03.11. werden die Fälle ab dem Stichtag bewertet, zusammen mit dem Nachtest für Kompass B (Fälle ab 21.10.).
+- **Vorschläge an Mirco (nicht umgesetzt)**:
+  1. Für den 03.11. braucht `review.py` eine Auswertung „nur Fälle ab Stichtag“ für den Live-Kompass (wie bei den relativen Signalen). Ohne sie lässt sich Regel 4 nicht aus der Bilanz ablesen.
+  2. „Alle Wale relativ“ bei ETH (1h „bewährt“, n=38, fast nur Long) weiter nur beobachten. Der Befund ist neu, knapp über der Mindestzahl und zeigt fast nur in eine Richtung.
+- Vollständige Bilanz: `data/review/2026-10-25.md`.
+
 ## 2026-10-23 – Workflow „Bilanz“ eingeführt
 - Die geplanten Aufgaben dürfen keinen geklonten Code mehr ausführen, deshalb rechnet jetzt GitHub `review.py` und `luecken.py` stündlich zu Minute 23 (`.github/workflows/bilanz.yml`).
 - Die Aufgaben „Mini-Bilanz (täglich)“ und „Wochen-Review (sonntags)“ lesen nur noch `bilanz/kurz.md` bzw. `bilanz/review_*.md`.
