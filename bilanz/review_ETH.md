@@ -1,23 +1,23 @@
-Stand: 26.10.2026 15:23 Uhr deutscher Zeit (2026-10-26T14:23Z)
+Stand: 26.10.2026 21:36 Uhr deutscher Zeit (2026-10-26T20:36Z)
 
-## Signal-Bilanz ETH · 29.09.2026 00:50 bis 26.10.2026 15:20
-Messungen: 2993 über 27,6 Tage · Lücken > 30 Min.: 14 · Scanfehler gesamt: 0
-Börsendaten (Beobachtung): 2901 Messungen seit 29.09.2026 21:19 · häufigste Ausfälle: The operation was aborted due to timeout (32×), coingecko (3×), kraken BTC (2×), kraken ETH (2×), okx top ETH (1×)
-Vergleich (Kurs stieg, Abstand = Horizont): 1h: 52 % (n=487) · 4h: 52 % (n=131) · 24h: 43 % (n=23)
+## Signal-Bilanz ETH · 29.09.2026 00:50 bis 26.10.2026 21:30
+Messungen: 3030 über 27,9 Tage · Lücken > 30 Min.: 14 · Scanfehler gesamt: 0
+Börsendaten (Beobachtung): 2938 Messungen seit 29.09.2026 21:19 · häufigste Ausfälle: The operation was aborted due to timeout (32×), coingecko (3×), kraken BTC (2×), kraken ETH (2×), okx top ETH (1×)
+Vergleich (Kurs stieg, Abstand = Horizont): 1h: 52 % (n=492) · 4h: 52 % (n=133) · 24h: 43 % (n=23)
 
 | Signal | Horizont | Fälle (L/S) | Trefferquote | Markt-Vergleich | Ø Bewegung in Signalrichtung | 1. / 2. Hälfte | Urteil |
 |---|---|---|---|---|---|---|---|
 | Bias aller Wale | 1h | 0 | – | – | – | – | zu wenig Daten |
 | Bias aller Wale | 4h | 0 | – | – | – | – | zu wenig Daten |
 | Bias aller Wale | 24h | 0 | – | – | – | – | zu wenig Daten |
-| Bias der Gewinner-Wale | 1h | 404 (170/234) | 49 % | 50 % | -0,01 % | 49 % / 50 % | unklar |
-| Bias der Gewinner-Wale | 4h | 111 (48/63) | 50 % | 50 % | -0,03 % | 51 % / 50 % | unklar |
-| Bias der Gewinner-Wale | 24h | 20 (10/10) | 40 % | 50 % | -0,26 % | 40 % / 40 % | zu wenig Daten |
-| Gegen die Verlierer-Wale | 1h | 394 (119/275) | 48 % | 49 % | 0,01 % | 44 % / 51 % | unklar |
-| Gegen die Verlierer-Wale | 4h | 110 (35/75) | 52 % | 49 % | 0,03 % | 51 % / 53 % | unklar |
+| Bias der Gewinner-Wale | 1h | 409 (170/239) | 49 % | 50 % | -0,01 % | 48 % / 50 % | unklar |
+| Bias der Gewinner-Wale | 4h | 112 (48/64) | 50 % | 50 % | -0,03 % | 50 % / 50 % | unklar |
+| Bias der Gewinner-Wale | 24h | 21 (10/11) | 43 % | 50 % | -0,19 % | 40 % / 45 % | zu wenig Daten |
+| Gegen die Verlierer-Wale | 1h | 399 (119/280) | 48 % | 49 % | 0,01 % | 45 % / 50 % | unklar |
+| Gegen die Verlierer-Wale | 4h | 112 (35/77) | 52 % | 49 % | 0,03 % | 50 % / 54 % | unklar |
 | Gegen die Verlierer-Wale | 24h | 21 (8/13) | 62 % | 52 % | 0,08 % | 60 % / 64 % | zu wenig Daten |
-| Aufbau/Abbau der letzten 4 Std. | 1h | 189 (89/100) | 51 % | 50 % | 0,02 % | 50 % / 52 % | unklar |
-| Aufbau/Abbau der letzten 4 Std. | 4h | 76 (35/41) | 46 % | 50 % | -0,03 % | 50 % / 42 % | unklar |
+| Aufbau/Abbau der letzten 4 Std. | 1h | 193 (91/102) | 51 % | 50 % | 0,02 % | 49 % / 54 % | unklar |
+| Aufbau/Abbau der letzten 4 Std. | 4h | 77 (36/41) | 45 % | 50 % | -0,03 % | 50 % / 41 % | unklar |
 | Aufbau/Abbau der letzten 4 Std. | 24h | 18 (6/12) | 44 % | 52 % | 0,04 % | 44 % / 44 % | zu wenig Daten |
 | Squeeze-Risiko (Druck + Liq.-Nähe) | 1h | 0 | – | – | – | – | zu wenig Daten |
 | Squeeze-Risiko (Druck + Liq.-Nähe) | 4h | 0 | – | – | – | – | zu wenig Daten |
@@ -28,21 +28,21 @@ Vergleich (Kurs stieg, Abstand = Horizont): 1h: 52 % (n=487) · 4h: 52 % (n=131)
 | Intraday-Kompass (gewichtete Summe) | 1h | 64 (12/52) | 44 % | 49 % | -0,01 % | 44 % / 44 % | unklar |
 | Intraday-Kompass (gewichtete Summe) | 4h | 31 (5/26) | 45 % | 49 % | 0,05 % | 33 % / 56 % | unklar |
 | Intraday-Kompass (gewichtete Summe) | 24h | 12 (2/10) | 50 % | 54 % | 0,41 % | 17 % / 83 % | zu wenig Daten |
-| Coinbase-Premium (US-Nachfrage) (Beobachtung) | 1h | 40 (13/27) | 45 % | 49 % | -0,26 % | 65 % / 25 % | unklar |
-| Coinbase-Premium (US-Nachfrage) (Beobachtung) | 4h | 30 (8/22) | 33 % | 49 % | -0,33 % | 47 % / 20 % | Gegenindikator? |
+| Coinbase-Premium (US-Nachfrage) (Beobachtung) | 1h | 41 (14/27) | 46 % | 49 % | -0,23 % | 65 % / 29 % | unklar |
+| Coinbase-Premium (US-Nachfrage) (Beobachtung) | 4h | 31 (9/22) | 35 % | 49 % | -0,29 % | 47 % / 25 % | Gegenindikator? |
 | Coinbase-Premium (US-Nachfrage) (Beobachtung) | 24h | 11 (5/6) | 55 % | 51 % | 0,02 % | 40 % / 67 % | zu wenig Daten |
 | Gegen teures Funding der Börsen (Beobachtung) | 1h | 58 (58/0) | 48 % | 52 % | 0,01 % | 41 % / 55 % | unklar |
 | Gegen teures Funding der Börsen (Beobachtung) | 4h | 25 (25/0) | 56 % | 52 % | 0,15 % | 58 % / 54 % | zu wenig Daten |
 | Gegen teures Funding der Börsen (Beobachtung) | 24h | 10 (10/0) | 30 % | 43 % | -0,83 % | 0 % / 60 % | zu wenig Daten |
-| Neues Geld an den Börsen (OI 4 Std. + Kursrichtung) (Beobachtung) | 1h | 47 (39/8) | 43 % | 51 % | -0,07 % | 35 % / 50 % | Gegenindikator? |
+| Neues Geld an den Börsen (OI 4 Std. + Kursrichtung) (Beobachtung) | 1h | 48 (40/8) | 42 % | 51 % | -0,08 % | 38 % / 46 % | Gegenindikator? |
 | Neues Geld an den Börsen (OI 4 Std. + Kursrichtung) (Beobachtung) | 4h | 24 (20/4) | 54 % | 51 % | 0,00 % | 50 % / 58 % | zu wenig Daten |
 | Neues Geld an den Börsen (OI 4 Std. + Kursrichtung) (Beobachtung) | 24h | 10 (9/1) | 40 % | 45 % | -0,70 % | 40 % / 40 % | zu wenig Daten |
-| Große Positionen an OKX/Bitget/Gate (Beobachtung) | 1h | 263 (0/263) | 48 % | 48 % | 0,02 % | 46 % / 51 % | unklar |
-| Große Positionen an OKX/Bitget/Gate (Beobachtung) | 4h | 77 (0/77) | 45 % | 48 % | 0,13 % | 39 % / 51 % | unklar |
+| Große Positionen an OKX/Bitget/Gate (Beobachtung) | 1h | 268 (0/268) | 48 % | 48 % | 0,02 % | 47 % / 49 % | unklar |
+| Große Positionen an OKX/Bitget/Gate (Beobachtung) | 4h | 78 (0/78) | 45 % | 48 % | 0,11 % | 38 % / 51 % | unklar |
 | Große Positionen an OKX/Bitget/Gate (Beobachtung) | 24h | 15 (0/15) | 53 % | 57 % | 0,60 % | 29 % / 75 % | zu wenig Daten |
-| Binance-Spot-Käufe gegen -Verkäufe (1 Std.) (Beobachtung) | 1h | 377 (185/192) | 51 % | 50 % | 0,01 % | 52 % / 51 % | unklar |
-| Binance-Spot-Käufe gegen -Verkäufe (1 Std.) (Beobachtung) | 4h | 117 (58/59) | 53 % | 50 % | 0,07 % | 48 % / 58 % | unklar |
-| Binance-Spot-Käufe gegen -Verkäufe (1 Std.) (Beobachtung) | 24h | 21 (11/10) | 43 % | 50 % | -0,07 % | 60 % / 27 % | zu wenig Daten |
+| Binance-Spot-Käufe gegen -Verkäufe (1 Std.) (Beobachtung) | 1h | 381 (189/192) | 51 % | 50 % | 0,00 % | 52 % / 51 % | unklar |
+| Binance-Spot-Käufe gegen -Verkäufe (1 Std.) (Beobachtung) | 4h | 119 (60/59) | 52 % | 50 % | 0,06 % | 49 % / 55 % | unklar |
+| Binance-Spot-Käufe gegen -Verkäufe (1 Std.) (Beobachtung) | 24h | 22 (12/10) | 41 % | 49 % | -0,10 % | 55 % / 27 % | zu wenig Daten |
 | Gewinner-Wale longiger/shortiger als üblich (72 Std.) (Beobachtung) | 1h | 183 (47/136) | 48 % | 49 % | 0,01 % | 45 % / 51 % | unklar |
 | Gewinner-Wale longiger/shortiger als üblich (72 Std.) (Beobachtung) | 4h | 54 (16/38) | 44 % | 49 % | -0,00 % | 44 % / 44 % | unklar |
 | Gewinner-Wale longiger/shortiger als üblich (72 Std.) (Beobachtung) | 24h | 13 (4/9) | 46 % | 53 % | -0,11 % | 50 % / 43 % | zu wenig Daten |
@@ -58,7 +58,7 @@ Vergleich (Kurs stieg, Abstand = Horizont): 1h: 52 % (n=487) · 4h: 52 % (n=131)
 
 ### Relative Wal-Signale – nur ungesehene Fälle ab 08.10.2026
 Die Hypothese wurde am 07.10.2026 vorab festgelegt; nur diese Fälle zählen für die Bewertung (REVIEW.md). Markt-Vergleich aus demselben Zeitraum.
-Vergleich (Kurs stieg, ab 08.10.2026): 1h: 52 % (n=327) · 4h: 51 % (n=87) · 24h: 43 % (n=14)
+Vergleich (Kurs stieg, ab 08.10.2026): 1h: 52 % (n=332) · 4h: 51 % (n=89) · 24h: 43 % (n=14)
 
 | Signal | Horizont | Fälle (L/S) | Trefferquote | Markt-Vergleich | Ø Bewegung in Signalrichtung | 1. / 2. Hälfte | Urteil |
 |---|---|---|---|---|---|---|---|
