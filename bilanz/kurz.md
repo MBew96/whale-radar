@@ -1,10 +1,10 @@
-Stand: 31.10.2026 18:48 Uhr deutscher Zeit (2026-10-31T17:48Z)
+Stand: 31.10.2026 22:43 Uhr deutscher Zeit (2026-10-31T21:43Z)
 
 ## BTC (review.py --coin BTC --kurz)
-BTC Zwischenstand Tag 33/14 (unbewertet): Kompass 1h 43 % (n=118, 40L/78S; Markt 50 %) · 4h 56 % (n=54, 20L/34S; Markt 49 %) · 26× ≥ 30 Fälle, vorn: Alle Wale longiger/shortiger als üblich (72 Std.) 1h 59 % vs. Markt 51 % (n=80, unklar); Alle Wale longiger/shortiger als üblich (72 Std.) 4h 57 % vs. Markt 49 % (n=30, unklar)
+BTC Zwischenstand Tag 33/14 (unbewertet): Kompass 1h 45 % (n=121, 40L/81S; Markt 50 %) · 4h 55 % (n=55, 20L/35S; Markt 49 %) · 26× ≥ 30 Fälle, vorn: Alle Wale longiger/shortiger als üblich (72 Std.) 1h 59 % vs. Markt 51 % (n=80, unklar); Alle Wale longiger/shortiger als üblich (72 Std.) 4h 57 % vs. Markt 49 % (n=30, unklar)
 
 ## ETH (review.py --coin ETH --kurz)
-ETH Zwischenstand Tag 33/14 (unbewertet): Kompass 1h 44 % (n=64, 12L/52S; Markt 49 %) · 4h 45 % (n=31, 5L/26S; Markt 48 %) · 27× ≥ 30 Fälle, vorn: Alle Wale longiger/shortiger als üblich (72 Std.) 1h 65 % vs. Markt 50 % (n=71, bewährt); Gegen teures Funding der Börsen 4h 57 % vs. Markt 53 % (n=35, unklar)
+ETH Zwischenstand Tag 33/14 (unbewertet): Kompass 1h 44 % (n=64, 12L/52S; Markt 49 %) · 4h 45 % (n=31, 5L/26S; Markt 48 %) · 27× ≥ 30 Fälle, vorn: Alle Wale longiger/shortiger als üblich (72 Std.) 1h 65 % vs. Markt 50 % (n=71, bewährt); Gegen teures Funding der Börsen 4h 58 % vs. Markt 53 % (n=36, unklar)
 
 ## Wetterstation (luecken.py)
-Wetterstation OK: letzte Messung vor 8 Min., keine Lücke > 30 Min. in 24 h (144 Messungen)
+Wetterstation OK: letzte Messung vor 3 Min., keine Lücke > 30 Min. in 24 h (144 Messungen)
