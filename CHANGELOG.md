@@ -1,5 +1,18 @@
 # Änderungsprotokoll
 
+## 2026-11-03 – Rückweg-Test (Regel 4) und Nachtest Kompass B: nicht durchführbar, nichts geändert
+- **Quelle**: `bilanz/review_BTC.md` und `bilanz/review_ETH.md`, Stand 03.11. 06:58 UTC (1 Std. alt). Nichts selbst nachgerechnet.
+- **Befund**: Die Bilanz weist die Fälle ab dem Stichtag weiterhin nicht getrennt aus, weder für den Live-Kompass ab 20.10. noch für Kompass B ab 21.10. Regel 4 und der Nachtest lassen sich daraus also nicht ablesen. Das war seit dem 25.10. als Vorschlag offen.
+- **Nur zur Einordnung, gesamter Zeitraum** (Gewichte seit 20.10., davor im Rückblick gerechnet, also nicht maßgeblich):
+  - BTC Kompass: 1h 45 % vs. 50 % (n=132, Hälften 45 %/45 %) → „unklar“; 4h 57 % vs. 50 % (n=61, Hälften 60 %/55 %) → „bewährt“.
+  - ETH Kompass: 1h 44 % vs. 49 % (n=64); 4h 45 % vs. 48 % (n=31) → „unklar“.
+  - Kompass B ungesehen ab 08.10.: BTC 1h 44 % vs. 50 % (n=271) → „Gegenindikator?“, 4h 53 % vs. 50 % (n=89) → „unklar“; ETH 1h 47 % vs. 49 % (n=121), 4h 48 % vs. 49 % (n=42) → „unklar“.
+  - Alle Wale relativ ungesehen ab 08.10.: BTC 1h 70 % vs. 50 % (n=33), ETH 1h 66 % vs. 50 % (n=67) → beide „bewährt“; 4h < 30 Fälle.
+- **Entscheidung**: Gewichte nicht zurückgesetzt (das wäre ohnehin nur ein Vorschlag an Mirco) und Kompass B im Dashboard unverändert.
+- **Vorschläge an Mirco (nicht umgesetzt)**:
+  1. `review.py` um einen Abschnitt „nur Fälle ab Stichtag“ ergänzen (Live-Kompass ab 20.10., Kompass B ab 21.10., Markt-Vergleich aus demselben Zeitraum, wie bei den relativen Signalen). Danach Rückweg-Test und Nachtest im nächsten Wochen-Review nachholen.
+  2. Bis dahin bleibt alles, wie es ist.
+
 ## 2026-11-01 – Wochen-Review (sechster Lauf): nichts geändert
 - **Quelle**: `bilanz/review_BTC.md` und `bilanz/review_ETH.md`, Stand 01.11. 15:16 UTC. Der Review lief um 18:53 UTC, **die Bilanz war also 3,6 Std. alt** (über der 3-Std.-Grenze). Die Läufe des Workflows „Bilanz“ um 16:23, 17:23 und 18:23 UTC haben keinen neuen Stand abgelegt. Nichts selbst nachgerechnet.
 - **Datenlage**: 3861 Messungen, 29.09. 00:50 bis 01.11. 16:10 (33,7 Kalendertage; ohne die Lücke 12.10.–16.10. rund 30 Datentage), 14 Lücken > 30 Min. (keine neue seit dem 16.10.), 0 Scanfehler. Wetterstation laut `luecken.py` ok (143 Messungen in 24 Std.), letzte Messung im Repo 18:51 UTC. Börsendaten: 3769 Messungen, nur vereinzelte Ausfälle (Zeitüberschreitung 32×, Kraken je 8×, CoinGecko 3×, OKX Top ETH 1×), keine Quelle dauerhaft ausgefallen.
