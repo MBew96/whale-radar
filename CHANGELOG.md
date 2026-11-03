@@ -1,5 +1,16 @@
 # Änderungsprotokoll
 
+## 2026-11-03 – Nachtest Kompass B nachgeholt: auf neuen Daten nicht bestätigt, nichts geändert
+- **Weg**: Die Fälle ab 21.10. stehen nicht in der Standard-Ausgabe. `review.py` hat aber schon den Abschnitt „nur ungesehene Fälle“, dessen Starttag aus `settings.json` → `beobachtung.relativ.ungesehenAb` kommt. Darum: `review.py --coin BTC|ETH --settings <Kopie>`, Kopie nur mit `ungesehenAb = 2026-10-21`. Alle Zahlen aus dieser Ausgabe, nichts nachgerechnet. Das Repo bleibt unverändert (08.10. ist weiter der Starttag). Ausgabe: `data/review/2026-11-03-kompassB.md`.
+- **BTC, Fälle ab 21.10.** (Markt stieg 1h 49 %, n=295; 4h 45 %, n=78):
+  - 1h: 44 % vs. 50 % (n=136, 53 L/83 S, Hälften 50 %/38 %) → „unklar“.
+  - 4h: 48 % vs. 51 % (n=48, 20 L/28 S, Hälften 58 %/38 %) → „unklar“.
+- **ETH, Fälle ab 21.10.**: 1h 61 % vs. 50 % (n=28), 4h 50 % vs. 50 % (n=12) → „zu wenig Daten“.
+- **Einordnung**: Der BTC-4h-Befund vom 20.10. (59 % vs. 47 %, n=39, „bewährt“) trägt auf neuen Daten nicht. Beide Horizonte liegen unter dem Markt-Vergleich, die zweite Hälfte deutlich (38 %).
+- **Entscheidung**: Nichts geändert. Kompass B bleibt vorerst als Beobachtungszeile im Dashboard, bis Mirco entscheidet.
+- **Vorschlag an Mirco (nicht umgesetzt)**: Kompass B aus dem Dashboard nehmen (`dashboardCoins = []`) und nur im Review weiterlaufen lassen. Er ist nicht als Live-Kompass geeignet. Alternativ bleibt er mit dem deutlicheren Hinweis „auf neuen Daten nicht bestätigt“ stehen.
+- Der Rückweg-Test für den Live-Kompass ab 20.10. ist damit nicht erledigt, weil dieser Abschnitt nur die relativen Signale und Kompass B abdeckt (siehe Eintrag unten, Vorschlag 1).
+
 ## 2026-11-03 – Rückweg-Test (Regel 4) und Nachtest Kompass B: nicht durchführbar, nichts geändert
 - **Quelle**: `bilanz/review_BTC.md` und `bilanz/review_ETH.md`, Stand 03.11. 06:58 UTC (1 Std. alt). Nichts selbst nachgerechnet.
 - **Befund**: Die Bilanz weist die Fälle ab dem Stichtag weiterhin nicht getrennt aus, weder für den Live-Kompass ab 20.10. noch für Kompass B ab 21.10. Regel 4 und der Nachtest lassen sich daraus also nicht ablesen. Das war seit dem 25.10. als Vorschlag offen.
