@@ -1,8 +1,8 @@
-Stand: 04.11.2026 19:04 Uhr deutscher Zeit (2026-11-04T18:04Z)
+Stand: 05.11.2026 00:46 Uhr deutscher Zeit (2026-11-04T23:46Z)
 
-## Signal-Bilanz ETH · 29.09.2026 00:50 bis 04.11.2026 18:29
-Messungen: 4283 über 36,8 Tage · Lücken > 30 Min.: 15 · Scanfehler gesamt: 0
-Börsendaten (Beobachtung): 4191 Messungen seit 29.09.2026 21:19 · häufigste Ausfälle: The operation was aborted due to timeout (32×), kraken BTC (8×), kraken ETH (8×), coingecko (3×), okx top ETH (1×)
+## Signal-Bilanz ETH · 29.09.2026 00:50 bis 04.11.2026 23:45
+Messungen: 4284 über 37,0 Tage · Lücken > 30 Min.: 16 · Scanfehler gesamt: 0
+Börsendaten (Beobachtung): 4192 Messungen seit 29.09.2026 21:19 · häufigste Ausfälle: The operation was aborted due to timeout (32×), kraken BTC (8×), kraken ETH (8×), coingecko (3×), okx top ETH (1×)
 Vergleich (Kurs stieg, Abstand = Horizont): 1h: 52 % (n=684) · 4h: 54 % (n=185) · 24h: 44 % (n=32)
 
 | Signal | Horizont | Fälle (L/S) | Trefferquote | Markt-Vergleich | Ø Bewegung in Signalrichtung | 1. / 2. Hälfte | Urteil |
@@ -12,7 +12,7 @@ Vergleich (Kurs stieg, Abstand = Horizont): 1h: 52 % (n=684) · 4h: 54 % (n=185)
 | Bias aller Wale | 24h | 0 | – | – | – | – | zu wenig Daten |
 | Bias der Gewinner-Wale | 1h | 601 (170/431) | 48 % | 49 % | 0,00 % | 47 % / 50 % | unklar |
 | Bias der Gewinner-Wale | 4h | 165 (48/117) | 48 % | 49 % | -0,05 % | 48 % / 48 % | unklar |
-| Bias der Gewinner-Wale | 24h | 29 (10/19) | 41 % | 52 % | -0,08 % | 43 % / 40 % | zu wenig Daten |
+| Bias der Gewinner-Wale | 24h | 30 (10/20) | 40 % | 52 % | -0,30 % | 40 % / 40 % | Gegenindikator? |
 | Gegen die Verlierer-Wale | 1h | 591 (119/472) | 47 % | 49 % | 0,01 % | 45 % / 50 % | unklar |
 | Gegen die Verlierer-Wale | 4h | 164 (35/129) | 49 % | 48 % | -0,00 % | 49 % / 49 % | unklar |
 | Gegen die Verlierer-Wale | 24h | 30 (8/22) | 60 % | 53 % | 0,08 % | 60 % / 60 % | bewährt |
