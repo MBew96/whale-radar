@@ -1,8 +1,8 @@
-Stand: 05.11.2026 07:59 Uhr deutscher Zeit (2026-11-05T06:59Z)
+Stand: 05.11.2026 16:36 Uhr deutscher Zeit (2026-11-05T15:36Z)
 
-## Signal-Bilanz ETH · 29.09.2026 00:50 bis 05.11.2026 03:51
-Messungen: 4285 über 37,2 Tage · Lücken > 30 Min.: 17 · Scanfehler gesamt: 0
-Börsendaten (Beobachtung): 4193 Messungen seit 29.09.2026 21:19 · häufigste Ausfälle: The operation was aborted due to timeout (32×), kraken BTC (8×), kraken ETH (8×), coingecko (3×), okx top ETH (1×)
+## Signal-Bilanz ETH · 29.09.2026 00:50 bis 05.11.2026 10:55
+Messungen: 4286 über 37,5 Tage · Lücken > 30 Min.: 18 · Scanfehler gesamt: 0
+Börsendaten (Beobachtung): 4194 Messungen seit 29.09.2026 21:19 · häufigste Ausfälle: The operation was aborted due to timeout (32×), kraken BTC (8×), kraken ETH (8×), coingecko (3×), okx top ETH (1×)
 Vergleich (Kurs stieg, Abstand = Horizont): 1h: 52 % (n=684) · 4h: 53 % (n=186) · 24h: 44 % (n=32)
 
 | Signal | Horizont | Fälle (L/S) | Trefferquote | Markt-Vergleich | Ø Bewegung in Signalrichtung | 1. / 2. Hälfte | Urteil |
@@ -36,7 +36,7 @@ Vergleich (Kurs stieg, Abstand = Horizont): 1h: 52 % (n=684) · 4h: 53 % (n=186)
 | Gegen teures Funding der Börsen (Beobachtung) | 24h | 14 (14/0) | 36 % | 44 % | -0,91 % | 14 % / 57 % | zu wenig Daten |
 | Neues Geld an den Börsen (OI 4 Std. + Kursrichtung) (Beobachtung) | 1h | 80 (67/13) | 45 % | 51 % | -0,03 % | 42 % / 48 % | Gegenindikator? |
 | Neues Geld an den Börsen (OI 4 Std. + Kursrichtung) (Beobachtung) | 4h | 39 (32/7) | 44 % | 52 % | -0,09 % | 58 % / 30 % | unklar |
-| Neues Geld an den Börsen (OI 4 Std. + Kursrichtung) (Beobachtung) | 24h | 17 (15/2) | 47 % | 45 % | -0,14 % | 38 % / 56 % | zu wenig Daten |
+| Neues Geld an den Börsen (OI 4 Std. + Kursrichtung) (Beobachtung) | 24h | 18 (16/2) | 50 % | 45 % | 0,10 % | 33 % / 67 % | zu wenig Daten |
 | Große Positionen an OKX/Bitget/Gate (Beobachtung) | 1h | 413 (0/413) | 46 % | 48 % | 0,01 % | 47 % / 46 % | unklar |
 | Große Positionen an OKX/Bitget/Gate (Beobachtung) | 4h | 121 (0/121) | 41 % | 47 % | 0,04 % | 45 % / 38 % | unklar |
 | Große Positionen an OKX/Bitget/Gate (Beobachtung) | 24h | 24 (0/24) | 38 % | 56 % | 0,08 % | 42 % / 33 % | zu wenig Daten |
