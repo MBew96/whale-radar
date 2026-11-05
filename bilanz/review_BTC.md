@@ -1,8 +1,8 @@
-Stand: 05.11.2026 16:36 Uhr deutscher Zeit (2026-11-05T15:36Z)
+Stand: 05.11.2026 23:06 Uhr deutscher Zeit (2026-11-05T22:06Z)
 
-## Signal-Bilanz BTC · 29.09.2026 00:50 bis 05.11.2026 10:55
-Messungen: 4286 über 37,5 Tage · Lücken > 30 Min.: 18 · Scanfehler gesamt: 0
-Börsendaten (Beobachtung): 4194 Messungen seit 29.09.2026 21:19 · häufigste Ausfälle: The operation was aborted due to timeout (32×), kraken BTC (8×), kraken ETH (8×), coingecko (3×), okx top ETH (1×)
+## Signal-Bilanz BTC · 29.09.2026 00:50 bis 05.11.2026 18:50
+Messungen: 4287 über 37,8 Tage · Lücken > 30 Min.: 19 · Scanfehler gesamt: 0
+Börsendaten (Beobachtung): 4195 Messungen seit 29.09.2026 21:19 · häufigste Ausfälle: The operation was aborted due to timeout (32×), kraken BTC (8×), kraken ETH (8×), coingecko (3×), okx top ETH (1×)
 Vergleich (Kurs stieg, Abstand = Horizont): 1h: 50 % (n=684) · 4h: 52 % (n=186) · 24h: 47 % (n=32)
 
 | Signal | Horizont | Fälle (L/S) | Trefferquote | Markt-Vergleich | Ø Bewegung in Signalrichtung | 1. / 2. Hälfte | Urteil |
