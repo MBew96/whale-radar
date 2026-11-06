@@ -1,8 +1,8 @@
-Stand: 06.11.2026 12:08 Uhr deutscher Zeit (2026-11-06T11:08Z)
+Stand: 06.11.2026 19:05 Uhr deutscher Zeit (2026-11-06T18:05Z)
 
-## Signal-Bilanz ETH · 29.09.2026 00:50 bis 06.11.2026 11:44
-Messungen: 4290 über 38,5 Tage · Lücken > 30 Min.: 22 · Scanfehler gesamt: 0
-Börsendaten (Beobachtung): 4198 Messungen seit 29.09.2026 21:19 · häufigste Ausfälle: The operation was aborted due to timeout (32×), kraken BTC (8×), kraken ETH (8×), coingecko (3×), okx top ETH (1×)
+## Signal-Bilanz ETH · 29.09.2026 00:50 bis 06.11.2026 18:42
+Messungen: 4291 über 38,8 Tage · Lücken > 30 Min.: 23 · Scanfehler gesamt: 0
+Börsendaten (Beobachtung): 4199 Messungen seit 29.09.2026 21:19 · häufigste Ausfälle: The operation was aborted due to timeout (32×), kraken BTC (8×), kraken ETH (8×), coingecko (3×), okx top ETH (1×)
 Vergleich (Kurs stieg, Abstand = Horizont): 1h: 52 % (n=684) · 4h: 53 % (n=187) · 24h: 42 % (n=33)
 
 | Signal | Horizont | Fälle (L/S) | Trefferquote | Markt-Vergleich | Ø Bewegung in Signalrichtung | 1. / 2. Hälfte | Urteil |
@@ -30,7 +30,7 @@ Vergleich (Kurs stieg, Abstand = Horizont): 1h: 52 % (n=684) · 4h: 53 % (n=187)
 | Intraday-Kompass (gewichtete Summe) | 24h | 12 (2/10) | 50 % | 55 % | 0,41 % | 17 % / 83 % | zu wenig Daten |
 | Coinbase-Premium (US-Nachfrage) (Beobachtung) | 1h | 106 (19/87) | 51 % | 49 % | -0,08 % | 43 % / 58 % | unklar |
 | Coinbase-Premium (US-Nachfrage) (Beobachtung) | 4h | 56 (11/45) | 36 % | 48 % | -0,08 % | 36 % / 36 % | Gegenindikator? |
-| Coinbase-Premium (US-Nachfrage) (Beobachtung) | 24h | 19 (7/12) | 58 % | 52 % | 0,28 % | 56 % / 60 % | zu wenig Daten |
+| Coinbase-Premium (US-Nachfrage) (Beobachtung) | 24h | 20 (7/13) | 60 % | 52 % | 0,33 % | 60 % / 60 % | zu wenig Daten |
 | Gegen teures Funding der Börsen (Beobachtung) | 1h | 117 (117/0) | 50 % | 52 % | -0,00 % | 48 % / 53 % | unklar |
 | Gegen teures Funding der Börsen (Beobachtung) | 4h | 44 (44/0) | 59 % | 53 % | 0,05 % | 55 % / 64 % | unklar |
 | Gegen teures Funding der Börsen (Beobachtung) | 24h | 14 (14/0) | 36 % | 42 % | -0,91 % | 14 % / 57 % | zu wenig Daten |
@@ -39,7 +39,7 @@ Vergleich (Kurs stieg, Abstand = Horizont): 1h: 52 % (n=684) · 4h: 53 % (n=187)
 | Neues Geld an den Börsen (OI 4 Std. + Kursrichtung) (Beobachtung) | 24h | 18 (16/2) | 50 % | 44 % | 0,10 % | 33 % / 67 % | zu wenig Daten |
 | Große Positionen an OKX/Bitget/Gate (Beobachtung) | 1h | 413 (0/413) | 46 % | 48 % | 0,01 % | 47 % / 46 % | unklar |
 | Große Positionen an OKX/Bitget/Gate (Beobachtung) | 4h | 122 (0/122) | 41 % | 47 % | 0,03 % | 46 % / 36 % | unklar |
-| Große Positionen an OKX/Bitget/Gate (Beobachtung) | 24h | 24 (0/24) | 38 % | 58 % | 0,08 % | 42 % / 33 % | zu wenig Daten |
+| Große Positionen an OKX/Bitget/Gate (Beobachtung) | 24h | 25 (0/25) | 40 % | 58 % | 0,13 % | 42 % / 38 % | zu wenig Daten |
 | Binance-Spot-Käufe gegen -Verkäufe (1 Std.) (Beobachtung) | 1h | 545 (278/267) | 50 % | 50 % | 0,01 % | 52 % / 49 % | unklar |
 | Binance-Spot-Käufe gegen -Verkäufe (1 Std.) (Beobachtung) | 4h | 169 (91/78) | 48 % | 50 % | 0,00 % | 49 % / 47 % | unklar |
 | Binance-Spot-Käufe gegen -Verkäufe (1 Std.) (Beobachtung) | 24h | 31 (18/13) | 45 % | 49 % | -0,06 % | 47 % / 44 % | unklar |
