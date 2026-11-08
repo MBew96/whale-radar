@@ -1,10 +1,10 @@
-Stand: 08.11.2026 08:29 Uhr deutscher Zeit (2026-11-08T07:29Z)
+Stand: 08.11.2026 16:22 Uhr deutscher Zeit (2026-11-08T15:22Z)
 
 ## BTC (review.py --coin BTC --kurz)
-BTC Zwischenstand Tag 40/14 (unbewertet): Kompass 1h 45 % (n=139, 43L/96S; Markt 50 %) · 4h 55 % (n=64, 22L/42S; Markt 49 %) · 27× ≥ 30 Fälle, vorn: Alle Wale longiger/shortiger als üblich (72 Std.) 1h 57 % vs. Markt 50 % (n=82, unklar); Alle Wale longiger/shortiger als üblich (72 Std.) 4h 55 % vs. Markt 49 % (n=31, unklar)
+BTC Zwischenstand Tag 41/14 (unbewertet): Kompass 1h 45 % (n=139, 43L/96S; Markt 50 %) · 4h 55 % (n=64, 22L/42S; Markt 49 %) · 27× ≥ 30 Fälle, vorn: Alle Wale longiger/shortiger als üblich (72 Std.) 1h 57 % vs. Markt 50 % (n=82, unklar); Alle Wale longiger/shortiger als üblich (72 Std.) 4h 55 % vs. Markt 49 % (n=31, unklar)
 
 ## ETH (review.py --coin ETH --kurz)
-ETH Zwischenstand Tag 40/14 (unbewertet): Kompass 1h 44 % (n=64, 12L/52S; Markt 49 %) · 4h 45 % (n=31, 5L/26S; Markt 48 %) · 27× ≥ 30 Fälle, vorn: Alle Wale longiger/shortiger als üblich (72 Std.) 1h 64 % vs. Markt 50 % (n=77, bewährt); Gegen teures Funding der Börsen 4h 59 % vs. Markt 53 % (n=44, unklar)
+ETH Zwischenstand Tag 41/14 (unbewertet): Kompass 1h 44 % (n=64, 12L/52S; Markt 49 %) · 4h 45 % (n=31, 5L/26S; Markt 48 %) · 27× ≥ 30 Fälle, vorn: Alle Wale longiger/shortiger als üblich (72 Std.) 1h 64 % vs. Markt 50 % (n=77, bewährt); Gegen teures Funding der Börsen 4h 59 % vs. Markt 53 % (n=44, unklar)
 
 ## Wetterstation (luecken.py)
-Wetterstation LÜCKE: letzte Messung vor 336 Min.; Lücken > 30 Min. (MESZ): 07.11. 08:29–09:33 (63 Min.); 07.11. 09:33–16:03 (390 Min.); 07.11. 16:03–20:20 (257 Min.); 07.11. 20:20–23:48 (208 Min.); 07.11. 23:48–08.11. 02:53 (185 Min.); seit 08.11. 02:53 offen (5 Messungen in 24 h)
+Wetterstation LÜCKE: letzte Messung vor 17 Min.; Lücken > 30 Min. (MESZ): 07.11. 16:22–20:20 (237 Min.); 07.11. 20:20–23:48 (208 Min.); 07.11. 23:48–08.11. 02:53 (185 Min.); 08.11. 02:53–09:04 (371 Min.); 08.11. 09:04–16:05 (421 Min.) (5 Messungen in 24 h)
