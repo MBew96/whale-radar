@@ -1,9 +1,9 @@
-Stand: 15.11.2026 23:58 Uhr deutscher Zeit (2026-11-15T22:58Z)
+Stand: 16.11.2026 03:51 Uhr deutscher Zeit (2026-11-16T02:51Z)
 
-## Signal-Bilanz ETH · 29.09.2026 00:50 bis 15.11.2026 20:28
-Messungen: 4328 über 47,9 Tage · Lücken > 30 Min.: 60 · Scanfehler gesamt: 0
-Börsendaten (Beobachtung): 4236 Messungen seit 29.09.2026 21:19 · häufigste Ausfälle: The operation was aborted due to timeout (32×), kraken BTC (8×), kraken ETH (8×), coingecko (3×), okx top ETH (1×)
-Vergleich (Kurs stieg, Abstand = Horizont): 1h: 52 % (n=684) · 4h: 53 % (n=188) · 24h: 40 % (n=35)
+## Signal-Bilanz ETH · 29.09.2026 00:50 bis 16.11.2026 00:27
+Messungen: 4329 über 48,0 Tage · Lücken > 30 Min.: 61 · Scanfehler gesamt: 0
+Börsendaten (Beobachtung): 4237 Messungen seit 29.09.2026 21:19 · häufigste Ausfälle: The operation was aborted due to timeout (32×), kraken BTC (8×), kraken ETH (8×), coingecko (3×), okx top ETH (1×)
+Vergleich (Kurs stieg, Abstand = Horizont): 1h: 52 % (n=684) · 4h: 53 % (n=189) · 24h: 40 % (n=35)
 
 | Signal | Horizont | Fälle (L/S) | Trefferquote | Markt-Vergleich | Ø Bewegung in Signalrichtung | 1. / 2. Hälfte | Urteil |
 |---|---|---|---|---|---|---|---|
@@ -11,10 +11,10 @@ Vergleich (Kurs stieg, Abstand = Horizont): 1h: 52 % (n=684) · 4h: 53 % (n=188)
 | Bias aller Wale | 4h | 0 | – | – | – | – | zu wenig Daten |
 | Bias aller Wale | 24h | 0 | – | – | – | – | zu wenig Daten |
 | Bias der Gewinner-Wale | 1h | 601 (170/431) | 48 % | 49 % | 0,00 % | 47 % / 50 % | unklar |
-| Bias der Gewinner-Wale | 4h | 168 (48/120) | 48 % | 49 % | -0,04 % | 48 % / 49 % | unklar |
+| Bias der Gewinner-Wale | 4h | 169 (48/121) | 48 % | 49 % | -0,04 % | 48 % / 48 % | unklar |
 | Bias der Gewinner-Wale | 24h | 33 (10/23) | 45 % | 54 % | 0,10 % | 38 % / 53 % | Gegenindikator? |
 | Gegen die Verlierer-Wale | 1h | 591 (119/472) | 47 % | 49 % | 0,01 % | 45 % / 50 % | unklar |
-| Gegen die Verlierer-Wale | 4h | 167 (35/132) | 49 % | 48 % | 0,00 % | 49 % / 49 % | unklar |
+| Gegen die Verlierer-Wale | 4h | 168 (35/133) | 49 % | 48 % | 0,00 % | 50 % / 48 % | unklar |
 | Gegen die Verlierer-Wale | 24h | 33 (8/25) | 64 % | 55 % | 0,44 % | 56 % / 71 % | bewährt |
 | Aufbau/Abbau der letzten 4 Std. | 1h | 250 (121/129) | 54 % | 50 % | 0,05 % | 48 % / 60 % | unklar |
 | Aufbau/Abbau der letzten 4 Std. | 4h | 101 (49/52) | 50 % | 50 % | 0,04 % | 50 % / 51 % | unklar |
@@ -44,7 +44,7 @@ Vergleich (Kurs stieg, Abstand = Horizont): 1h: 52 % (n=684) · 4h: 53 % (n=188)
 | Binance-Spot-Käufe gegen -Verkäufe (1 Std.) (Beobachtung) | 4h | 169 (91/78) | 48 % | 50 % | 0,00 % | 49 % / 47 % | unklar |
 | Binance-Spot-Käufe gegen -Verkäufe (1 Std.) (Beobachtung) | 24h | 32 (18/14) | 47 % | 49 % | -0,04 % | 44 % / 50 % | unklar |
 | Gewinner-Wale longiger/shortiger als üblich (72 Std.) (Beobachtung) | 1h | 212 (50/162) | 50 % | 49 % | 0,03 % | 49 % / 51 % | unklar |
-| Gewinner-Wale longiger/shortiger als üblich (72 Std.) (Beobachtung) | 4h | 66 (18/48) | 45 % | 49 % | 0,06 % | 48 % / 42 % | unklar |
+| Gewinner-Wale longiger/shortiger als üblich (72 Std.) (Beobachtung) | 4h | 66 (18/48) | 45 % | 48 % | 0,06 % | 48 % / 42 % | unklar |
 | Gewinner-Wale longiger/shortiger als üblich (72 Std.) (Beobachtung) | 24h | 17 (6/11) | 47 % | 53 % | -0,43 % | 62 % / 33 % | zu wenig Daten |
 | Gegen Verlierer-Wale, wenn longiger/shortiger als üblich (72 Std.) (Beobachtung) | 1h | 209 (64/145) | 43 % | 49 % | -0,03 % | 42 % / 44 % | Gegenindikator? |
 | Gegen Verlierer-Wale, wenn longiger/shortiger als üblich (72 Std.) (Beobachtung) | 4h | 67 (26/41) | 49 % | 49 % | -0,04 % | 55 % / 44 % | unklar |
@@ -58,7 +58,7 @@ Vergleich (Kurs stieg, Abstand = Horizont): 1h: 52 % (n=684) · 4h: 53 % (n=188)
 
 ### Relative Wal-Signale – nur ungesehene Fälle ab 08.10.2026
 Die Hypothese wurde am 07.10.2026 vorab festgelegt; nur diese Fälle zählen für die Bewertung (REVIEW.md). Markt-Vergleich aus demselben Zeitraum.
-Vergleich (Kurs stieg, ab 08.10.2026): 1h: 52 % (n=524) · 4h: 53 % (n=144) · 24h: 38 % (n=26)
+Vergleich (Kurs stieg, ab 08.10.2026): 1h: 52 % (n=524) · 4h: 53 % (n=145) · 24h: 38 % (n=26)
 
 | Signal | Horizont | Fälle (L/S) | Trefferquote | Markt-Vergleich | Ø Bewegung in Signalrichtung | 1. / 2. Hälfte | Urteil |
 |---|---|---|---|---|---|---|---|
