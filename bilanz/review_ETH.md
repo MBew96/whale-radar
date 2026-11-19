@@ -1,8 +1,8 @@
-Stand: 19.11.2026 04:39 Uhr deutscher Zeit (2026-11-19T03:39Z)
+Stand: 19.11.2026 14:29 Uhr deutscher Zeit (2026-11-19T13:29Z)
 
-## Signal-Bilanz ETH · 29.09.2026 00:50 bis 19.11.2026 01:45
-Messungen: 4339 über 51,1 Tage · Lücken > 30 Min.: 71 · Scanfehler gesamt: 0
-Börsendaten (Beobachtung): 4247 Messungen seit 29.09.2026 21:19 · häufigste Ausfälle: The operation was aborted due to timeout (32×), kraken BTC (8×), kraken ETH (8×), coingecko (3×), okx top ETH (1×)
+## Signal-Bilanz ETH · 29.09.2026 00:50 bis 19.11.2026 08:59
+Messungen: 4340 über 51,4 Tage · Lücken > 30 Min.: 72 · Scanfehler gesamt: 0
+Börsendaten (Beobachtung): 4248 Messungen seit 29.09.2026 21:19 · häufigste Ausfälle: The operation was aborted due to timeout (32×), kraken BTC (8×), kraken ETH (8×), coingecko (3×), okx top ETH (1×)
 Vergleich (Kurs stieg, Abstand = Horizont): 1h: 52 % (n=684) · 4h: 53 % (n=189) · 24h: 39 % (n=36)
 
 | Signal | Horizont | Fälle (L/S) | Trefferquote | Markt-Vergleich | Ø Bewegung in Signalrichtung | 1. / 2. Hälfte | Urteil |
