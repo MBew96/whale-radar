@@ -1,4 +1,4 @@
-Stand: 26.11.2026 21:15 Uhr deutscher Zeit (2026-11-26T20:15Z)
+Stand: 27.11.2026 03:57 Uhr deutscher Zeit (2026-11-27T02:57Z)
 
 ## BTC (review.py --coin BTC --kurz)
 BTC Zwischenstand Tag 59/14 (unbewertet): Kompass 1h 45 % (n=139, 43L/96S; Markt 50 %) · 4h 55 % (n=64, 22L/42S; Markt 50 %) · 27× ≥ 30 Fälle, vorn: Alle Wale longiger/shortiger als üblich (72 Std.) 1h 57 % vs. Markt 50 % (n=82, unklar); Alle Wale longiger/shortiger als üblich (72 Std.) 4h 55 % vs. Markt 49 % (n=31, unklar)
@@ -7,4 +7,4 @@ BTC Zwischenstand Tag 59/14 (unbewertet): Kompass 1h 45 % (n=139, 43L/96S; Markt
 ETH Zwischenstand Tag 59/14 (unbewertet): Kompass 1h 44 % (n=64, 12L/52S; Markt 49 %) · 4h 45 % (n=31, 5L/26S; Markt 48 %) · 27× ≥ 30 Fälle, vorn: Alle Wale longiger/shortiger als üblich (72 Std.) 1h 64 % vs. Markt 50 % (n=77, bewährt); Gegen teures Funding der Börsen 4h 58 % vs. Markt 53 % (n=45, unklar)
 
 ## Wetterstation (luecken.py)
-Wetterstation LÜCKE: letzte Messung vor 523 Min.; Lücken > 30 Min. (MESZ): 25.11. 21:16–26.11. 03:53 (396 Min.); 26.11. 03:53–12:33 (520 Min.); seit 26.11. 12:33 offen (2 Messungen in 24 h)
+Wetterstation LÜCKE: letzte Messung vor 389 Min.; Lücken > 30 Min. (MESZ): 26.11. 03:57–12:33 (515 Min.); 26.11. 12:33–21:28 (535 Min.); seit 26.11. 21:28 offen (2 Messungen in 24 h)
