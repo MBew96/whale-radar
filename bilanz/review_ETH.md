@@ -1,8 +1,8 @@
-Stand: 27.11.2026 23:06 Uhr deutscher Zeit (2026-11-27T22:06Z)
+Stand: 28.11.2026 04:59 Uhr deutscher Zeit (2026-11-28T03:59Z)
 
-## Signal-Bilanz ETH · 29.09.2026 00:50 bis 27.11.2026 21:41
-Messungen: 4367 über 59,9 Tage · Lücken > 30 Min.: 99 · Scanfehler gesamt: 0
-Börsendaten (Beobachtung): 4275 Messungen seit 29.09.2026 21:19 · häufigste Ausfälle: The operation was aborted due to timeout (32×), kraken BTC (8×), kraken ETH (8×), coingecko (4×), okx top ETH (1×)
+## Signal-Bilanz ETH · 29.09.2026 00:50 bis 28.11.2026 03:56
+Messungen: 4368 über 60,2 Tage · Lücken > 30 Min.: 100 · Scanfehler gesamt: 0
+Börsendaten (Beobachtung): 4276 Messungen seit 29.09.2026 21:19 · häufigste Ausfälle: The operation was aborted due to timeout (32×), kraken BTC (8×), kraken ETH (8×), coingecko (4×), okx top ETH (1×)
 Vergleich (Kurs stieg, Abstand = Horizont): 1h: 52 % (n=684) · 4h: 53 % (n=190) · 24h: 41 % (n=39)
 
 | Signal | Horizont | Fälle (L/S) | Trefferquote | Markt-Vergleich | Ø Bewegung in Signalrichtung | 1. / 2. Hälfte | Urteil |
@@ -42,7 +42,7 @@ Vergleich (Kurs stieg, Abstand = Horizont): 1h: 52 % (n=684) · 4h: 53 % (n=190)
 | Große Positionen an OKX/Bitget/Gate (Beobachtung) | 24h | 31 (0/31) | 45 % | 59 % | 0,15 % | 53 % / 38 % | Gegenindikator? |
 | Binance-Spot-Käufe gegen -Verkäufe (1 Std.) (Beobachtung) | 1h | 545 (278/267) | 50 % | 50 % | 0,01 % | 52 % / 49 % | unklar |
 | Binance-Spot-Käufe gegen -Verkäufe (1 Std.) (Beobachtung) | 4h | 169 (91/78) | 48 % | 50 % | 0,00 % | 49 % / 47 % | unklar |
-| Binance-Spot-Käufe gegen -Verkäufe (1 Std.) (Beobachtung) | 24h | 33 (18/15) | 45 % | 49 % | -0,15 % | 44 % / 47 % | unklar |
+| Binance-Spot-Käufe gegen -Verkäufe (1 Std.) (Beobachtung) | 24h | 34 (19/15) | 44 % | 49 % | -0,25 % | 41 % / 47 % | unklar |
 | Gewinner-Wale longiger/shortiger als üblich (72 Std.) (Beobachtung) | 1h | 212 (50/162) | 50 % | 49 % | 0,03 % | 49 % / 51 % | unklar |
 | Gewinner-Wale longiger/shortiger als üblich (72 Std.) (Beobachtung) | 4h | 66 (18/48) | 45 % | 49 % | 0,06 % | 48 % / 42 % | unklar |
 | Gewinner-Wale longiger/shortiger als üblich (72 Std.) (Beobachtung) | 24h | 17 (6/11) | 47 % | 53 % | -0,43 % | 62 % / 33 % | zu wenig Daten |
